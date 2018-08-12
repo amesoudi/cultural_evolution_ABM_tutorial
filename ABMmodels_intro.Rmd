@@ -1,0 +1,58 @@
+---
+title: 'Simulation Models of Cultural Evolution'
+author: "Alex Mesoudi"
+---
+
+# Introduction
+
+This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R (R Core Team 2018). It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
+
+* Model 1: Unbiased transmission
+* Model 2: Unbiased and biased mutation
+* Model 3: Biased transmission (direct/content bias)
+* Model 4: Biased transmission (conformist bias)
+
+I assume you have basic knowledge of R as a programming language, e.g. the use of variables, dataframes, functions, subsetting and loops. If not, *Hands On Programming With R* by Garrett Grolemund is a good introduction.
+
+I'm putting all model parameters in italicised $equation$ text. This allows useful features such as superscripts (e.g. $x^y$) and subscripts (e.g. $x_{t=1}$). Hover the cursor over the equation text to see this in RStudio. All code variables are in regular *italics*, and all commands and functions in **bold**. 
+
+Use the green triangles above each code chunk to run that piece of code. Be sure to do this in the order they appear, as some chunks depend on previous chunks to work. You can also output the entire document including your executed code and formatting to html or pdf using the Knit button in the toolbar. Check the RMarkdown Cheat Sheet accessible via the Help menu for more details.
+
+All the concepts covered here are introduced, discussed and mathematically modelled at an advanced level in Cavalli-Sforza & Feldman (1981) and Boyd & Richerson (1985). I explain them informally in Mesoudi (2011). A recent article (Mesoudi 2017) gives a current overview of cultural evolution research, with references to recent studies. Each chapter also has an 'Analytic Appendix', where I show how to derive the same results analytically.
+
+
+## What is cultural evolution?
+
+The theory of evolution is typically applied to genetic change. Darwin pointed out that the diversity and complexity of living things can be explained in terms of a deceptively simple process. Organisms vary in their characteristics. These characteristics are inherited from parent to offspring. Those characteristics that make an organism more likely to survive and reproduce will tend to increase in frequency. That's pretty much it. Since Darwin, biologists have filled in many of the details of this abstract idea. Geneticists have shown that 'characteristics' are determined by genes, and worked out where genetic variation comes from (e.g. mutation, recombination) and how genetic inheritance works (e.g. via Mendel's laws, and DNA). The details of selection have been explored, revealing the many reasons why some genes spread and others don't. Others realised that not all biological change results from selection, it can also result from random processes like population bottlenecks (genetic drift).
+
+The theory of cultural evolution rests on the observation that culture constitutes a similar evolutionary process to that outlined above. By 'culture' we mean information that passes from one individual to another socially, rather than genetically. This could include things we colloquially call knowledge, beliefs, ideas, attitudes, customs, words, or values. These are all learned from others via various 'social learning' mechanisms such as imitation or spoken/written language. The key point is that social learning is an inheritance system. Cultural characteristics (or cultural traits) vary across individuals, they are passed from individual to individual, and in many cases some traits are more likely to spread than others. This is Darwin's insight, applied to culture. Cultural evolution researchers think that we can use similar evolutionary concepts, tools and methods to explain the diversity and complexity of culture, just as biologists have done for the diversity and complexity of living forms.
+
+Importantly, we do not need to assume that cultural evolution is identical to genetic evolution. Many of the details will be different. To take an obvious example, we get DNA only from our two parents, but we can get ideas from many sources: teachers, strangers on the internet, long-dead authors' books, or even our parents. Cultural evolution researchers seek to build models and do research to fill in these details. 
+
+
+## Why model?
+
+A formal model is a simplified version of reality, written in mathematial equations or computer code. Formal models are useful because reality is complex. We can observe changes in species or cultures over time, or particular patterns of biological or cultural diversity, but there are always a vast array of possible causes for any particular pattern or trend, and huge numbers of variables interacting in many different ways. A formal model is a highly simplified recreation of a small part of this complex reality, containing a few elements or processes that the modeller suspects are important. A model, unlike reality, can be manipulated and probed in order to better understand how each part works. No model is ever a complete recreation of reality. That would be pointless: we would have replaced a complex, incomprehensible reality with a complex, incomprehensible model. Instead, models are useful *because* of their simplicity.
+
+Formal modelling is rare in the social sciences (with some exceptions, such as economics). Social scientists tend to be sceptical that very simple models can tell us anything useful about something as immensely complex as human culture. But the clear lesson from biology is that models are extremely useful in precisely this situation. Biologists face similarly immense complexity in the natural world. Despite this, models are useful. Population genetics models of the early 20th century helped to reconcile new findings in genetics with Darwin's theory of evolution. Ecological models helped understand interactions between species, such as predator-prey cycles. These models are hugely simplified: population genetics models typically make ridiculous assumptions like infinitely large populations and random mating. But they are useful because they precisely specify each part of a complex system, improving understanding of reality.
+
+Another way to look at it is that all social scientists use models, but only some use *formal* models. Most models are verbal models, written in words. The problem is that words can be imprecise, and verbal models contain all kinds of hidden or unstated assumptions. The advantage of formal modelling is that we are forced to precisely specify every element and process that we propose, and make all of our assumptions explicit. Maths and code do not accept any ambiguity: they must be told absolutely everything.  For more on the virtues of formal models for social scientists, see Paul Smaldino's 'Models are stupid, and we need more of them' (2017).
+
+With these ideas in mind, let's turn to our first extremely simplified model of cultural evolution.
+
+
+## References
+
+Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.
+
+Cavalli-Sforza, L. L., & Feldman, M. W. (1981). Cultural transmission and evolution: a quantitative approach. Princeton University Press.
+
+Grolemund, G. (2014). Hands-on programming with R: Write your own functions and simulations. O'Reilly Media.
+
+Mesoudi, A. (2011). Cultural evolution: How Darwinian theory can explain human culture and synthesize the social sciences. University of Chicago Press.
+
+Mesoudi, A. (2017). Pursuing Darwin’s curious parallel: Prospects for a science of cultural evolution. Proceedings of the National Academy of Sciences, 114(30), 7853-7860.
+
+R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+  
+Smaldino, P. E. (2017). Models are stupid, and we need more of them. Computational Social Psychology, 311-331.
