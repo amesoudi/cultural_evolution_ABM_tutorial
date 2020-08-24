@@ -11,6 +11,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 2: Unbiased and biased mutation
 * Model 3: Biased transmission (direct/content bias)
 * Model 4: Biased transmission (conformist bias)
+* Model 5: Migration
 
 I assume you have basic knowledge of R as a programming language, e.g. the use of variables, dataframes, functions, subsetting and loops. If not, *Hands On Programming With R* by Garrett Grolemund is a good introduction.
 

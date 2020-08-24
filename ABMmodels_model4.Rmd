@@ -355,3 +355,7 @@ abline(a = 0, b = 1, lty = 3)
 ```
 
 This encapsulates the process of conformity. The dotted line shows unbiased transmission: the probability of adopting $A$ is exactly equal to the frequency of $A$ in the population. The s-shaped solid curve shows conformist transmission. When $A$ is common ($p > 0.5$), then the curve is higher than the dotted line: there is a disproportionately higher probability of adopting $A$. When $A$ is uncommon ($p < 0.5$), then the curve is lower than the dotted line: there is a disproportionately lower probability of adopting $A$.
+
+## References
+
+Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.
