@@ -296,13 +296,13 @@ data_model5 <- MigrationPlusConformity(N = 10000, p_0 = 1, q_0 = 0, m = 0.05, D 
 
 ```
 
-Here again, conformist transmission - a form of cultural selection - maintains between-group cultural variation even in the face of migration.
+Here again, conformist transmission - a form of cultural selection - maintains between-group cultural variation even in the face of migration. The difference to directly biased transmission is that we do not need to assume different environments or selection pressures in the two groups. Conformity works simply on the basis of the different frequencies of the traits in the different groups.
 
 ***
 
 ### Summary of Model 5
 
-Model 5 looked at how migration across group boundaries can break down between-group cultural variation to create a homogenous, undifferentiated mass culture where every group is culturally identical. While globalisation via the mass media or global markets has perhaps been making real-life human societies more similar to one another in recent years, we can still discern culturally distinct societies across the world, marked by traits such as dress, language, religion, psychological characteristics, cuisine and so on. Prior to the invention of mass transit and mass communication, societies would have been even more distinct. Yet migration has been a constant fixture of our species since we dispersed out of Africa. How then can we reconcile the extensive between-group cultural variation of our species with this frequent migration?
+Model 5 looked at how migration across group boundaries can break down between-group cultural variation to create a homogenous, undifferentiated mass culture where every group is culturally identical. While globalisation via the mass media or global markets has perhaps been making real-life human societies more similar to one another in recent years, we can still discern culturally distinct societies across the world, marked by traits such as dress, language, religion, psychological characteristics, cuisine and so on. Prior to the invention of mass transit and mass communication, societies would have been even more distinct. Yet migration has been a constant fixture of our species since we dispersed across the world. How then can we reconcile the extensive between-group cultural variation of our species with this frequent migration?
 
 We modelled two potential answers to this question, both forms of cultural selection. Where different traits are favoured in different groups, then directly biased transmission can maintain between-group cultural variation even in the face of migration. Similarly, conformity can maintain between-group cultural variation by causing migrants to adopt the majority trait in their new society. The latter works even for neutral, arbitrary traits, which may describe well many real-life group markers. Given that psychological processes such as conformity are unique to cultural evolution, this may also be an explanation for why there is a lot more between-group cultural variation in our species than there is between-group genetic variation (for further details and data on migration, conformity and between-group cultural variation, see Henrich & Boyd 1998; Bell, Richerson & McElreath 2009; and Mesoudi 2018).
 
@@ -312,11 +312,76 @@ The major programming innovation in Model 5 was the introduction of two groups o
 
 ### Analytic Appendix
 
-TBA
+Let's derive the recursions and equilibrium frequency for the basic migration model, to understand analytically why the frequency of $A$ in each group converges on the initial average frequency of $A$ across the two groups.
+
+Recall that the frequency of $A$ in generation $t$ in the first group is $p_t$ and in the second group is $q_t$. The frequency of $A$ in the previous generation is denoted $p_{t-1}$ and $q_{t-1}$ respectively, and in the first generation it is $p_0$ and $q_0$ respectively. Let's consider group 1 first. We want to write an expression for $p_t$, in terms of $p_{t-1}$, the migration rate $m$, and any other parameter that is necessary.
+
+In generation $t$, $1-m$ individuals in group 1 do not migrate. The frequency of $A$ amongst these $1-m$ individuals will therefore be the same as in the previous generation in group 1, i.e. $p_{t-1}$. This gives an overall frequency for these group 1 non-migrants of $p_{t-1}(1-m)$.
+
+The other $m$ individuals in group 1 are migrants. These migrants are drawn from the entire population, which in this case is groups 1 and 2 combined. The frequency of $A$ in the entire population is the average frequency of $A$ across the two groups, which we will denote $\bar{x}$. The frequency of $A$ amongst the $m$ migrants in generation $t$ in group 1 will therefore be $\bar{x}m$. What is the value of $\bar{x}m$? Because there is no mutation or drift in this model, new $A$s never appear, and existing $A$s never disappear, when considering the entire population. Hence the total frequency of $A$ in the entire population will always remain the same, from the first generation to the last. This will be $\bar{x} = (p_0+q_0)/2$, i.e. the average frequency of $A$ across the two groups in the first generation. This means that $\bar{x}$ is a constant, i.e. it never changes from one generation to the next. 
+
+Putting these together, the frequency of $A$ in generation $t$ in group 1, $p_t$, will be
+
+$$p_t = p_{t-1}(1-m) + \bar{x}m                 \hspace{30 mm}(5.1)$$
+Equivalently, the frequency of $A$ in generation $t$ in group 2, $q_t$, will be
+
+$$q_t = q_{t-1}(1-m) + \bar{x}m                 \hspace{30 mm}(5.2)$$
+Now we have two recursions, and we can plot them.
+
+```{r}
+
+MigrationRecursion <- function(m, t_max, p_0, q_0) {
+  
+  p <- rep(0,t_max)
+  p[1] <- p_0
+  
+  q <- rep(0,t_max)
+  q[1] <- q_0
+  
+  for (i in 2:t_max) {
+    x_bar <- (p[i-1] + q[i-1]) / 2
+    
+    p[i] <- p[i-1]*(1-m) + x_bar*m
+    
+    q[i] <- q[i-1]*(1-m) + x_bar*m
+  }
+  
+  plot(x = 1:t_max, y = p, type = "l", ylim = c(0,1), ylab = "frequency of A trait", xlab = "generation", col = "orange", main = paste("m = ", m, sep = ""))
+  lines(x = 1:t_max, y = q, col = "blue")
+  abline(h = (p_0 + q_0) / 2, lty = 3)
+  legend("topright", legend = c("p (group 1)", "q (group 2)"), lty = 1, col = c("orange", "blue"), bty = "n")
+
+}
+
+MigrationRecursion(m = 0.1, t_max = 100, p_0 = 1, q_0 = 0)
+
+```
+This looks almost identical to the first plot we created above from the simulations. I added a dotted line denoting the initial mean frequency of $A$ in the entire population, $\bar{x}$, to verify that the two groups converge on this mean. We can change the starting values to provide a further check:
+
+```{r}
+
+MigrationRecursion(m = 0.1, t_max = 100, p_0 = 0.45, q_0 = 0.9)
+
+```
+
+To understand better why this convergence occurs, we need to solve these recursions. Hartl & Clark (1997, p.168) provide a trick for solving such equations, where the recursion can be expressed in the form $p_t-X = (p_{t-1}-X)Y$, where X and Y are constants. Rearranging this expression gives $p_t = p_{t-1}Y - XY + X = p_{t-1}Y - X(Y+1)$. This fits equation 5.1 if we say that $Y=1-m$ and $X=\bar{x}$. Hence we can rewrite equation 5.1 as:
+
+$$p_t - \bar{x} = (p_{t-1} - \bar{x})(1-m)                      \hspace{30 mm}(5.3)$$
+Because the relation between $p_{t-1}$ and $p_{t-2}$ is the same as that between $p_t$ and $p_{t-1}$, all the way back to $p_0$, the solution to equation 5.3 is
+
+$$p_t - \bar{x} = (p_0 - \bar{x})(1-m)^t                      \hspace{30 mm}(5.4)$$
+After many generations, when $t$ becomes very large, then the last term on the right which is raised to the power of $t$ will be approximately zero. Even if $m$ is very small, and $(1-m)$ is very close to 1, any number less than 1 raised to a large power (i.e. multiplied by itself many times) will be approximately zero. Consequently the whole right hand side of equation 5.4 becomes zero, and $p_t$ remains the same generation after generation. So we can set the right-hand side of equation 5.4 to zero and rearrange to find this equilibrium value, $p^*$:
+
+$$p^* = \bar{x}                                               \hspace{30 mm}(5.5)$$
+And as we noted at the beginning, $\bar{x} = (p_0+q_0)/2$, i.e. the average of the two starting frequencies of $A$ in the two groups. This is what we found in the agent-based simulations as well as the recursion simulations in this section.
+
+
 
 ## References
 
 Bell, A. V., Richerson, P. J., & McElreath, R. (2009). Culture rather than genes provides greater scope for the evolution of large-scale human prosociality. Proceedings of the National Academy of Sciences, 106(42), 17671-17674.
+
+Hartl, D. L., Clark, A. G. (1997). Principles of population genetics. Sunderland, MA: Sinauer associates.
 
 Henrich, J., & Boyd, R. (1998). The evolution of conformist transmission and the emergence of between-group differences. Evolution and Human Behavior, 19(4), 215-241.
 
