@@ -8,4 +8,4 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 5: Migration
 * Model 6: Blending inheritance (TBA)
 * Model 7: Vertical, oblique and horizontal transmission (TBA)
-* Model 8: Rogers' paradox
+* Model 8: Rogers' paradox (TBA)
