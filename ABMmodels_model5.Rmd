@@ -46,7 +46,7 @@ This code uses subsetting to get the number of $A$s in group 1, and then in grou
 
 Now for migration. In each timestep, we assume that each agent has a probability $m$ of migrating. There is a problem, though. Because this is stochastic, this might result in the groups changing size. Maybe in one generation five agents move from group 1 to group 2, while only two move from group 2 to group 1. Then, group 1 would be smaller than group 2, and neither would be $N$. This gets complicated to model, as the size of the dataframes holding agents would need to change during the simulations.
 
-To avoid $N$ from changing during the simulation, we can do the following, drawing inspiration from what's known as Wright's Island Model from population genetics. First we pick $m$ agents across the entire population (ignoring group membership) to migrate. We take these migrants out of their groups, leaving empty slots where they used to be. Then we put these migrants back into the empty slots at random, ignoring which group the slot is in. This keeps $N$ constant: for every empty slot, there is a migrating agent. Some might go back into their original group, but this won't change anything so it doesn't really matter. 
+To avoid $N$ from changing during the simulation, we can do the following, drawing inspiration from what's known as Wright's Island Model from population genetics. First we pick $mN$ agents across the entire population to migrate, ignoring group membership. Remember, $m$ is the probability (from 0 to 1) that each agent migrates, so multiplying it by $N$ gives the number of migrants. We take these migrants out of their groups, leaving empty slots where they used to be. Then we put these migrants back into the empty slots at random, ignoring which group the slot is in. This keeps $N$ constant: for every empty slot, there is a migrating agent. Some might go back into their original group, but this won't change anything so it doesn't really matter.
 
 Finally, we are assuming that agents take their traits with them, for now. We will change this later.
 
@@ -139,7 +139,7 @@ data_model5 <- Migration(N = 10000, p_0 = 0.1, q_0 = 0.5, m = 0.1, t_max = 100)
 
 This consequence of migration, to break down between-group differences and make each group identical, is well known from population genetics. In order to maintain between-group variation in the face of even small amounts of migration, we therefore need some additional process.
 
-In genetic evolution one such process is natural selection, if selection favours different alleles in different groups. This might happen, for example, if the groups inhabit different environments. In Models 3 and 4 we saw how directly biased transmission and conformist transmission can act as forms of cultural selection. Perhaps, then, these processes can maintain between-group variation in cultural evolution.
+In genetic evolution one such process is natural selection, if selection favours different alleles in different groups. This might happen, for example, if the groups inhabit different environments in which different traits are optimal. In Models 3 and 4 we saw how directly biased transmission and conformist transmission can act as forms of cultural selection. Perhaps, then, these processes can maintain between-group variation in cultural evolution.
 
 The following function adds directly biased transmission using code from the **BiasedTransmission** function of Model 3. We assume that trait $A$ is favoured in group 1, and trait $B$ is favoured in group 2. The parameter $s$ determines the strength of this biased transmission / cultural selection, which we assume is equal in strength (but opposite in direction) in each group. For simplicity we'll omit the multiple runs, hence no $r_max$.
 
@@ -254,7 +254,7 @@ MigrationPlusConformity <- function (N, p_0, q_0, m, D, t_max) {
     
     # conformity in group 2:
     
-    # create dataframe with a set of 3 randomly-picked group 1 demonstrators for each agent
+    # create dataframe with a set of 3 randomly-picked group 2 demonstrators for each agent
     demonstrators <- data.frame(dem1 = sample(agent$trait[agent$group == 2], N, replace = TRUE), dem2 = sample(agent$trait[agent$group == 2], N, replace = TRUE), dem3 = sample(agent$trait[agent$group == 2], N, replace = TRUE), stringsAsFactors = F)
 
     # get the number of As in each 3-dem combo
