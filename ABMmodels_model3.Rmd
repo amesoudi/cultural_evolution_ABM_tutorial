@@ -119,7 +119,7 @@ plot(p, type = 'l', ylab = "p, proportion of agents with trait A", xlab = "gener
 
 The curve above should be identical to the simulation curve, given that the simulation had the same biased transmission strength $s$ and a large enough $N$ to minimise stochasticity. 
 
-From the equation above, we can see how the strength of biased transmission depends on variation in the population, given that $p (1 - p)$ is the formula for variation. This determines the shape of the curve, while $s$ determines the speed with which the equilibrium $p^*$ is reached.
+From the equation above, we can see how the strength of biased transmission depends on variation in the population, given that $p (1 - p)$ is the formula for variance. This determines the shape of the curve, while $s$ determines the speed with which the equilibrium $p^*$ is reached.
 
 But what is the equilibrium $p^*$ here? In fact there are two. As before, the equilibrium can be found by setting the change in $p$ to zero, or when:
 
