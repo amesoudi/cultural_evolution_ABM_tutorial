@@ -224,6 +224,8 @@ A common objection to cultural evolution is that cultural inheritance blends dif
 
 Model 6a confirmed that blending inheritance destroys variation, as expected. However, Model 6b showed that this can be countered by cultural mutation. While genetic mutation is very infrequent, cultural mutation is probably much more common. People typically misremember facts, distort stories, and modify tools as they attempt to copy others. So even if cultural inheritance does take the form of blending, it is quite plausible that cultural mutation is potent enough to re-introduce variation that blending destroys.
 
+There are also a few programming innovations introduced in Model 6. We modelled a continuously varying cultural trait, rather than a discrete trait that could take one of two values as in previous models. This means we had to specify the distribution of the continuous trait, and the mean and variance of that distribution, rather than a simple trait frequency. We used the command **rnorm** to draw random trait values from a normal distribution in order to create the initial generation's trait values. We also used **rnorm** to simulate random error or mutation in the transmission of the continuous trait. The copied trait value is set as the mean of the normal distribution, with the error around this value set by the standard deviation (or variance) of the normal distribution. Finally, we saw how to create two plots side-by-side using the **par(mfrow=c(r,c))** command, and how to export multiple dataframes from the simulation function as a list.
+
 ***
 
 ### Analytic Appendix
