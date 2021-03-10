@@ -8,3 +8,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 5: Migration
 * Model 6: Blending inheritance
 * Model 7: Demography and cultural gain/loss
+
+You can cite the tutorial as:
+
+Mesoudi, A. (2021) Simulation models of cultural evolution. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
