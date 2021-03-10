@@ -7,3 +7,4 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 4: Biased transmission (conformist bias)
 * Model 5: Migration
 * Model 6: Blending inheritance
+* Model 7: Demography and cultural gain/loss
