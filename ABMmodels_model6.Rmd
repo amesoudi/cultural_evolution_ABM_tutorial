@@ -243,11 +243,11 @@ There are also a few programming innovations introduced in Model 6. We modelled 
 
 The simulation model presented above recreates an analytical model presented in Chapter 3 of Boyd & Richerson (1985), and we reach the same conclusions. They also include assortative transmission, which has a similar effect to mutation: if the $n$ demonstrators have similar cultural traits, then blending inheritance is less effective at reducing variation. Box 3.22 in Boyd & Richerson provides a proof that the mean trait value after blending inheritance, $\bar{X}'$, equals the mean trait value before blending inheritance, $\bar{X}$. Their equation 3.28 does the same for variance under the assumption of transmission error, where variance after blending inheritance, $V'$, is given by:
 
-$$ V' = (1/n)(V + \bar{E}) $$
+$$ V' = (1/n)(V + \bar{E})                       \hspace{30 mm}(6.1)$$
 
 where $\bar{E}$ is the mean value of $e$ across all demonstrators, and $e$ is defined as in the simulation model. Because $e$ is a constant across all demonstrators, and the errors are independent, $\bar{E}$ will equal $e$. To get the equilibrium variance, \hat{V}, we can set $V' = V$ in the above equation and rearrange to find:
 
-$$ \hat{V} = \frac{e}{n-1}  $$
+$$ \hat{V} = \frac{e}{n-1}                        \hspace{30 mm}(6.2)$$
 
 For the $e=0.5$ and $n=5$ simulated above, this gives $\hat{V} = 0.5 / 4 = 0.125$, as was found in the simulation. This equation confirms that the variation remaining after blending inheritance increases with $e$ and decreases with $n$.
 
