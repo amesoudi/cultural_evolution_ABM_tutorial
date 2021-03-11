@@ -15,9 +15,9 @@ There are also pdf versions in the *pdfs* folder, which contain the compiled mod
 
 You can cite the tutorial as:
 
-Mesoudi, Alex (2021) *Simulation models of cultural evolution*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
+* Mesoudi, Alex (2021) *Simulation models of cultural evolution*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
 
 
 A longer and more detailed book-length resource, which builds on some of these models, can be found here:
 
-Alberto Acerbi, Alex Mesoudi, and Marco Smolla (2020) *Individual-based models of cultural evolution. A step-by-step guide using R*. doi:110.31219/osf.io/32v6a. Available at: https://acerbialberto.com/IBM-cultevo/
+* Alberto Acerbi, Alex Mesoudi, and Marco Smolla (2020) *Individual-based models of cultural evolution. A step-by-step guide using R*. doi:110.31219/osf.io/32v6a. Available at: https://acerbialberto.com/IBM-cultevo/
