@@ -3,7 +3,7 @@ title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
 ---
 
-### Model 7: Demography and cultural gain/loss
+# Model 7: Demography and cultural gain/loss
 
 Demography refers to the study of populations: their size, structure, and movements in and out. We have already examined demography in previous models. This was most explicit in Model 5 where we looked at migration between two separate sub-populations. However, in all of the models so far, we have seen how small populations are more likely to lose traits purely by chance, while large populations have more stable dynamics that more closely match analytical models with infinite population sizes.
 
@@ -46,20 +46,27 @@ a <- 30  # mode
 beta <- 15  # dispersion
 
 # plot gumbel distribution for the parameters defined above
-plot(x, dgumbel(x, a, beta), type = 'l', ylab = expression("Probability Imitator Acquires "*italic("z"[i])), xlab = expression("Imitator "*italic("z"[i])*" Value"), bty='l')
+plot(x, dgumbel(x, a, beta), 
+     type = 'l', 
+     ylab = expression("Probability Imitator Acquires "*italic("z"[i])), 
+     xlab = expression("Imitator "*italic("z"[i])*" Value"), 
+     bty='l')
 
 # add a vertical dotted line for the demonstrator with z_h
 alpha <- 30
 abline(v = a + alpha, lty=2)
-text(a + alpha + 17, 0.02, labels = expression("Demonstrator "*italic("z"[h])*" value"))
+text(a + alpha + 18, 0.02, 
+     labels = expression("Demonstrator "*italic("z"[h])*" value"))
 
 # add beta label and arrows
-text(a+2, 0.013, labels = expression(beta))
+text(a+2, 0.013, 
+     labels = expression(beta))
 arrows(a+4, 0.013, a+19, 0.013, length=0.1)
 arrows(a-1, 0.013, a-13, 0.013, length=0.1)
 
 # add alpha label and arrows
-text(a+alpha/2, 0.025, labels = expression(alpha))
+text(a+alpha/2, 0.025, 
+     labels = expression(alpha))
 arrows(a+2+alpha/2, 0.025, a+14+alpha/2, 0.025, length=0.1)
 arrows(a-2+alpha/2, 0.025, a-14+alpha/2, 0.025, length=0.1)
 
@@ -83,24 +90,33 @@ DemographyModel <- function(N, alpha, beta, t_max) {
     a + beta * (-log(-log(runif(n))))
   }
 
-  output <- data.frame(z_bar = rep(NA, t_max)) # create output dataframe to hold mean trait value for each generation
+  # create output dataframe to hold mean trait value for each generation
+  output <- data.frame(z_bar = rep(NA, t_max)) 
   
-  agent <- data.frame(trait = rgumbel(N, beta = beta))  # create first generation, N random draws from a gumbel with mode a=0 and dispersion beta
+  # create 1st generation, N random draws from a gumbel with mode a=0 and dispersion beta
+  agent <- data.frame(trait = rgumbel(N, beta = beta))  
   
   # store first generation trait mean
   output$z_bar[1] <- sum(agent$trait) / N
   
   for (t in 2:t_max) {
     
-    z_h <- max(agent$trait)  # get highest skill from current generation
+    # get highest skill from current generation
+    z_h <- max(agent$trait)  
     
-    agent$trait <- rgumbel(N, a = z_h - alpha, beta = beta)  # draw new values
+    # draw new values
+    agent$trait <- rgumbel(N, a = z_h - alpha, beta = beta)  
     
-    output$z_bar[t] <- sum(agent$trait) / N  # store new mean trait value
+    # store new mean trait value
+    output$z_bar[t] <- sum(agent$trait) / N  
     
   }
   
-  plot(x = 1:nrow(output), y = output$z_bar, type = 'l', ylab = expression("mean trait value "*italic(bar("z"))), xlab = "generation", main = paste("N = ", N, ", alpha = ", alpha, ", beta = ", beta, sep = ""))
+  plot(x = 1:nrow(output), y = output$z_bar, 
+       type = 'l', 
+       ylab = expression("mean trait value "*italic(bar("z"))), 
+       xlab = "generation", 
+       main = paste("N = ", N, ", alpha = ", alpha, ", beta = ", beta, sep = ""))
   
   output
 }
@@ -141,25 +157,32 @@ DemographyModel2 <- function(N_max, alpha, beta, t_max) {
     a + beta * (-log(-log(runif(n))))
   }
 
-  output <- rep(0, N_max) # create output dataframe to hold change in mean trait value for each N 
+  # create output dataframe to hold change in mean trait value for each N 
+  output <- rep(0, N_max) 
 
   for (N in 1:N_max) {
   
-    agent <- rgumbel(N, beta = beta)  # create first generation, n random draws from a gumbel with mode a=0 and dispersion beta
+    # create 1st generation, n random draws from a gumbel with mode a=0 and dispersion beta
+    agent <- rgumbel(N, beta = beta)  
   
     for (t in 1:t_max) {
     
-      z_bar <- sum(agent) / N  # current mean z
+      # current mean z
+      z_bar <- sum(agent) / N  
     
-      z_h <- max(agent)  # get highest skill from current generation
+      # get highest skill from current generation
+      z_h <- max(agent)  
     
-      agent <- rgumbel(N, a = z_h - alpha, beta = beta)  # draw new values
+      # draw new values
+      agent <- rgumbel(N, a = z_h - alpha, beta = beta)  
     
-      output[N] <- output[N] + sum(agent) / N - z_bar  # add new delta_z_bar to total delta_z_bar for this n
+      # add new delta_z_bar to total delta_z_bar for this n
+      output[N] <- output[N] + sum(agent) / N - z_bar  
     
     }
   
-    output[N] <- output[N] / t_max  # divide total delta_z_bar by t_max to get mean
+    # divide total delta_z_bar by t_max to get mean
+    output[N] <- output[N] / t_max  
   
   }
   
@@ -181,7 +204,11 @@ Now we can plot the results:
 
 ```{r}
 
-plot(1:length(output1), output1, type = 'l', ylab = expression("change in "*italic(bar("z"))), xlab = "N")
+plot(1:length(output1), output1, 
+     type = 'l', 
+     ylab = expression("change in "*italic(bar("z"))), 
+     xlab = "N")
+
 abline(h = 0, lty = 2)
 
 ```
@@ -194,11 +221,22 @@ We can also run another pair of $\alpha$ and $\beta$ and compare the two lines o
 
 output2 <- DemographyModel2(N_max = 5000, alpha = 9, beta = 1, t_max = 100)
 
-plot(1:length(output1), output1, type = 'l', ylab = expression("change in "*italic(bar("z"))), xlab = "N", col = "orange")
+plot(1:length(output1), output1, 
+     type = 'l', 
+     ylab = expression("change in "*italic(bar("z"))), 
+     xlab = "N", 
+     col = "orange")
+
 lines(output2, col = "blue")
+
 abline(h = 0, lty = 2)
-text(1300, 2, labels = expression("Simpler skill, "*alpha*"/"*beta*"=7"), col = "orange")
-text(3000, -1.7, labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), col = "blue")
+
+text(1300, 2, 
+     labels = expression("Simpler skill, "*alpha*"/"*beta*"=7"), 
+     col = "orange")
+text(3000, -1.7, 
+     labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), 
+     col = "blue")
 
 ```
 
@@ -206,7 +244,7 @@ Here we have recreated Henrich's (2004) Figure 3, comparing a 'simple' skill and
 
 ***
 
-### Summary of Model 7
+# Summary of Model 7
 
 Cultural evolution occurs within populations of certain sizes and structures, and this population size and structure affects evolutionary dynamics. In previous models we have seen how population size can lead to the accidental loss of traits, which is a basic principle of genetic and cultural drift. Model 7 extended this basic finding to show how population size can determine whether there is cultural gain or cultural loss of a continuous cultural trait such as the skill required to make a hard-to-learn tool. Assuming that copying is imperfect, small populations are less able to maintain and accumulate cultural skill than large populations, even when every learner can identify and is attempting to learn from the highest skilled individual from the previous generation. Fewer learners means less chance that one of those learners will match or exceed that highest skilled individual from the previous generation. This effect of population size interacts with the 'learnability' and 'improvability' of the trait: more easily learned (lower $\alpha$) and more easily improved (higher $\beta$) traits require smaller populations to maintain and improve.
 
@@ -216,7 +254,7 @@ A few new programming techniques were used in Model 7. First, we introduced anot
 
 ***
 
-### Analytic Appendix
+# Analytic Appendix
 
 Henrich's (2004) model was analytical rather than simulation-based. We can use the analytical model to check our simulation results above, as well as additional things like calculate the exact $N$ at which losses switch to gains for a given $\alpha$ and $\beta$.
 
@@ -272,7 +310,12 @@ for (N in 1:N_max) {
   
 }
 
-plot(1:length(delta_z), delta_z, type = 'l', ylab = expression("change in "*italic(bar("z"))), xlab = "N", col = "orange")
+plot(1:length(delta_z), delta_z, 
+     type = 'l', 
+     ylab = expression("change in "*italic(bar("z"))), 
+     xlab = "N", 
+     col = "orange")
+
 abline(h = 0, lty = 2)
 
 alpha <- 9
@@ -286,16 +329,19 @@ for (N in 1:N_max) {
 
 lines(delta_z, col = "blue")
 
-text(1300, 1.7, labels = expression("Simpler skill, "*alpha*"/"*beta*"=7"), col = "orange")
-text(3000, -1.5, labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), col = "blue")
-
+text(1300, 1.7, 
+     labels = expression("Simpler skill, "*alpha*"/"*beta*"=7"), 
+     col = "orange")
+text(3000, -1.5, 
+     labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), 
+     col = "blue")
 
 ```
 
 Note that Euler's constant is provided in R as **-digamma(1)**. Here we have reproduced the simulation figure above but in a fraction of the time, and with less noise.
 
 
-## References
+# References
 
 Derex, M., Beugin, M. P., Godelle, B., & Raymond, M. (2013). Experimental evidence for the influence of group size on cultural complexity. Nature, 503(7476), 389-391.
 

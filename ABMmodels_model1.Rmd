@@ -26,7 +26,8 @@ Now we need to create our agents. These will be stored in a dataframe, a commonl
 
 ```{r}
 
-agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), stringsAsFactors = FALSE)
+agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), 
+                    stringsAsFactors = FALSE)
 
 ```
 
@@ -87,11 +88,15 @@ To iterate, we'll use a for-loop, using $t$ to track the generation. We've alrea
 
 for (t in 2:t_max) {
   
-  previous_agent <- agent  # copy agent dataframe to previous_agent dataframe
+  # copy agent dataframe to previous_agent dataframe
+  previous_agent <- agent  
   
-  agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE), stringsAsFactors = FALSE)  # randomly copy from previous generation's agents
+  # randomly copy from previous generation's agents
+  agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE), 
+                      stringsAsFactors = FALSE)  
   
-  output$p[t] <- sum(agent$trait == "A") / N  # get p and put it into the output slot for this generation t
+  # get p and put it into the output slot for this generation t
+  output$p[t] <- sum(agent$trait == "A") / N  
   
 }
 
@@ -101,7 +106,12 @@ Now we should have 200 values of $p$ stored in *output*, one for each generation
 
 ```{r}
 
-plot(output$p, type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), main = paste("N =", N))
+plot(output$p, 
+     type = 'l', 
+     ylab = "p, proportion of agents with trait A", 
+     xlab = "generation", 
+     ylim = c(0,1), 
+     main = paste("N =", N))
 
 ```
 
@@ -115,7 +125,8 @@ Ideally we would like to repeat the simulation to explore this idea in more deta
 
 UnbiasedTransmission <- function (N, t_max) {
   
-  agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), stringsAsFactors = FALSE)
+  agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), 
+                      stringsAsFactors = FALSE)
   
   output <- data.frame(p = rep(NA, t_max))
   
@@ -123,15 +134,23 @@ UnbiasedTransmission <- function (N, t_max) {
   
   for (t in 2:t_max) {
   
-    previous_agent <- agent  # copy agent to previous_agent dataframe
+    # copy agent to previous_agent dataframe
+    previous_agent <- agent  
   
-    agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  # randomly copy from previous generation
+    # randomly copy from previous generation
+    agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  
   
-    output$p[t] <- sum(agent$trait == "A") / N  # get p and put it into output slot for this generation t
+    # get p and put it into output slot for this generation t
+    output$p[t] <- sum(agent$trait == "A") / N  
   
   }
   
-  plot(output$p, type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), main = paste("N =", N))
+  plot(output$p, 
+       type = 'l', 
+       ylab = "p, proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       main = paste("N =", N))
   
 }
 
@@ -163,34 +182,49 @@ Let's use a new parameter $r_{max}$ to specify the number of independent runs, a
 
 UnbiasedTransmission <- function (N, t_max, r_max) {
   
-  output <- as.data.frame(matrix(NA, t_max, r_max))  # create a matrix with t_max rows and r_max columns, filled with NAs, then convert to data.frame
+  # create a matrix with t_max rows and r_max columns, fill with NAs, convert to dataframe
+  output <- as.data.frame(matrix(NA, t_max, r_max))  
   
-  names(output) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # purely cosmetic: rename the columns with run1, run2 etc.
+  names(output) <- paste("run", 1:r_max, sep="")  
   
   for (r in 1:r_max) {
     
-    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), stringsAsFactors = FALSE)  # create first generation
+    # create first generation
+    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE), 
+                        stringsAsFactors = FALSE)  
     
-    output[1,r] <- sum(agent$trait == "A") / N  # add first generation's p to first row of column r
+    # add first generation's p to first row of column r
+    output[1,r] <- sum(agent$trait == "A") / N  
   
     for (t in 2:t_max) {
   
-      previous_agent <- agent  # copy agent to previous_agent dataframe
+      # copy agent to previous_agent dataframe
+      previous_agent <- agent  
       
-      agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  # randomly copy from previous generation
+      # randomly copy from previous generation
+      agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  
       
-      output[t,r] <- sum(agent$trait == "A") / N  # get p and put it into output slot for this generation t and run r
+      # get p and put it into output slot for this generation t and run r
+      output[t,r] <- sum(agent$trait == "A") / N  
   
     }
     
   }
   
   # first plot a thick line for the mean p
-  plot(rowMeans(output), type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), lwd = 3, main = paste("N =", N))
+  plot(rowMeans(output), 
+       type = 'l', 
+       ylab = "p, proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       lwd = 3, 
+       main = paste("N =", N))
  
   for (r in 1:r_max) {  
     
-    lines(output[,r], type = 'l')  # add lines for each run, up to r_max
+    # add lines for each run, up to r_max
+    lines(output[,r], type = 'l')  
     
   }
   
@@ -237,34 +271,50 @@ To find out, we can add another parameter, $p_0$, which specifies the initial pr
 
 UnbiasedTransmission <- function (N, p_0, t_max, r_max) {
   
-  output <- as.data.frame(matrix(NA,t_max,r_max))  # create a matrix with t_max rows and r_max columns, filled with NAs, then convert to data.frame
+  # create a matrix with t_max rows and r_max columns, fill with NAs, convert to dataframe
+  output <- as.data.frame(matrix(NA,t_max,r_max))  
   
-  names(output) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # purely cosmetic: rename the columns with run1, run2 etc.
+  names(output) <- paste("run", 1:r_max, sep="")  
   
   for (r in 1:r_max) {
     
-    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), stringsAsFactors = FALSE)  # create first generation
+    # create first generation
+    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                        prob = c(p_0,1-p_0)), 
+                        stringsAsFactors = FALSE)  
     
-    output[1,r] <- sum(agent$trait == "A") / N  # add first generation's p to first row of column r
+    # add first generation's p to first row of column r
+    output[1,r] <- sum(agent$trait == "A") / N  
   
     for (t in 2:t_max) {
-  
-      previous_agent <- agent  # copy agent to previous_agent dataframe
       
-      agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  # randomly copy from previous generation
+      # copy agent to previous_agent dataframe
+      previous_agent <- agent  
       
-      output[t,r] <- sum(agent$trait == "A") / N  # get p and put it into output slot for this generation t and run r
+      # randomly copy from previous generation
+      agent <- data.frame(trait = sample(previous_agent$trait, N, replace = TRUE))  
+      
+      # get p and put it into output slot for this generation t and run r
+      output[t,r] <- sum(agent$trait == "A") / N  
   
     }
     
   }
   
   # first plot a thick line for the mean p
-  plot(rowMeans(output), type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), lwd = 3, main = paste("N =", N))
+  plot(rowMeans(output), 
+       type = 'l', 
+       ylab = "p, proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       lwd = 3, 
+       main = paste("N =", N))
  
   for (r in 1:r_max) {  
     
-    lines(output[,r], type = 'l')  # add lines for each run, up to r_max
+    # add lines for each run, up to r_max
+    lines(output[,r], type = 'l')  
     
   }
   
@@ -285,7 +335,7 @@ With $p_0 = 0.2$, trait frequencies stay at $p = 0.2$. Unbiased transmission is 
 
 ***
 
-### Summary of Model 1
+# Summary of Model 1
 
 Even this extremely simple model provides some valuable insights. First, unbiased transmission does not in itself change trait frequencies. As long as populations are large, trait frequencies remain the same. 
 
@@ -297,7 +347,7 @@ In Model 1 we have introduced several programming techniques that will be useful
 
 ***
 
-## Analytical Appendix
+# Analytical Appendix
 
 If $p$ is the frequency of $A$ in one generation, we are interested in calculating $p'$, the frequency of $A$ in the next generation under the assumption of unbiased transmission. Each new individual in the next generation picks a demonstrator at random from amongst the previous generation. The demonstrator will have $A$ with probability $p$. The frequency of $A$ in the next generation, then, is simply the frequency of $A$ in the previous generation:
 
@@ -319,7 +369,12 @@ for (i in 2:t_max) {
   p[i] <- p[i-1]
 }
 
-plot(p, type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), lwd = 3)
+plot(p, 
+     type = 'l', 
+     ylab = "p, proportion of agents with trait A", 
+     xlab = "generation", 
+     ylim = c(0,1), 
+     lwd = 3)
 
 ```
 

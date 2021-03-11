@@ -1,5 +1,5 @@
 ---
-title: 'Simulation Models of Cultural Evolution'
+title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
 ---
 

@@ -3,7 +3,7 @@ title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
 ---
 
-### Model 4: Biased transmission (conformist bias)
+# Model 4: Biased transmission (conformist bias)
 
 Model 3 looked at the case where one cultural trait is intrinsically more likely to be copied than another trait. Here we will look at another kind of biased transmission: conformity (or 'positive frequency dependent bias'). Here, individuals are disproportionately more likely to adopt the most common trait in the population, irrespective of its intrinsic characteristics. 
 
@@ -47,7 +47,10 @@ N <- 100
 p_0 <- 0.5
 D <- 1
 
-agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), stringsAsFactors = FALSE)  # create first generation
+# create first generation
+agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                    prob = c(p_0,1-p_0)), 
+                    stringsAsFactors = FALSE)  
 
 head(agent)
     
@@ -58,7 +61,10 @@ Now we'll create a dataframe called *demonstrators* that picks, for each new age
 ```{r}
 
 # create dataframe with a set of 3 randomly-picked demonstrators for each agent
-demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), dem2 = sample(agent$trait, N, replace = TRUE), dem3 = sample(agent$trait, N, replace = TRUE), stringsAsFactors = F)
+demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), 
+                            dem2 = sample(agent$trait, N, replace = TRUE), 
+                            dem3 = sample(agent$trait, N, replace = TRUE), 
+                            stringsAsFactors = F)
 
 head(demonstrators)
 
@@ -102,10 +108,16 @@ N <- 100
 p_0 <- 0.5
 D <- 0.1
 
-agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), stringsAsFactors = FALSE)  # create first generation
+# create first generation
+agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                    prob = c(p_0,1-p_0)), 
+                    stringsAsFactors = FALSE)  
 
 # create dataframe with a set of 3 randomly-picked demonstrators for each agent
-demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), dem2 = sample(agent$trait, N, replace = TRUE), dem3 = sample(agent$trait, N, replace = TRUE), stringsAsFactors = F)
+demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), 
+                            dem2 = sample(agent$trait, N, replace = TRUE), 
+                            dem3 = sample(agent$trait, N, replace = TRUE), 
+                            stringsAsFactors = F)
 
 # get the number of As in each 3-dem combo
 numAs <- rowSums(demonstrators == "A")
@@ -135,20 +147,29 @@ Now that conformity is weaker, sometimes the new trait is not the majority among
 
 ConformistTransmission <- function (N, p_0, D, t_max, r_max) {
   
-  output <- as.data.frame(matrix(NA,t_max,r_max))  # create a matrix with t_max rows and r_max columns, filled with NAs, then convert to data.frame
+  # create a matrix with t_max rows and r_max columns, fill with NAs, convert to dataframe
+  output <- as.data.frame(matrix(NA,t_max,r_max))  
   
-  names(output) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # purely cosmetic: rename the columns with run1, run2 etc.
+  names(output) <- paste("run", 1:r_max, sep="")  
   
   for (r in 1:r_max) {
     
-    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), stringsAsFactors = FALSE)  # create first generation
+    # create first generation
+    agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                        prob = c(p_0,1-p_0)), 
+                        stringsAsFactors = FALSE)  
     
-    output[1,r] <- sum(agent$trait == "A") / N  # add first generation's p to first row of column r
+    # add first generation's p to first row of column r
+    output[1,r] <- sum(agent$trait == "A") / N  
   
     for (t in 2:t_max) {
   
       # create dataframe with a set of 3 randomly-picked demonstrators for each agent
-      demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), dem2 = sample(agent$trait, N, replace = TRUE), dem3 = sample(agent$trait, N, replace = TRUE), stringsAsFactors = F)
+      demonstrators <- data.frame(dem1 = sample(agent$trait, N, replace = TRUE), 
+                                  dem2 = sample(agent$trait, N, replace = TRUE), 
+                                  dem3 = sample(agent$trait, N, replace = TRUE), 
+                                  stringsAsFactors = F)
 
       # get the number of As in each 3-dem combo
       numAs <- rowSums(demonstrators == "A")
@@ -166,18 +187,26 @@ ConformistTransmission <- function (N, p_0, D, t_max, r_max) {
       agent$trait[numAs == 1 & prob < (1/3 - D/3)] <- "A"
       agent$trait[numAs == 1 & prob >= (1/3 - D/3)] <- "B"
 
-      output[t,r] <- sum(agent$trait == "A") / N  # get p and put it into output slot for this generation t and run r
+      # get p and put it into output slot for this generation t and run r
+      output[t,r] <- sum(agent$trait == "A") / N  
   
     }
     
   }
   
   # first plot a thick line for the mean p
-  plot(rowMeans(output), type = 'l', ylab = "p, proportion of agents with trait A", xlab = "generation", ylim = c(0,1), lwd = 3, main = paste("N =", N, ", D =", D, ", p_0 =", p_0, sep = ""))
+  plot(rowMeans(output), 
+       type = 'l', 
+       ylab = "p, proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       lwd = 3, 
+       main = paste("N =", N, ", D =", D, ", p_0 =", p_0, sep = ""))
  
   for (r in 1:r_max) {  
     
-    lines(output[,r], type = 'l')  # add lines for each run, up to r_max
+    # add lines for each run, up to r_max
+    lines(output[,r], type = 'l')  
     
   }
   
@@ -229,7 +258,7 @@ When $A$ starts off in a minority ($p_0 = 0.45$), most if not all runs should re
 
 ***
 
-### Summary of Model 4
+# Summary of Model 4
 
 Model 4 explored conformist biased cultural transmission. This is where individuals are disproportionately more likely to adopt the most common trait among a set of demonstrators. We can contrast this with the direct or content biased transmission from Model 4, where one trait is intrinsically more likely to be copied. With conformity, the traits have no intrinsic attractiveness and are preferentially copied simply because they are common.
 
@@ -239,7 +268,7 @@ The major programming innovation in Model 4 was the use of an intermediate dataf
 
 ***
 
-### Analytic Appendix
+# Analytic Appendix
 
 An alternative way of doing all the above is with deterministic recursions, as Boyd & Richerson (1985) originally did.
 
@@ -278,7 +307,12 @@ ConformityRecursion <- function(D, t_max, p_0) {
     p[i] <- p[i-1] + D*p[i-1]*(1-p[i-1])*(2*p[i-1] - 1)
   }
   
-  plot(p, type = "l", ylim = c(0,1), ylab = "frequency of p", xlab = "generation", main = paste("D = ", D, ", p_0 = ", p_0, sep = ""))
+  plot(p, 
+       type = "l", 
+       ylim = c(0,1), 
+       ylab = "frequency of p", 
+       xlab = "generation", 
+       main = paste("D = ", D, ", p_0 = ", p_0, sep = ""))
 
 }
 
@@ -319,7 +353,13 @@ ConformityRecursion <- function(D, t_max, p_0) {
     p[i,] <- p[i-1,] + D*p[i-1,]*(1-p[i-1,])*(2*p[i-1,] - 1)
   }
   
-  plot(p[,1], type = "l", ylim = c(0,1), ylab = "frequency of p", xlab = "generation", main = paste("D =", D))
+  plot(p[,1], 
+       type = "l", 
+       ylim = c(0,1), 
+       ylab = "frequency of p", 
+       xlab = "generation", 
+       main = paste("D =", D))
+  
   if (numSims > 1) {
     for (i in 2:numSims) {
       lines(p[,i], type = 'l')
@@ -349,13 +389,18 @@ p <- seq(0,1,length.out = 101)
 D <- 1
 p_next <- p + D*p*(1-p)*(2*p-1)
 
-plot(p, p_next, type = 'l', ylab = "probability of adopting A (p')", xlab = "frequency of A (p)", main = paste("D =", D))
+plot(p, p_next, 
+     type = 'l', 
+     ylab = "probability of adopting A (p')", 
+     xlab = "frequency of A (p)", 
+     main = paste("D =", D))
+
 abline(a = 0, b = 1, lty = 3)
 
 ```
 
 This encapsulates the process of conformity. The dotted line shows unbiased transmission: the probability of adopting $A$ is exactly equal to the frequency of $A$ in the population. The s-shaped solid curve shows conformist transmission. When $A$ is common ($p > 0.5$), then the curve is higher than the dotted line: there is a disproportionately higher probability of adopting $A$. When $A$ is uncommon ($p < 0.5$), then the curve is lower than the dotted line: there is a disproportionately lower probability of adopting $A$.
 
-## References
+# References
 
 Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.

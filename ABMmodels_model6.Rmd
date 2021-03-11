@@ -3,7 +3,7 @@ title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
 ---
 
-### Model 6: Blending inheritance
+# Model 6: Blending inheritance
 
 When Darwin wrote *The Origin of Species*, it was typically thought that biological inheritance involved the blending of parental traits. For example, the offspring of a tall and a short individual would have intermediate height, the average (or blend) of its two parents. This presented a problem for Darwin's theory, one which Darwin himself acknowledged. If traits blend together, then they are unlikely to persist for long enough for selection to act on them. All traits will quickly converge on a blended average, destroying the variation that is necessary for evolution. 
 
@@ -13,7 +13,7 @@ A common objection to cultural evolution follows similar lines. Cultural traits,
 
 One problem with this objection is that it is not at all clear that cultural inheritance *is* blending. We don't know enough about how brains store and receive information to say with certainty that there is not a discrete, particulate inheritance system underlying what appears to be blending at the 'phenotypic' level, just like biological traits such as height appear to blend but are actually determined by an underlying particulate inheritance system. Another problem is that the objection cannot be true: there is huge cultural variation in the world that patently does exist, and upon which selection can and does act. So even if cultural inheritance is blending, perhaps some other feature of cultural evolution means that blending does not have the problematic consequences described above. Either way, it is worth exploring the case of blending inheritance with formal models to go beyond verbal arguments. Indeed, it was not until the formal population genetic models of RA Fisher and others in the early 20th century that Mendelian genetic inheritance and Darwinian evolution were definitively shown to be consistent with one another.
 
-### Model 6a
+## Model 6a
 
 In Model 6a we will simulate blending cultural inheritance, inspired by a formal mathematical model presented by Boyd & Richerson (1985). We assume a population of $N$ individuals. Each of these individuals possesses a value of a continuously varying cultural trait. While previous models have assumed discrete traits that can take on one of two forms ($A$ or $B$), in this case we are modelling a trait that can take any value on a continuous scale. Many cultural traits are continuous, from handaxe length to political orientation.
 
@@ -39,29 +39,43 @@ Below I have taken the skeleton of Model 1's UnbiasedTransmission function, whic
 
 BlendingInheritance <- function (N, n, t_max, r_max) {
   
-  trait_mean <- as.data.frame(matrix(NA, t_max, r_max))  # create a matrix for trait means with t_max rows and r_max columns, filled with NAs, then convert to data.frame
-  names(trait_mean) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # create a matrix for trait means with t_max rows and r_max columns, 
+  # fill with NAs, convert to dataframe
+  trait_mean <- as.data.frame(matrix(NA, t_max, r_max))
   
-  trait_var <- as.data.frame(matrix(NA, t_max, r_max))  # same for holding trait variance
-  names(trait_var) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # purely cosmetic: rename the columns with run1, run2 etc.
+  names(trait_mean) <- paste("run", 1:r_max, sep="")  
+  
+  # same for holding trait variance
+  trait_var <- as.data.frame(matrix(NA, t_max, r_max)) 
+  names(trait_var) <- paste("run", 1:r_max, sep="")
   
   for (r in 1:r_max) {
     
-    agent <- rnorm(N)  # create first generation, N random numbers from a standard normal distribution
+    # create first generation, N random numbers from a standard normal distribution
+    agent <- rnorm(N)  
     
-    trait_mean[1,r] <- mean(agent)  # add first generation's mean to first row of column r
-    trait_var[1,r] <- var(agent)  # add first generation's variance to first row of column r
+    # add first generation's mean to first row of column r
+    trait_mean[1,r] <- mean(agent)  
+    
+    # add first generation's variance to first row of column r
+    trait_var[1,r] <- var(agent)  
     
     for (t in 2:t_max) {
       
-      # create matrix with N rows and n columns, and fill with traits from randomly chosen members of agent
+      # create matrix with N rows and n columns, 
+      # fill with traits from random members of agent
       m <- matrix(sample(agent, N*n, replace = TRUE), N, n)
       
-      # create the new generation by taking rowMeans, i.e. mean of n demonstrators, to implement blending inheritance
+      # create new generation by taking rowMeans, i.e. mean of n demonstrators, 
+      # to implement blending inheritance
       agent <- rowMeans(m)
       
-      trait_mean[t,r] <- mean(agent)  # get mean trait value and put it into output slot for this generation t and run r
-      trait_var[t,r] <- var(agent)  # get trait variance and put it into output slot for this generation t and run r
+      # get mean trait value and put it into output slot for this generation t and run r
+      trait_mean[t,r] <- mean(agent)  
+      
+      # get trait variance and put it into output slot for this generation t and run r
+      trait_var[t,r] <- var(agent)  
       
     }
     
@@ -71,20 +85,35 @@ BlendingInheritance <- function (N, n, t_max, r_max) {
   par(mfrow=c(1,2)) # 1 row, 2 columns
   
   # plot a thick line for the mean mean of all runs
-  plot(rowMeans(trait_mean), type = 'l', ylab = "trait mean", xlab = "generation", ylim = c(min(trait_mean,-1), max(trait_mean,1)), lwd = 3, main = paste("N = ", N, ", n = ", n, sep = ""))
+  plot(rowMeans(trait_mean), 
+       type = 'l', 
+       ylab = "trait mean", 
+       xlab = "generation", 
+       ylim = c(min(trait_mean,-1), max(trait_mean,1)), 
+       lwd = 3, 
+       main = paste("N = ", N, ", n = ", n, sep = ""))
   
+  # add lines for each run, up to r_max
   for (r in 1:r_max) {  
-    lines(trait_mean[,r], type = 'l')  # add lines for each run, up to r_max
+    lines(trait_mean[,r], type = 'l') 
   }
   
   # plot a thick line for the mean variance across all runs
-  plot(rowMeans(trait_var), type = 'l', ylab = "trait variance", xlab = "generation", ylim = c(0, max(trait_var)), lwd = 3, main = paste("N = ", N, ", n = ", n, sep = ""))
+  plot(rowMeans(trait_var), 
+       type = 'l', 
+       ylab = "trait variance", 
+       xlab = "generation", 
+       ylim = c(0, max(trait_var)), 
+       lwd = 3, 
+       main = paste("N = ", N, ", n = ", n, sep = ""))
   
+  # add lines for each run, up to r_max
   for (r in 1:r_max) {  
-    lines(trait_var[,r], type = 'l')  # add lines for each run, up to r_max
+    lines(trait_var[,r], type = 'l')  
   }
   
-  list(final_agent = agent, mean = trait_mean, variance = trait_var)  # export data from function
+  # export data from function
+  list(final_agent = agent, mean = trait_mean, variance = trait_var)  
 }
 
 ```
@@ -140,32 +169,46 @@ The following code modifies the **BlendingInheritance** function above by adding
 
 BlendingInheritance <- function (N, n, e, t_max, r_max) {
   
-  trait_mean <- as.data.frame(matrix(NA, t_max, r_max))  # create a matrix for trait means with t_max rows and r_max columns, filled with NAs, then convert to data.frame
-  names(trait_mean) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # create a matrix for trait means with t_max rows and r_max columns, 
+  # fill with NAs, convert to dataframe
+  trait_mean <- as.data.frame(matrix(NA, t_max, r_max))  
   
-  trait_var <- as.data.frame(matrix(NA, t_max, r_max))  # same for holding trait variance
-  names(trait_var) <- paste("run", 1:r_max, sep="")  # purely cosmetic: rename the columns with run1, run2 etc.
+  # purely cosmetic: rename the columns with run1, run2 etc.
+  names(trait_mean) <- paste("run", 1:r_max, sep="")  
+  
+  # same for holding trait variance
+  trait_var <- as.data.frame(matrix(NA, t_max, r_max))  
+  names(trait_var) <- paste("run", 1:r_max, sep="")
   
   for (r in 1:r_max) {
     
-    agent <- rnorm(N)  # create first generation, N random numbers from a standard normal distribution
+    # create first generation, N random numbers from a standard normal distribution
+    agent <- rnorm(N)  
     
-    trait_mean[1,r] <- mean(agent)  # add first generation's mean to first row of column r
-    trait_var[1,r] <- var(agent)  # add first generation's variance to first row of column r
+    # add first generation's mean to first row of column r
+    trait_mean[1,r] <- mean(agent)  
+    
+    # add first generation's variance to first row of column r
+    trait_var[1,r] <- var(agent)  
     
     for (t in 2:t_max) {
       
-      # create matrix with N rows and n columns, fill with traits from randomly chosen members of agent
+      # create matrix with N rows and n columns, 
+      # fill with traits from random members of agent
       m <- matrix(sample(agent, N*n, replace = TRUE), N, n)
       
       # add random error to each demonstrator value, with variance e
       m <- matrix(rnorm(N*n, mean = m, sd = sqrt(e)), N, n)
       
-      # create the new generation by taking rowMeans, i.e. mean of n demonstrators, to implement blending inheritance
+      # create new generation by taking rowMeans, i.e. mean of n demonstrators, 
+      # to implement blending inheritance
       agent <- rowMeans(m)
       
-      trait_mean[t,r] <- mean(agent)  # get mean trait value and put it into output slot for this generation t and run r
-      trait_var[t,r] <- var(agent)  # get trait variance and put it into output slot for this generation t and run r
+      # get mean trait value and put it into output slot for this generation t and run r
+      trait_mean[t,r] <- mean(agent)  
+      
+      # get trait variance and put it into output slot for this generation t and run r
+      trait_var[t,r] <- var(agent)  
       
     }
     
@@ -175,20 +218,35 @@ BlendingInheritance <- function (N, n, e, t_max, r_max) {
   par(mfrow=c(1,2)) # 1 row, 2 columns
   
   # plot a thick line for the mean mean of all runs
-  plot(rowMeans(trait_mean), type = 'l', ylab = "trait mean", xlab = "generation", ylim = c(min(trait_mean,-1), max(trait_mean,1)), lwd = 3, main = paste("N = ", N, ", n = ", n, ", e = ", e, sep = ""))
+  plot(rowMeans(trait_mean), 
+       type = 'l', 
+       ylab = "trait mean", 
+       xlab = "generation", 
+       ylim = c(min(trait_mean,-1), max(trait_mean,1)), 
+       lwd = 3, 
+       main = paste("N = ", N, ", n = ", n, ", e = ", e, sep = ""))
   
+  # add lines for each run, up to r_max
   for (r in 1:r_max) {  
-    lines(trait_mean[,r], type = 'l')  # add lines for each run, up to r_max
+    lines(trait_mean[,r], type = 'l')  
   }
   
   # plot a thick line for the mean variance across all runs
-  plot(rowMeans(trait_var), type = 'l', ylab = "trait variance", xlab = "generation", ylim = c(0, max(trait_var)), lwd = 3, main = paste("N = ", N, ", n = ", n, ", e = ", e, sep = ""))
+  plot(rowMeans(trait_var), 
+       type = 'l', 
+       ylab = "trait variance", 
+       xlab = "generation", 
+       ylim = c(0, max(trait_var)), 
+       lwd = 3, 
+       main = paste("N = ", N, ", n = ", n, ", e = ", e, sep = ""))
   
+  # add lines for each run, up to r_max
   for (r in 1:r_max) {  
-    lines(trait_var[,r], type = 'l')  # add lines for each run, up to r_max
+    lines(trait_var[,r], type = 'l')  
   }
   
-  list(final_agent = agent, mean = trait_mean, variance = trait_var)  # export data from function
+  # export data from function
+  list(final_agent = agent, mean = trait_mean, variance = trait_var)  
 }
 
 ```
@@ -229,7 +287,7 @@ hist(output$final_agent, xlim = c(-3,3), main = "", xlab = "final trait value")
 
 ***
 
-### Summary of Model 6
+# Summary of Model 6
 
 A common objection to cultural evolution is that cultural inheritance blends different traits together, destroying the variation that is necessary for evolution to operate. While the claim that cultural inheritance is blending can be contested, and obviously it is not the case that there is no cultural variation in the real world, we can still use formal models to explore these claims.
 
@@ -239,19 +297,19 @@ There are also a few programming innovations introduced in Model 6. We modelled 
 
 ***
 
-### Analytic Appendix
+# Analytic Appendix
 
 The simulation model presented above recreates an analytical model presented in Chapter 3 of Boyd & Richerson (1985), and we reach the same conclusions. They also include assortative transmission, which has a similar effect to mutation: if the $n$ demonstrators have similar cultural traits, then blending inheritance is less effective at reducing variation. Box 3.22 in Boyd & Richerson provides a proof that the mean trait value after blending inheritance, $\bar{X}'$, equals the mean trait value before blending inheritance, $\bar{X}$. Their equation 3.28 does the same for variance under the assumption of transmission error, where variance after blending inheritance, $V'$, is given by:
 
 $$ V' = (1/n)(V + \bar{E})                       \hspace{30 mm}(6.1)$$
 
-where $\bar{E}$ is the mean value of $e$ across all demonstrators, and $e$ is defined as in the simulation model. Because $e$ is a constant across all demonstrators, and the errors are independent, $\bar{E}$ will equal $e$. To get the equilibrium variance, \hat{V}, we can set $V' = V$ in the above equation and rearrange to find:
+where $\bar{E}$ is the mean value of $e$ across all demonstrators, and $e$ is defined as in the simulation model. Because $e$ is a constant across all demonstrators, and the errors are independent, $\bar{E}$ will equal $e$. To get the equilibrium variance, $\hat{V}$, we can set $V' = V$ in the above equation and rearrange to find:
 
 $$ \hat{V} = \frac{e}{n-1}                        \hspace{30 mm}(6.2)$$
 
 For the $e=0.5$ and $n=5$ simulated above, this gives $\hat{V} = 0.5 / 4 = 0.125$, as was found in the simulation. This equation confirms that the variation remaining after blending inheritance increases with $e$ and decreases with $n$.
 
 
-## References
+# References
 
 Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.

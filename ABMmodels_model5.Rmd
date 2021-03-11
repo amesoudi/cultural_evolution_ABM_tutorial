@@ -3,7 +3,7 @@ title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
 ---
 
-### Model 5: Migration
+# Model 5: Migration
 
 Along with selection, mutation and drift, another fundamental driver of genetic evolution is migration. The same is true of cultural evolution. Migration has been a permanent fixture of our species since we first dispersed out of Africa. The movement of people from group to group can shape between-group cultural diversity, and spread beneficial technologies or ideas from group to group. 
 
@@ -19,11 +19,20 @@ N <- 100
 p_0 <- 1
 q_0 <- 0
 
-agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), group = 1, stringsAsFactors = FALSE)  # create first generation of group 1
+# create first generation of group 1
+agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                     prob = c(p_0,1-p_0)), 
+                     group = 1, 
+                     stringsAsFactors = FALSE)  
 
-agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(q_0,1-q_0)), group = 2, stringsAsFactors = FALSE)  # create first generation of group 2
+# create first generation of group 2
+agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                     prob = c(q_0,1-q_0)), 
+                     group = 2, 
+                     stringsAsFactors = FALSE)  
 
-agent <- rbind(agent1,agent2)  # combine agent1 and agent2 into a single agent dataframe
+# combine agent1 and agent2 into a single agent dataframe
+agent <- rbind(agent1,agent2)  
 
 agent[1:5,]
 agent[(N+1):(N+5),]
@@ -56,11 +65,14 @@ The following code simulates one bout of migration, i.e. one generation in the m
 
 m <- 0.1
 
-probs <- runif(1:(2*N))  # 2N probabilities, one for each agent, to compare against m
+# 2N probabilities, one for each agent, to compare against m
+probs <- runif(1:(2*N))  
 
-migrants <- agent$trait[probs < m]  # with prob m, add an agent's trait to list of migrants
+# with prob m, add an agent's trait to list of migrants
+migrants <- agent$trait[probs < m]  
 
-agent$trait[probs < m] <- sample(migrants, length(migrants))  # put migrants randomly into empty slots
+# put migrants randomly into empty slots
+agent$trait[probs < m] <- sample(migrants, length(migrants))  
 
 p <- sum(agent$trait[agent$group == 1] == "A") / N
 q <- sum(agent$trait[agent$group == 2] == "A") / N
@@ -78,13 +90,23 @@ The following function simply repeats the above over $t_{max}$ generations and p
 
 Migration <- function (N, p_0, q_0, m, t_max) {
   
-  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) # create output dataframe to hold t_max values of p and q
+  # create output dataframe to hold t_max values of p and q
+  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) 
   
-  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), group = 1, stringsAsFactors = FALSE)  # create first generation of group 1
+  # create first generation of group 1
+  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(p_0,1-p_0)), 
+                       group = 1, 
+                       stringsAsFactors = FALSE)  
 
-  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(q_0,1-q_0)), group = 2, stringsAsFactors = FALSE)  # create first generation of group 2
+  # create first generation of group 2
+  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(q_0,1-q_0)), 
+                       group = 2, 
+                       stringsAsFactors = FALSE)  
 
-  agent <- rbind(agent1,agent2)  # combine agent1 and agent2 into a single agent dataframe
+  # combine agent1 and agent2 into a single agent dataframe
+  agent <- rbind(agent1,agent2)  
   
   # store first generation frequencies
   output$p[1] <- sum(agent$trait[agent$group == 1] == "A") / N
@@ -93,11 +115,15 @@ Migration <- function (N, p_0, q_0, m, t_max) {
   for (t in 2:t_max) {
   
     # migration
-    probs <- runif(1:(2*N))  # 2N probabilities, one for each agent, to compare against m
+    
+    # 2N probabilities, one for each agent, to compare against m
+    probs <- runif(1:(2*N))  
 
-    migrants <- agent$trait[probs < m]  # with prob m, add an agent's trait to list of migrants
+    # with prob m, add an agent's trait to list of migrants
+    migrants <- agent$trait[probs < m]  
 
-    agent$trait[probs < m] <- sample(migrants, length(migrants))  # put migrants randomly into empty slots
+    # put migrants randomly into empty slots
+    agent$trait[probs < m] <- sample(migrants, length(migrants))  
     
     # store frequencies in output slot t
     output$p[t] <- sum(agent$trait[agent$group == 1] == "A") / N
@@ -105,9 +131,21 @@ Migration <- function (N, p_0, q_0, m, t_max) {
 
   }
   
-  plot(x = 1:nrow(output), y = output$p, type = 'l', col = "orange", ylab = "proportion of agents with trait A", xlab = "generation", ylim = c(0,1), main = paste("N = ", N, ", m = ", m, sep = ""))
+  plot(x = 1:nrow(output), y = output$p, 
+       type = 'l', 
+       col = "orange", 
+       ylab = "proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       main = paste("N = ", N, ", m = ", m, sep = ""))
+  
   lines(x = 1:nrow(output), y = output$q, col = "blue")
-  legend("topright", legend = c("p (group 1)", "q (group 2)"), lty = 1, col = c("orange", "blue"), bty = "n")
+  
+  legend("topright", 
+         legend = c("p (group 1)", "q (group 2)"), 
+         lty = 1, 
+         col = c("orange", "blue"), 
+         bty = "n")
   
   output  # export data from function
 }
@@ -148,13 +186,23 @@ The following function adds directly biased transmission using code from the **B
 
 MigrationPlusBiasedTransmission <- function (N, p_0, q_0, m, s, t_max) {
   
-  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) # create output dataframe to hold t_max values of p and q
+  # create output dataframe to hold t_max values of p and q
+  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) 
   
-  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), group = 1, stringsAsFactors = FALSE)  # create first generation of group 1
+  # create first generation of group 1
+  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(p_0,1-p_0)), 
+                       group = 1, 
+                       stringsAsFactors = FALSE)  
 
-  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(q_0,1-q_0)), group = 2, stringsAsFactors = FALSE)  # create first generation of group 2
+  # create first generation of group 2
+  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(q_0,1-q_0)), 
+                       group = 2, 
+                       stringsAsFactors = FALSE)  
 
-  agent <- rbind(agent1,agent2)  # combine agent1 and agent2 into a single agent dataframe
+  # combine agent1 and agent2 into a single agent dataframe
+  agent <- rbind(agent1,agent2)  
   
   # store first generation frequencies
   output$p[1] <- sum(agent$trait[agent$group == 1] == "A") / N
@@ -162,23 +210,33 @@ MigrationPlusBiasedTransmission <- function (N, p_0, q_0, m, s, t_max) {
 
   for (t in 2:t_max) {
   
-    # migration
-    probs <- runif(1:(2*N))  # 2N probabilities, one for each agent, to compare against m
+    # migration:
+    
+    # 2N probabilities, one for each agent, to compare against m
+    probs <- runif(1:(2*N))  
 
-    migrants <- agent$trait[probs < m]  # with prob m, add an agent's trait to list of migrants
+    # with prob m, add an agent's trait to list of migrants
+    migrants <- agent$trait[probs < m]  
 
-    agent$trait[probs < m] <- sample(migrants, length(migrants))  # put migrants randomly into empty slots
+    # put migrants randomly into empty slots
+    agent$trait[probs < m] <- sample(migrants, length(migrants))  
     
-    # biased transmission
-    copy <- runif(2*N)  # get 2N random numbers, one per agent, each between 0 and 1
+    # biased transmission:
     
-    # group 1 favours A
-    demonstrator_trait <- sample(agent$trait[agent$group == 1], N, replace = TRUE)  # for each group 1 agent, pick a random agent to act as demonstrator and store their trait
-    agent$trait[agent$group == 1 & demonstrator_trait == "A" & copy < s] <- "A"  # if demonstrator has A and with probability s, copy A from demonstrator
+    # get 2N random numbers, one per agent, each between 0 and 1
+    copy <- runif(2*N)  
     
-    # group 2 favours B
-    demonstrator_trait <- sample(agent$trait[agent$group == 2], N, replace = TRUE)  # for each group 1 agent, pick a random agent to act as demonstrator and store their trait
-    agent$trait[agent$group == 2 & demonstrator_trait == "B" & copy < s] <- "B"  # if demonstrator has B and with probability s, copy B from demonstrator
+    # group 1 favours A:
+    # for each group 1 agent, pick a random agent as demonstrator and store their trait
+    demonstrator_trait <- sample(agent$trait[agent$group == 1], N, replace = TRUE)  
+    # if demonstrator has A and with probability s, copy A from demonstrator
+    agent$trait[agent$group == 1 & demonstrator_trait == "A" & copy < s] <- "A"  
+    
+    # group 2 favours B:
+    # for each group 1 agent, pick a random agent as demonstrator and store their trait
+    demonstrator_trait <- sample(agent$trait[agent$group == 2], N, replace = TRUE)  
+    # if demonstrator has B and with probability s, copy B from demonstrator
+    agent$trait[agent$group == 2 & demonstrator_trait == "B" & copy < s] <- "B"  
     
     # store frequencies in output slot t
     output$p[t] <- sum(agent$trait[agent$group == 1] == "A") / N
@@ -186,9 +244,21 @@ MigrationPlusBiasedTransmission <- function (N, p_0, q_0, m, s, t_max) {
 
   }
   
-  plot(x = 1:nrow(output), y = output$p, type = 'l', col = "orange", ylab = "proportion of agents with trait A", xlab = "generation", ylim = c(0,1), main = paste("N = ", N, ", m = ", m, ", s = ", s, sep = ""))
+  plot(x = 1:nrow(output), y = output$p, 
+       type = 'l', 
+       col = "orange", 
+       ylab = "proportion of agents with trait A", 
+       xlab = "generation", 
+       ylim = c(0,1), 
+       main = paste("N = ", N, ", m = ", m, ", s = ", s, sep = ""))
+  
   lines(x = 1:nrow(output), y = output$q, col = "blue")
-  legend("topright", legend = c("p (group 1)", "q (group 2)"), lty = 1, col = c("orange", "blue"), bty = "n")
+  
+  legend("topright", 
+         legend = c("p (group 1)", "q (group 2)"), 
+         lty = 1, 
+         col = c("orange", "blue"), 
+         bty = "n")
   
   output  # export data from function
 }
@@ -199,7 +269,8 @@ And we run the function with $s=0.1$:
 
 ```{r}
 
-data_model5 <- MigrationPlusBiasedTransmission(N = 10000, p_0 = 1, q_0 = 0, m = 0.1, s = 0.1, t_max = 100)
+data_model5 <- MigrationPlusBiasedTransmission(N = 10000, p_0 = 1, q_0 = 0, 
+                                               m = 0.1, s = 0.1, t_max = 100)
 
 ```
 
@@ -211,13 +282,23 @@ Finally, we can see how conformist cultural transmission can also act to maintai
 
 MigrationPlusConformity <- function (N, p_0, q_0, m, D, t_max) {
   
-  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) # create output dataframe to hold t_max values of p and q
+  # create output dataframe to hold t_max values of p and q
+  output <- data.frame(p = rep(NA, t_max), q = rep(NA, t_max)) 
   
-  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(p_0,1-p_0)), group = 1, stringsAsFactors = FALSE)  # create first generation of group 1
+  # create first generation of group 1
+  agent1 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(p_0,1-p_0)), 
+                       group = 1, 
+                       stringsAsFactors = FALSE)  
 
-  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, prob = c(q_0,1-q_0)), group = 2, stringsAsFactors = FALSE)  # create first generation of group 2
+  # create first generation of group 2
+  agent2 <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
+                       prob = c(q_0,1-q_0)), 
+                       group = 2, 
+                       stringsAsFactors = FALSE)  
 
-  agent <- rbind(agent1,agent2)  # combine agent1 and agent2 into a single agent dataframe
+  # combine agent1 and agent2 into a single agent dataframe
+  agent <- rbind(agent1,agent2)  
   
   # store first generation frequencies
   output$p[1] <- sum(agent$trait[agent$group == 1] == "A") / N
@@ -225,17 +306,24 @@ MigrationPlusConformity <- function (N, p_0, q_0, m, D, t_max) {
 
   for (t in 2:t_max) {
   
-    # migration
-    probs <- runif(1:(2*N))  # 2N probabilities, one for each agent, to compare against m
+    # migration:
+    
+    # 2N probabilities, one for each agent, to compare against m
+    probs <- runif(1:(2*N))  
 
-    migrants <- agent$trait[probs < m]  # with prob m, add an agent's trait to list of migrants
+    # with prob m, add an agent's trait to list of migrants
+    migrants <- agent$trait[probs < m]  
 
-    agent$trait[probs < m] <- sample(migrants, length(migrants))  # put migrants randomly into empty slots
+    # put migrants randomly into empty slots
+    agent$trait[probs < m] <- sample(migrants, length(migrants))  
     
     # conformity in group 1:
     
     # create dataframe with a set of 3 randomly-picked group 1 demonstrators for each agent
-    demonstrators <- data.frame(dem1 = sample(agent$trait[agent$group == 1], N, replace = TRUE), dem2 = sample(agent$trait[agent$group == 1], N, replace = TRUE), dem3 = sample(agent$trait[agent$group == 1], N, replace = TRUE), stringsAsFactors = F)
+    demonstrators <- data.frame(dem1 = sample(agent$trait[agent$group == 1], N, replace = TRUE), 
+                                dem2 = sample(agent$trait[agent$group == 1], N, replace = TRUE), 
+                                dem3 = sample(agent$trait[agent$group == 1], N, replace = TRUE), 
+                                stringsAsFactors = F)
 
     # get the number of As in each 3-dem combo
     numAs <- rowSums(demonstrators == "A")
@@ -256,7 +344,10 @@ MigrationPlusConformity <- function (N, p_0, q_0, m, D, t_max) {
     # conformity in group 2:
     
     # create dataframe with a set of 3 randomly-picked group 2 demonstrators for each agent
-    demonstrators <- data.frame(dem1 = sample(agent$trait[agent$group == 2], N, replace = TRUE), dem2 = sample(agent$trait[agent$group == 2], N, replace = TRUE), dem3 = sample(agent$trait[agent$group == 2], N, replace = TRUE), stringsAsFactors = F)
+    demonstrators <- data.frame(dem1 = sample(agent$trait[agent$group == 2], N, replace = TRUE), 
+                                dem2 = sample(agent$trait[agent$group == 2], N, replace = TRUE), 
+                                dem3 = sample(agent$trait[agent$group == 2], N, replace = TRUE), 
+                                stringsAsFactors = F)
 
     # get the number of As in each 3-dem combo
     numAs <- rowSums(demonstrators == "A")
@@ -280,9 +371,20 @@ MigrationPlusConformity <- function (N, p_0, q_0, m, D, t_max) {
 
   }
   
-  plot(x = 1:nrow(output), y = output$p, type = 'l', col = "orange", ylab = "proportion of agents with trait A", xlab = "generation", ylim = c(0,1), main = paste("N = ", N, ", m = ", m, ", D = ", D, sep = ""))
+  plot(x = 1:nrow(output), y = output$p, 
+       type = 'l', 
+       col = "orange", 
+       ylab = "proportion of agents with trait A", 
+       xlab = "generation", ylim = c(0,1), 
+       main = paste("N = ", N, ", m = ", m, ", D = ", D, sep = ""))
+  
   lines(x = 1:nrow(output), y = output$q, col = "blue")
-  legend("topright", legend = c("p (group 1)", "q (group 2)"), lty = 1, col = c("orange", "blue"), bty = "n")
+  
+  legend("topright", 
+         legend = c("p (group 1)", "q (group 2)"), 
+         lty = 1, 
+         col = c("orange", "blue"), 
+         bty = "n")
   
   output  # export data from function
 }
@@ -293,7 +395,8 @@ With a moderate amount of conformity, $D=0.2$, i.e. a 20% chance of adopting the
 
 ```{r}
 
-data_model5 <- MigrationPlusConformity(N = 10000, p_0 = 1, q_0 = 0, m = 0.05, D = 0.2, t_max = 1000)
+data_model5 <- MigrationPlusConformity(N = 10000, p_0 = 1, q_0 = 0, 
+                                       m = 0.05, D = 0.2, t_max = 1000)
 
 ```
 
@@ -301,7 +404,7 @@ Here again, conformist transmission - a form of cultural selection - maintains b
 
 ***
 
-### Summary of Model 5
+# Summary of Model 5
 
 Model 5 looked at how migration across group boundaries can break down between-group cultural variation to create a homogenous, undifferentiated mass culture where every group is culturally identical. While globalisation via the mass media or global markets has perhaps been making real-life human societies more similar to one another in recent years, we can still discern culturally distinct societies across the world, marked by traits such as dress, language, religion, psychological characteristics, cuisine and so on. Prior to the invention of mass transit and mass communication, societies would have been even more distinct. Yet migration has been a constant fixture of our species since we dispersed across the world. How then can we reconcile the extensive between-group cultural variation of our species with this frequent migration?
 
@@ -311,7 +414,7 @@ The major programming innovation in Model 5 was the introduction of two groups o
 
 ***
 
-### Analytic Appendix
+# Analytic Appendix
 
 Let's derive the recursions and equilibrium frequency for the basic migration model, to understand analytically why the frequency of $A$ in each group converges on the initial average frequency of $A$ across the two groups.
 
@@ -347,10 +450,23 @@ MigrationRecursion <- function(m, t_max, p_0, q_0) {
     q[i] <- q[i-1]*(1-m) + x_bar*m
   }
   
-  plot(x = 1:t_max, y = p, type = "l", ylim = c(0,1), ylab = "frequency of A trait", xlab = "generation", col = "orange", main = paste("m = ", m, sep = ""))
+  plot(x = 1:t_max, y = p, 
+       type = "l", 
+       ylim = c(0,1), 
+       ylab = "frequency of A trait", 
+       xlab = "generation", 
+       col = "orange", 
+       main = paste("m = ", m, sep = ""))
+  
   lines(x = 1:t_max, y = q, col = "blue")
+  
   abline(h = (p_0 + q_0) / 2, lty = 3)
-  legend("topright", legend = c("p (group 1)", "q (group 2)"), lty = 1, col = c("orange", "blue"), bty = "n")
+  
+  legend("topright", 
+         legend = c("p (group 1)", "q (group 2)"), 
+         lty = 1, 
+         col = c("orange", "blue"), 
+         bty = "n")
 
 }
 
@@ -377,7 +493,7 @@ $$p^* = \bar{x}                                               \hspace{30 mm}(5.5
 And as we noted at the beginning, $\bar{x} = (p_0+q_0)/2$, i.e. the average of the two starting frequencies of $A$ in the two groups. This is what we found in the agent-based simulations as well as the recursion simulations in this section.
 
 
-## References
+# References
 
 Bell, A. V., Richerson, P. J., & McElreath, R. (2009). Culture rather than genes provides greater scope for the evolution of large-scale human prosociality. Proceedings of the National Academy of Sciences, 106(42), 17671-17674.
 
