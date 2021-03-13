@@ -130,7 +130,7 @@ Let's run this function with a reasonably large $N$ and small $n$:
 
 ```{r}
 
-output <- BlendingInheritance(N = 1000, n = 5, t_max = 100, r_max = 5)
+data_model6 <- BlendingInheritance(N = 1000, n = 5, t_max = 100, r_max = 5)
 
 ```
 
@@ -140,8 +140,8 @@ The right-hand plot shows that the variance quickly drops to zero. Again as we e
 
 ```{r}
 
-head(output$final_agent)
-tail(output$final_agent)
+head(data_model6$final_agent)
+tail(data_model6$final_agent)
 
 ```
 
@@ -149,7 +149,7 @@ We can also plot the final trait distribution on the same scale as the graph abo
 
 ```{r}
 
-hist(output$final_agent, xlim = c(-3,3), main = "", xlab = "final trait value")
+hist(data_model6$final_agent, xlim = c(-3,3), main = "", xlab = "final trait value")
 
 ```
 
@@ -255,7 +255,7 @@ First we can run this code with $e=0$, to confirm that this matches the original
 
 ```{r}
 
-output <- BlendingInheritance(N = 1000, n = 5, e = 0, t_max = 100, r_max = 5)
+data_model6 <- BlendingInheritance(N = 1000, n = 5, e = 0, t_max = 100, r_max = 5)
 
 ```
 
@@ -263,7 +263,7 @@ As before, the mean does not change, and variation decreases to zero. Now let's 
 
 ```{r}
 
-output <- BlendingInheritance(N = 1000, n = 5, e = 0.5, t_max = 100, r_max = 5)
+data_model6 <- BlendingInheritance(N = 1000, n = 5, e = 0.5, t_max = 100, r_max = 5)
 
 ```
 
@@ -271,7 +271,7 @@ There are two changes here. First, in the left hand plot we can see that while t
 
 ```{r}
 
-colMeans(output$variance[50:100,])
+colMeans(data_model6$variance[50:100,])
 
 ```
 
@@ -281,7 +281,7 @@ Finally, we can plot the trait distribution in the final generation. While the f
 
 ```{r}
 
-hist(output$final_agent, xlim = c(-3,3), main = "", xlab = "final trait value")
+hist(data_model6$final_agent, xlim = c(-3,3), main = "", xlab = "final trait value")
 
 ```
 
