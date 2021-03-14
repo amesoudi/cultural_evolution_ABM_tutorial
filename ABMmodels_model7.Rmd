@@ -1,7 +1,6 @@
 ---
 title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
-output: pdf_document
 ---
 
 # Model 7: Demography and cultural gain/loss
