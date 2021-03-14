@@ -1,6 +1,7 @@
 ---
 title: "Simulation Models of Cultural Evolution"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 7: Demography and cultural gain/loss
@@ -127,7 +128,7 @@ Let's run the demography model with the values of $\alpha$ and $\beta$ used in t
 
 ```{r}
 
-output <- DemographyModel(N = 100, alpha = 30, beta = 15, t_max = 100)
+data_model7 <- DemographyModel(N = 100, alpha = 30, beta = 15, t_max = 100)
 
 ```
 
@@ -137,7 +138,7 @@ Now let's try the smallest population size possible, $N=1$:
 
 ```{r}
 
-output <- DemographyModel(N = 1, alpha = 30, beta = 15, t_max = 100)
+data_model7 <- DemographyModel(N = 1, alpha = 30, beta = 15, t_max = 100)
 
 ```
 
@@ -196,7 +197,7 @@ Let's run this for $t_max = 50$ and $N_max = 5000$, and $alpha = 7$ and $beta = 
 
 ```{r}
 
-output1 <- DemographyModel2(N_max = 5000, alpha = 7, beta = 1, t_max = 100)
+data_model7_1 <- DemographyModel2(N_max = 5000, alpha = 7, beta = 1, t_max = 100)
 
 ```
 
@@ -204,7 +205,7 @@ Now we can plot the results:
 
 ```{r}
 
-plot(1:length(output1), output1, 
+plot(1:length(data_model7_1), data_model7_1, 
      type = 'l', 
      ylab = expression("change in "*italic(bar("z"))), 
      xlab = "N")
@@ -219,15 +220,15 @@ We can also run another pair of $\alpha$ and $\beta$ and compare the two lines o
 
 ```{r}
 
-output2 <- DemographyModel2(N_max = 5000, alpha = 9, beta = 1, t_max = 100)
+data_model7_2 <- DemographyModel2(N_max = 5000, alpha = 9, beta = 1, t_max = 100)
 
-plot(1:length(output1), output1, 
+plot(1:length(data_model7_1), data_model7_1, 
      type = 'l', 
      ylab = expression("change in "*italic(bar("z"))), 
      xlab = "N", 
      col = "orange")
 
-lines(output2, col = "blue")
+lines(data_model7_2, col = "blue")
 
 abline(h = 0, lty = 2)
 
