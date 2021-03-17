@@ -192,7 +192,7 @@ output
 
 ```
 
-Let's run this for $t_{max} = 50$ and $N_{max} = 5000$, and $alpha = 7$ and $beta = 1$. It might take a little while.
+Let's run this for $t_{max} = 50$ and $N_{max} = 5000$, and $\alpha = 7$ and $\beta = 1$. It might take a little while.
 
 ```{r}
 
