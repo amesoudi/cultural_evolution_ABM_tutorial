@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Introduction
@@ -21,7 +22,9 @@ I'm putting all model parameters in italicised $equation$ text. This allows usef
 
 Use the green triangles above each code chunk to run that piece of code. Be sure to do this in the order they appear, as some chunks depend on previous chunks to work. You can also output the entire document including your executed code and formatting to html or pdf using the Knit button in the toolbar. Check the RMarkdown Cheat Sheet accessible via the Help menu for more details.
 
-All the concepts covered here are introduced, discussed and mathematically modelled at an advanced level in Cavalli-Sforza & Feldman (1981) and Boyd & Richerson (1985). I explain them informally in Mesoudi (2011). A recent article (Mesoudi 2017) gives a current overview of cultural evolution research, with references to recent studies. Each chapter also has an 'Analytic Appendix', where I show how to derive the same results analytically.
+All the concepts covered here are introduced, discussed and mathematically modelled at an advanced level in Cavalli-Sforza & Feldman (1981) and Boyd & Richerson (1985). I explain them informally in Mesoudi (2011). A recent article (Mesoudi 2017) gives a current overview of cultural evolution research, with references to recent studies. 
+
+Each chapter has some exercises with suggestions for how to fully explore the models and extend the models in interesting ways. Each chapter also has an 'Analytic Appendix', where I show how to derive the same results analytically.
 
 
 ## What is cultural evolution?
@@ -43,6 +46,7 @@ Another way to look at it is that all social scientists use models, but only som
 
 With these ideas in mind, let's turn to our first extremely simplified model of cultural evolution.
 
+***
 
 ## References
 

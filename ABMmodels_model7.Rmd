@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 7: Demography and cultural gain/loss
@@ -254,6 +255,16 @@ A few new programming techniques were used in Model 7. First, we introduced anot
 
 ***
 
+# Exercises
+
+1. Try different values of $\alpha$, $\beta$ and $N$ in **DemographyModel** to determine that, for given values of $\alpha$ and $\beta$, there is a threshold value of $N$ above which there is cultural gain, and below which there is cultural loss.
+
+2. Change **DemographyModel** so that there are two different population sizes, $N_1$ and $N_2$, both user-defined in the function call. For the first half of the generations, i.e. from $t = 1$ to $t = t_{max}/2$, the population size is $N_1$. For the second half, i.e. from $t = (t_{max}/2) + 1$ to $t = t_{max}$, the population size is $N_2$. For a given pair of $\alpha$ and $\beta$ values, pick an $N_1$ that leads to cultural gain, and an $N_2$ that leads to cultural loss. Run the simulation to see what happens. Is this a reasonable simulation of the purported ‘Tasmanian’ case described above and in Henrich (2004), where isolation due to rising sea levels caused a reduction in population size?
+
+3. In Mesoudi (2011) I suggested that a simple way of making the Henrich (2004) model more realistic is to tie the copying error parameter $\alpha$ to the mean skill level, $\bar{z}$, in each generation. As skills become ever more complex, they should become harder to learn. If they are harder to learn, there will be more error in their transmission. Thus as $\bar{z}$ increases over the generations, so should $\alpha$. Modify the **DemographyModel** function to implement this additional assumption. As before, there should be a user-defined starting value of $\alpha$. However, in each new timestep from $t = 2$ onwards, $\alpha$ should be multiplied by the mean skill level in the previous timestep (the latter is already being stored in the output dataframe). Run the simulation to see how this changes the dynamics of the model.
+
+***
+
 # Analytic Appendix
 
 Henrich's (2004) model was analytical rather than simulation-based. We can use the analytical model to check our simulation results above, as well as additional things like calculate the exact $N$ at which losses switch to gains for a given $\alpha$ and $\beta$.
@@ -340,6 +351,7 @@ text(3000, -1.5,
 
 Note that Euler's constant is provided in R as **-digamma(1)**. Here we have reproduced the simulation figure above but in a fraction of the time, and with less noise.
 
+***
 
 # References
 
@@ -351,6 +363,6 @@ Henrich, J. (2004). Demography and cultural evolution: How adaptive cultural pro
 
 Kline, M. A., & Boyd, R. (2010). Population size predicts technological complexity in Oceania. Proceedings of the Royal Society B: Biological Sciences, 277(1693), 2559-2564.
 
-Mesoudi, A. (2011). Variable cultural acquisition costs constrain cumulative cultural evolution. PloS one, 6(3), e18239.
+Mesoudi, A. (2011). Variable cultural acquisition costs constrain cumulative cultural evolution. PloS ONE, 6(3), e18239.
 
 Powell, A., Shennan, S., & Thomas, M. G. (2009). Late Pleistocene demography and the appearance of modern human behavior. Science, 324(5932), 1298-1301.

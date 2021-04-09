@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 1: Unbiased transmission
@@ -339,11 +340,21 @@ With $p_0 = 0.2$, trait frequencies stay at $p = 0.2$. Unbiased transmission is 
 
 Even this extremely simple model provides some valuable insights. First, unbiased transmission does not in itself change trait frequencies. As long as populations are large, trait frequencies remain the same. 
 
-Second, the smaller the population size, the more likely traits are to be lost by chance. This is a basic insight from population genetics, known there as genetic drift, but it can also be applied to cultural evolution. Many studies have tested (and some supported) the idea that population size and other demographic factors can shape cultural diversity. 
+Second, the smaller the population size, the more likely traits are to be lost by chance. This is a basic insight from population genetics, known there as genetic drift, but it can also be applied to cultural evolution. More advanced models of cultural drift (sometimes called 'random copying') can be found in Cavalli-Sforza & Feldman (1981) and Bentley et al. (2004), with the latter showing that various real-world cultural traits exhibit dynamics consistent with this kind of process, including baby names, dog breeds and archaeological pottery types.
 
 Furthermore, generating expectations about cultural change under simple assumptions like random cultural drift can be useful for detecting non-random patterns like selection: if we don't have a baseline, we won't know selection or other directional processes when we see them.
 
 In Model 1 we have introduced several programming techniques that will be useful in later models. We've seen how to use dataframes to hold characteristics of agents, how to use loops to cycle through generations and simulation runs, how to use **sample** to pick randomly from sets of elements, how to wrap simulations in functions to easily re-run them with different parameter values, how to plot the results of simulations, and how to store the output of the simulation in a dataframe that persists after the simulation function is run.
+
+***
+
+# Exercises
+
+1. Try different values of $p_0$ with large $N$ to confirm that unbiased transmission does not change the frequency of $p$, irrespective of the starting value $p_0$.
+
+2. Re-run the **UnbiasedTransmission** model to find the approximate value of $N$ at which one of the traits rarely, if ever, goes to fixation after a reasonably large number of timesteps (‘fixation’ means that $p$ goes to either zero or one and stays there).
+
+3. Modify the **UnbiasedTransmission** function to record and output the number of timesteps it takes for a run to go to fixation, i.e. $p$ goes to zero or one. If a run does not go to fixation after a sufficiently large number of timesteps, record this as NA. Make a plot of time to fixation against population size $N$. Before creating the plot, what do you think the plot will look like?
 
 ***
 
@@ -383,3 +394,9 @@ Don't worry, it gets more complicated than this in later chapters. The key point
 More generally, creating deterministic recursion-based models can be a good way of verifying simulation models, and vice versa: if the same dynamics occur in both agent-based and recursion-based models, then we can be more confident that those dynamics are genuine and not the result of a programming error or mathematical mistake. 
 
 ***
+
+# References
+
+Bentley, R. A., Hahn, M. W., & Shennan, S. J. (2004). Random drift and culture change. Proceedings of the Royal Society of London B, 271(1547), 1443-1450.
+
+Cavalli-Sforza, L. L., & Feldman, M. W. (1981). Cultural transmission and evolution: a quantitative approach. Princeton University Press.

@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 5: Migration
@@ -180,7 +181,7 @@ This consequence of migration, to break down between-group differences and make 
 
 In genetic evolution one such process is natural selection, if selection favours different alleles in different groups. This might happen, for example, if the groups inhabit different environments in which different traits are optimal. In Models 3 and 4 we saw how directly biased transmission and conformist transmission can act as forms of cultural selection. Perhaps, then, these processes can maintain between-group variation in cultural evolution.
 
-The following function adds directly biased transmission using code from the **BiasedTransmission** function of Model 3. We assume that trait $A$ is favoured in group 1, and trait $B$ is favoured in group 2. The parameter $s$ determines the strength of this biased transmission / cultural selection, which we assume is equal in strength (but opposite in direction) in each group. For simplicity we'll omit the multiple runs, hence no $r_max$.
+The following function adds directly biased transmission using code from the **BiasedTransmission** function of Model 3. We assume that trait $A$ is favoured in group 1, and trait $B$ is favoured in group 2. The parameter $s$ determines the strength of this biased transmission / cultural selection, which we assume is equal in strength (but opposite in direction) in each group. For simplicity we'll omit the multiple runs, hence no $r_{max}$.
 
 ```{r}
 
@@ -276,7 +277,7 @@ data_model5 <- MigrationPlusBiasedTransmission(N = 10000, p_0 = 1, q_0 = 0,
 
 Here we can see how adding cultural selection in the form of directly biased transmission maintains some degree of between-group cultural variation. Group 1 has around 70% $A$ and 30% $B$, while group 2 has around 30% $A$ and 70% $B$. You can play around with different values of $s$ and $m$ to see how the frequencies change in response. When $s$ is large relative to $m$, then the groups maintain more distinctive cultural profiles.
 
-Finally, we can see how conformist cultural transmission can also act to maintain between-group cultural variation in the face of migration. The following function integrates the original Migration model above with the ConformistTransmission function from Model 4. Note that conformity operates *within* each group, on the assumption that individuals are interacting only with other members of their own group, and never with members of the other group.
+Finally, we can see how conformist cultural transmission can also act to maintain between-group cultural variation in the face of migration. The following function integrates the original **Migration** function above with the **ConformistTransmission** function from Model 4. Note that conformity operates *within* each group, on the assumption that individuals are interacting only with other members of their own group, and never with members of the other group.
 
 ```{r}
 
@@ -408,9 +409,23 @@ Here again, conformist transmission - a form of cultural selection - maintains b
 
 Model 5 looked at how migration across group boundaries can break down between-group cultural variation to create a homogenous, undifferentiated mass culture where every group is culturally identical. While globalisation via the mass media or global markets has perhaps been making real-life human societies more similar to one another in recent years, we can still discern culturally distinct societies across the world, marked by traits such as dress, language, religion, psychological characteristics, cuisine and so on. Prior to the invention of mass transit and mass communication, societies would have been even more distinct. Yet migration has been a constant fixture of our species since we dispersed across the world. How then can we reconcile the extensive between-group cultural variation of our species with this frequent migration?
 
-We modelled two potential answers to this question, both forms of cultural selection. Where different traits are favoured in different groups, then directly biased transmission can maintain between-group cultural variation even in the face of migration. Similarly, conformity can maintain between-group cultural variation by causing migrants to adopt the majority trait in their new society. The latter works even for neutral, arbitrary traits, which may describe well many real-life group markers. Given that psychological processes such as conformity are unique to cultural evolution, this may also be an explanation for why there is a lot more between-group cultural variation in our species than there is between-group genetic variation (for further details and data on migration, conformity and between-group cultural variation, see Henrich & Boyd 1998; Bell, Richerson & McElreath 2009; and Mesoudi 2018).
+We modelled two potential answers to this question, both forms of cultural selection. Where different traits are favoured in different groups, then directly biased transmission (see Model 3) can maintain between-group cultural variation even in the face of migration. Similarly, conformity (see Model 4) can maintain between-group cultural variation by causing migrants to adopt the majority trait in their new society. The latter works even for neutral, arbitrary traits, which may describe well many real-life group markers. Directly and conformist biased transmission can be seen as mechanisms of *acculturation*, which describes the cultural change that may occur as a result of migration. Given that psychological processes such as conformity are unique to cultural evolution, this may also be an explanation for why there is a lot more between-group cultural variation in our species than there is between-group genetic variation (for further details and data on migration, conformity and between-group cultural variation, see Henrich & Boyd 1998; Bell et al. 2009; Mesoudi 2018; Deffner et al. 2020).
 
 The major programming innovation in Model 5 was the introduction of two groups of agents. This allows us to simulate migration between groups, as well as processes that are likely to occur predominantly within groups such as conformity. There are many ways of extending Model 5, including adding more groups, adding non-random migration, using measures like $F_{ST}$ to quantify the amount of between-group cultural variation, making the cultural traits cooperative / non-cooperative rather than neutral, and modelling other processes that might maintain variation such as punishment (see Mesoudi 2018).
+
+***
+
+# Exercises
+
+1. Try different values of $m$, $p_0$ and $q_0$ in the **Migration** function to confirm that migration causes groups to converge on the initial mean frequency of trait $A$ across all groups, i.e. $(p_0+q_0)/2$.
+
+2. Try different values of $m$ and $s$ in **MigrationPlusBiasedTransmission**, and $m$ and $D$ in **MigrationPlusConformity**, to explore how strong $s$ and $D$ need to be relative to $m$ to prevent population homogenisation.
+
+3. Add a third group of $N$ agents. As before, $m$ is the probability that each agent moves to a random group. Where before there were two groups to randomly select, now there are three. Show that migration still causes convergence on the initial mean frequency of trait $A$ across all three groups.
+
+4. Change the function to allow a user-defined number of groups. The function should take the number of groups as a parameter, and create this number of groups on-the-fly. Either allow the user to specify the starting frequencies of $A$ across all groups (e.g. by having a parameter that can take sets of values such as *c(0.3,0.5,0.8,0.9)*), or make the starting values random. Show that migration still causes convergence on the initial mean frequency of trait $A$ across all groups.
+
+5. Make migration non-random, such that agents are more likely to migrate to groups that have a higher frequency of trait $A$. How do the dynamics of non-random migration compare to those of the random migration simulated in the original **Migration** function?
 
 ***
 
@@ -473,6 +488,7 @@ MigrationRecursion <- function(m, t_max, p_0, q_0) {
 MigrationRecursion(m = 0.1, t_max = 100, p_0 = 1, q_0 = 0)
 
 ```
+
 This looks almost identical to the first plot we created above from the simulations. I added a dotted line denoting the initial mean frequency of $A$ in the entire population, $\bar{x}$, to verify that the two groups converge on this mean. We can change the starting values to provide a further check:
 
 ```{r}
@@ -492,10 +508,13 @@ After many generations, when $t$ becomes very large, then the last term on the r
 $$p^* = \bar{x}                                               \hspace{30 mm}(5.5)$$
 And as we noted at the beginning, $\bar{x} = (p_0+q_0)/2$, i.e. the average of the two starting frequencies of $A$ in the two groups. This is what we found in the agent-based simulations as well as the recursion simulations in this section.
 
+***
 
 # References
 
 Bell, A. V., Richerson, P. J., & McElreath, R. (2009). Culture rather than genes provides greater scope for the evolution of large-scale human prosociality. Proceedings of the National Academy of Sciences, 106(42), 17671-17674.
+
+Deffner, D., Kleinow, V., & McElreath, R. (2020). Dynamic social learning in temporally and spatially variable environments. Royal Society Open Science, 7(12), 200734.
 
 Hartl, D. L., Clark, A. G. (1997). Principles of population genetics. Sunderland, MA: Sinauer associates.
 

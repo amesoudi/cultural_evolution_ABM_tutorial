@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 6: Blending inheritance
@@ -297,6 +298,20 @@ There are also a few programming innovations introduced in Model 6. We modelled 
 
 ***
 
+# Exercises
+
+1. Try different values of $N$ and $n$ in **BlendingInheritance** to see how blending inheritance reduces variation to zero whenever $n>1$.
+
+2. Try different values of $n$ and $e$ to show that the former increases the blending effect, and the latter reduces it.
+
+3. Forgetting about blending for now, combine Models 3 and 6 to create a function that models selection (i.e. directly biased transmission, from Model 3) on a continuous cultural trait (as implemented in Model 6). Instead of $s$ being the probability of switching to trait $A$ upon encountering a demonstrator with that trait as in Model 3, instead assume that there is a particular value of the continuous trait that is particularly attractive, memorable or intuitive. Allow the user to set this value when calling the function. For example, it might be zero (the mean of the starting normal distribution), or a different value (say +3, or -2). Then, each agent picks a random member of the previous generation, and if the demonstrator’s value is closer to the favoured value, and with probability $s$ (as in Model 3), then the copying agent adopts the demonstrator’s value. Otherwise they do not copy and retain their previous value. Run the simulation to see what happens to the mean and variance over time.
+
+4. Modify the function you just created to allow selection for two different trait values, rather than just one. Now, with probability $s$, each agent picks a random demonstrator from the previous generation, and if the demonstrator’s value is closer to either of the two favoured values, then the agent adopts that closest value. Run the simulation to see what happens to the mean and variance over time.
+
+5. Add blending inheritance to the function you just created, using the code from Model 6. Use a parameter to switch blending on (e.g. *blend = TRUE*) or off (e.g. *blend = FALSE*). With $e=0$, explore under what conditions selection (via $s$) prevents blending from destroying variation.
+
+***
+
 # Analytic Appendix
 
 The simulation model presented above recreates an analytical model presented in Chapter 3 of Boyd & Richerson (1985), and we reach the same conclusions. They also include assortative transmission, which has a similar effect to mutation: if the $n$ demonstrators have similar cultural traits, then blending inheritance is less effective at reducing variation. Box 3.22 in Boyd & Richerson provides a proof that the mean trait value after blending inheritance, $\bar{X}'$, equals the mean trait value before blending inheritance, $\bar{X}$. Their equation 3.28 does the same for variance under the assumption of transmission error, where variance after blending inheritance, $V'$, is given by:
@@ -309,6 +324,7 @@ $$ \hat{V} = \frac{e}{n-1}                        \hspace{30 mm}(6.2)$$
 
 For the $e=0.5$ and $n=5$ simulated above, this gives $\hat{V} = 0.5 / 4 = 0.125$, as was found in the simulation. This equation confirms that the variation remaining after blending inheritance increases with $e$ and decreases with $n$.
 
+***
 
 # References
 

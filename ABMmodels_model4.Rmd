@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 # Model 4: Biased transmission (conformist bias)
@@ -201,7 +202,7 @@ ConformistTransmission <- function (N, p_0, D, t_max, r_max) {
        xlab = "generation", 
        ylim = c(0,1), 
        lwd = 3, 
-       main = paste("N =", N, ", D =", D, ", p_0 =", p_0, sep = ""))
+       main = paste("N = ", N, ", D = ", D, ", p_0 = ", p_0, sep = ""))
  
   for (r in 1:r_max) {  
     
@@ -260,11 +261,23 @@ When $A$ starts off in a minority ($p_0 = 0.45$), most if not all runs should re
 
 # Summary of Model 4
 
-Model 4 explored conformist biased cultural transmission. This is where individuals are disproportionately more likely to adopt the most common trait among a set of demonstrators. We can contrast this with the direct or content biased transmission from Model 4, where one trait is intrinsically more likely to be copied. With conformity, the traits have no intrinsic attractiveness and are preferentially copied simply because they are common.
+Model 4 explored conformist biased cultural transmission, or 'conformity' for short. This is where individuals are disproportionately more likely to adopt the most common trait among a set of demonstrators. We can contrast this with the direct or content biased transmission from Model 4, where one trait is intrinsically more likely to be copied. With conformity, the traits have no intrinsic attractiveness and are preferentially copied simply because they are common.
 
 We saw how conformity increases the frequency of whichever trait is more common. Initial trait frequencies are important here: traits that are initially more common typically go to fixation. This in turn makes stochasticity important, which in small populations can affect initial frequencies.
 
+Experimental studies have shown that people exhibit conformity as defined and modelled here (Efferson et al. 2008; Muthukrishna et al. 2016; Deffner et al. 2020), and models have extended Boyd & Richerson's initial treatment to consider more than two traits, more than three demonstrators, and the effects of spatial and temporal environmental variation (Henrich & Boyd 1998; Nakahashi et al. 2012; Mesoudi 2018). Conformity is thought to have important implications for real-world patterns of cultural evolution by affecting the spread of novel innovations through societies (Henrich 2001), and by acting to maintain between-group cultural variation in the face of migration, as we will explore further in Model 5. 
+
 The major programming innovation in Model 4 was the use of an intermediate dataframe to hold the demonstrators. We then created the next generation using a table of probabilities (Table 1), which specified for each combination of demonstrators the probability of adopting each trait.
+
+***
+
+# Exercises
+
+1. Try different values of $D$ and $p_0$ to confirm that conformity acts to always favour the majority trait. Also try smaller values of $N$. How does the stochasticity at small values of $N$ affect conformity?
+
+2. The conformity parameter $D$ can also be negative, which reduces the probability of adopting majority traits and increases the probability of adopting minority traits. This is *anti-conformity*, or *negative frequency-dependent cultural transmission*. Explore the effect on cultural dynamics of varying $D$ between -1 and 0, for different values of $p_0$.
+
+3. Create a new function **ConformityPlusBiasedTransmission**, using code from Model 3. First, agents should engage in directly biased transmission from the previous generation, according to parameter $s$. Then they should engage in conformity, with the demonstrators for conformity being the set of traits after biased transmission. Vary $s$ (which favours trait $A$) and $D$ (which favours the majority) starting at small values of $p_0$ to explore when selection can overpower conformity, and vice versa. See Henrich (2001) for a similar model of conformity plus directly biased transmission.
 
 ***
 
@@ -401,6 +414,22 @@ abline(a = 0, b = 1, lty = 3)
 
 This encapsulates the process of conformity. The dotted line shows unbiased transmission: the probability of adopting $A$ is exactly equal to the frequency of $A$ in the population. The s-shaped solid curve shows conformist transmission. When $A$ is common ($p > 0.5$), then the curve is higher than the dotted line: there is a disproportionately higher probability of adopting $A$. When $A$ is uncommon ($p < 0.5$), then the curve is lower than the dotted line: there is a disproportionately lower probability of adopting $A$.
 
+***
+
 # References
 
 Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.
+
+Deffner, D., Kleinow, V., & McElreath, R. (2020). Dynamic social learning in temporally and spatially variable environments. Royal Society Open Science, 7(12), 200734.
+
+Efferson, C., Lalive, R., Richerson, P. J., McElreath, R., & Lubell, M. (2008). Conformists and mavericks: the empirics of frequency-dependent cultural transmission. Evolution and Human Behavior, 29(1), 56-64.
+
+Henrich, J. (2001). Cultural transmission and the diffusion of innovations: Adoption dynamics indicate that biased cultural transmission is the predominate force in behavioral change. American Anthropologist, 103(4), 992-1013.
+
+Henrich, J., & Boyd, R. (1998). The evolution of conformist transmission and the emergence of between-group differences. Evolution and human behavior, 19(4), 215-241.
+
+Mesoudi, A. (2018). Migration, acculturation, and the maintenance of between-group cultural variation. PloS one, 13(10), e0205573.
+
+Muthukrishna, M., Morgan, T. J., & Henrich, J. (2016). The when and who of social learning and conformist transmission. Evolution and Human Behavior, 37(1), 10-20.
+
+Nakahashi, W., Wakano, J. Y., & Henrich, J. (2012). Adaptive social learning strategies in temporally and spatially varying environments. Human Nature, 23(4), 386-418.

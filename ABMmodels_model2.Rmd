@@ -1,6 +1,7 @@
 ---
-title: "Simulation Models of Cultural Evolution"
+title: "Simulation Models of Cultural Evolution in R"
 author: "Alex Mesoudi"
+output: pdf_document
 ---
 
 
@@ -211,9 +212,27 @@ Now trait $A$ reaches fixation around generation $t = 50$. Play around with $N$ 
 
 With this simple model we can draw the following insights. Unbiased mutation, which resembles genetic mutation in being non-directional, always leads to an equal mix of the two traits. It introduces and maintains cultural variation in the population. It is interesting to compare unbiased mutation to unbiased transmission from Model 1. While unbiased transmission did not change $p$ over time, unbiased mutation always converges on $p^* = 0.5$, irrespective of the starting frequency. (NB $p^* = 0.5$ assuming there are two traits; more generally, $p^* = 1/v$, where $v$ is the number of traits.)
 
-Biased mutation, which is far more common - perhaps even typical - in cultural evolution, shows different dynamics. Novel traits favoured by biased mutation spread in a characteristic fashion - an r-shaped diffusion curve - with a speed characterised by the mutation rate $\mu_b$. Population size has little effect, whether $N = 100$ or $N = 10000$. Whenever biased mutation is present ($\mu_b > 0$), the favoured trait goes to fixation, even if it is not initially present.
+Biased mutation, which is far more common - perhaps even typical - in cultural evolution, shows different dynamics. Novel traits favoured by biased mutation spread in a characteristic fashion - an r-shaped diffusion curve - with a speed characterised by the mutation rate $\mu_b$. Population size has little effect, whether $N = 100$ or $N = 10000$. This is because mutation is an individual-level process, and does not depend on the traits of any other agent(s) in the population. Whenever biased mutation is present ($\mu_b > 0$), the favoured trait goes to fixation, even if it is not initially present. 
+
+A form of unbiased cultural mutation can be observed when people try to copy artifact sizes or shapes, and the limits of our perceptual systems introduces random noise into the copied form. This has been studied in the context of the transmission of archaeological artifacts such as handaxes and arrowheads (Eerkens & Lipo 2005) and confirmed experimentally (Kempe et al. 2012). A form of biased cultural mutation has been argued to result from universal features of human cognition, as different people or groups independently transform cultural traits towards certain 'attractive' forms. For example, studies have shown how portraits of subjects averting their gaze systematically mutated into portraits of subjects with direct eye gaze (Morin 2013), and how blood-letting as a medical practice independently emerged in different societies around the world (Miton et al. 2015).
 
 In terms of programming techniques, the major novelty in Model 2 is the use of **runif** to generate a series of $N$ random numbers from 0 to 1 and compare these to a fixed probability (in our case, $\mu$ or $\mu_b$) to determine which agents should undergo whatever the fixed probability specifies (in our case, mutation). This could be done with a loop, but vectorising code in the way we did here is much faster in R than loops.
+
+***
+
+# Exercises
+
+1. Try different values of $p_0$ in **UnbiasedMutation** to confirm that any starting value converges on approximately $p=0.5$.
+
+2. Try different values of $p_0$ in **BiasedMutation** to confirm that any starting value converges on $p=1$.
+
+3. Try different values of $N$ and $\mu_b$ in **BiasedMutation** to confirm that $\mu_b$ does, and $N$ does not, affect the speed with which $p$ reaches fixation.
+    
+4. Create an alternative **UnbiasedMutation** function which uses a for-loop to cycle through each agent and, for each one, mutate its cultural trait with probability $\mu$. Use the function **Sys.time()** to compare the time that this looping function takes with the time the original vectorised **UnbiasedMutation** function takes, for the same parameter values. Is the vectorised version faster?
+
+5. Add a parameter $\mu_a$ to **BiasedMutation** which determines the probability that an agent with $A$ mutates to $B$. Run the simulation to show that the equilibrium value of $p$, and the speed at which this equilibrium is reached, depends on the difference between $mu_a$ and $mu_b$.
+
+6. Add a third trait, $C$, to the **UnbiasedMutation** function. The first generation should have traits set using **sample** with c("A", "B", "C") rather than c("A", "B"). You will need to define a new parameter, $q_0$, which gives the probability of drawing a $B$, equivalent to how $p_0$ gives the probability of drawing an $A$. The probability of drawing a $C$ is then $1 - p_0 - q_0$, given that all the probabilities have to add up to one. These probabilities can be entered into the *prob* argument of **sample**. Then modify the unbiased mutation lines such that, if an agent has trait $A$, with probability $\mu$ they have an equal chance of mutating into either $B$ or $C$; agents with trait $B$ similarly have a probability $\mu$ of mutating into either $A$ or $C$; and agents with $C$ mutate with probability $\mu$ into either $A$ or $B$. Record and plot $p$, the frequency of $A$, as before. Does $p$ still converge on 0.5, as it does with only two traits?
 
 ***
 
@@ -301,3 +320,14 @@ Seeing this helps explain two things. First, the $1 - p$ part explains the r-sha
 
 Second, it says that the rate of increase is proportional to $\mu_b$. This explains our observation in the simulations that larger values of $\mu_b$ cause $p$ to reach its maximum value faster.
 
+***
+
+# References
+
+Eerkens, J. W., & Lipo, C. P. (2005). Cultural transmission, copying errors, and the generation of variation in material culture and the archaeological record. Journal of Anthropological Archaeology, 24(4), 316-334.
+
+Kempe, M., Lycett, S., & Mesoudi, A. (2012). An experimental test of the accumulated copying error model of cultural mutation for Acheulean handaxe size. PLoS One, 7(11), e48333.
+
+Miton, H., Claidière, N., & Mercier, H. (2015). Universal cognitive mechanisms explain the cultural success of bloodletting. Evolution and Human Behavior, 36(4), 303-312.
+
+Morin, O. (2013). How portraits turned their eyes upon us: visual preferences and demographic change in cultural evolution. Evolution and Human Behavior, 34(3), 222-229.
