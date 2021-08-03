@@ -6,15 +6,18 @@ output: pdf_document
 
 # Introduction
 
-This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R (R Core Team 2018). It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
+This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R (R Core Team 2021). It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
 
 * Model 1: Unbiased transmission
 * Model 2: Unbiased and biased mutation
 * Model 3: Biased transmission (direct/content bias)
-* Model 4: Biased transmission (conformist bias)
-* Model 5: Migration
-* Model 6: Blending inheritance
-* Model 7: Demography and cultural gain/loss
+* Model 4: Biased transmission (indirect bias)
+* Model 5: Biased transmission (conformist bias)
+* Model 6: Vertical and horizontal transmission
+* Model 7: Migration
+* Model 8: Blending inheritance
+* Model 9: Demography and cultural gain/loss
+* Model 10: Polarization
 
 I assume you have basic knowledge of R as a programming language, e.g. the use of variables, dataframes, functions, subsetting and loops. If not, *Hands On Programming With R* by Garrett Grolemund is a good introduction.
 
@@ -60,6 +63,6 @@ Mesoudi, A. (2011). Cultural evolution: How Darwinian theory can explain human c
 
 Mesoudi, A. (2017). Pursuing Darwin’s curious parallel: Prospects for a science of cultural evolution. Proceedings of the National Academy of Sciences, 114(30), 7853-7860.
 
-R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
   
 Smaldino, P. E. (2017). Models are stupid, and we need more of them. Computational Social Psychology, 311-331.

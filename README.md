@@ -1,4 +1,4 @@
-# Simulation models of cultural evolution in R
+# Simulation models of cultural evolution in R (version 0.5)
 
 This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R. It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
 
@@ -18,7 +18,7 @@ There are also pdf versions in the *pdfs* folder, which contain the compiled mod
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
+* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R (version 1.0.0)*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
 
 or use the **Cite this repository** button on github.
 

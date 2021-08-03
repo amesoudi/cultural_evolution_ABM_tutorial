@@ -34,8 +34,7 @@ UnbiasedMutation <- function (N, mu, p_0, t_max, r_max) {
     
     # create first generation
     agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
-                        prob = c(p_0,1-p_0)), 
-                        stringsAsFactors = FALSE)  
+                        prob = c(p_0,1-p_0)))  
     
     # add first generation's p to first row of column r
     output[1,r] <- sum(agent$trait == "A") / N  
@@ -102,7 +101,7 @@ As one might expect, unbiased mutation produces random fluctuations over time, a
 
 But what if we were to start at different initial frequencies of $A$ and $B$? Say, $p=0.2$ or $p=0.9$? Would unbiased mutation keep $p$ at these initial values, like we saw unbiased transmission does in Model 1?
 
-To find out, let's change $p_0$, which, as you may recall, specifies the initial probability of drawing an $A$ rather than a $B$ in the first generation.
+To find out, let's change $p_0$, which, as you may recall from Model 1, specifies the initial probability of drawing an $A$ rather than a $B$ in the first generation.
 
 ```{r}
 
@@ -133,8 +132,7 @@ BiasedMutation <- function (N, mu_b, p_0, t_max, r_max) {
     
     # create first generation
     agent <- data.frame(trait = sample(c("A","B"), N, replace = TRUE, 
-                        prob = c(p_0,1-p_0)), 
-                        stringsAsFactors = FALSE)  
+                        prob = c(p_0,1-p_0)))  
     
     # add first generation's p to first row of column r
     output[1,r] <- sum(agent$trait == "A") / N  
@@ -214,7 +212,7 @@ With this simple model we can draw the following insights. Unbiased mutation, wh
 
 Biased mutation, which is far more common - perhaps even typical - in cultural evolution, shows different dynamics. Novel traits favoured by biased mutation spread in a characteristic fashion - an r-shaped diffusion curve - with a speed characterised by the mutation rate $\mu_b$. Population size has little effect, whether $N = 100$ or $N = 10000$. This is because mutation is an individual-level process, and does not depend on the traits of any other agent(s) in the population. Whenever biased mutation is present ($\mu_b > 0$), the favoured trait goes to fixation, even if it is not initially present. 
 
-A form of unbiased cultural mutation can be observed when people try to copy artifact sizes or shapes, and the limits of our perceptual systems introduces random noise into the copied form. This has been studied in the context of the transmission of archaeological artifacts such as handaxes and arrowheads (Eerkens & Lipo 2005) and confirmed experimentally (Kempe et al. 2012). A form of biased cultural mutation has been argued to result from universal features of human cognition, as different people or groups independently transform cultural traits towards certain 'attractive' forms. For example, studies have shown how portraits of subjects averting their gaze systematically mutated into portraits of subjects with direct eye gaze (Morin 2013), and how blood-letting as a medical practice independently emerged in different societies around the world (Miton et al. 2015).
+A form of unbiased cultural mutation can be observed when people try to copy artifact sizes or shapes, and the limits of our perceptual systems introduces random noise into the copied form. This has been studied in the context of the transmission of archaeological artifacts such as handaxes and arrowheads (Eerkens & Lipo 2005) and confirmed experimentally (Kempe et al. 2012). Another form of biased cultural mutation has been argued to result from universal features of human cognition, as different people or groups independently transform cultural traits towards certain 'attractive' forms. For example, studies have shown how portraits of subjects averting their gaze systematically mutated into portraits of subjects with direct eye gaze (Morin 2013), and how blood-letting as a medical practice independently emerged in different societies around the world (Miton et al. 2015).
 
 In terms of programming techniques, the major novelty in Model 2 is the use of **runif** to generate a series of $N$ random numbers from 0 to 1 and compare these to a fixed probability (in our case, $\mu$ or $\mu_b$) to determine which agents should undergo whatever the fixed probability specifies (in our case, mutation). This could be done with a loop, but vectorising code in the way we did here is much faster in R than loops.
 
@@ -240,7 +238,7 @@ In terms of programming techniques, the major novelty in Model 2 is the use of *
 
 If $p$ is the frequency of $A$ in one generation, we are interested in calculating $p'$, the frequency of $A$ in the next generation under the assumption of unbiased mutation. The next generation retains the cultural traits of the previous generation, except that $\mu$ of them switch to the other trait. There are therefore two sources of $A$ in the next generation: members of the previous generation who had $A$ and didn't mutate, therefore staying $A$, and members of the previous generation who had $B$ and did mutate, therefore switching to $A$. The frequency of $A$ in the next generation is therefore:
 
-$$p' = p(1-\mu) + (1-p)\mu           \hspace{30 mm}(2.1)$$
+$$p' = p(1 - \mu) + (1 - p) \mu           \hspace{30 mm}(2.1)$$
 
 The first term on the right-hand side of Equation 2.1 represents the first group, the $(1 - \mu)$ proportion of the $p$ $A$-carriers who didn't mutate. The second term represents the second group, the $\mu$ proportion of the $1 - p$ $B$-carriers who did mutate.
 
@@ -282,7 +280,7 @@ Again, this should resemble the figure generated by the simulations above, and c
 
 For biased mutation, assume that only $B$s are switching to $A$, and with probability $\mu_b$ instead of $\mu$. The first term on the right hand side becomes simply $p$, because $A$s do not switch. The second term remains the same, but with $\mu_b$. Thus,
 
-$$p' = p + (1-p)\mu_b \hspace{30 mm}(2.4)$$
+$$p' = p + (1 - p) \mu_b   \hspace{30 mm}(2.4)$$
 
 The equilibrium value $p^*$ can be found by again setting $p' = p$ and solving for $p$. Assuming $\mu_b > 0$, this gives the single equilibrium $p^* = 1$, which again matches the simulation results. 
 
@@ -314,7 +312,7 @@ Hopefully, this looks identical to the final simulation plot with the same value
 
 Furthermore, we can specify an equation for the change in $p$ from one generation to the next, or $\Delta p$. We do this by subtracting $p$ from both sides of Equation 2.4, giving:
 
-$$\Delta p = p' - p = (1-p)\mu_b            \hspace{30 mm}(2.5)$$
+$$\Delta p = p' - p = (1 - p) \mu_b            \hspace{30 mm}(2.5)$$
 
 Seeing this helps explain two things. First, the $1 - p$ part explains the r-shape of the curve. It says that the smaller is $p$, the larger $\Delta p$ will be. This explains why $p$ increases in frequency very quickly at first, when $p$ is near zero, and the increase slows when $p$ gets larger. We have already determined that the increase stops altogether (i.e. $\Delta p$ = 0) when $p = p^* = 1$. 
 

@@ -4,21 +4,21 @@ author: "Alex Mesoudi"
 output: pdf_document
 ---
 
-# Model 7: Demography and cultural gain/loss
+# Model 9: Demography and cultural gain/loss
 
-Demography refers to the study of populations: their size, structure, and movements in and out. We have already examined demography in previous models. This was most explicit in Model 5 where we looked at migration between two separate sub-populations. However, in all of the models so far, we have seen how small populations are more likely to lose traits purely by chance, while large populations have more stable dynamics that more closely match analytical models with infinite population sizes.
+Demography refers to the study of populations: their size, structure, and movements in and out. We have already examined demography in previous models. This was most explicit in Model 7 where we looked at migration between two separate sub-populations. However, in all of the models so far, we have seen how small populations are more likely to lose traits purely by chance, while large populations have more stable dynamics that more closely match analytical models with infinite population sizes.
 
 Here we will pursue this further by examining an influential model created by Henrich (2004) that links demography - specifically, population size, $N$ - to cultural losses and cultural gains. Henrich (2004) did this in the context of an archaeological example. Around 12,000 years ago, Tasmania became cut off from the mainland of Australia due to rising sea levels. Upon first contact with European explorers, the Aboriginal Tasmanians had strikingly simple technology compared to the Aborigines of the mainland: they lacked bone tools, fishhooks, traps and nets, spearthrowers and boomerangs, all of which were used on the mainland. Henrich argued that this technological loss or stagnation was not because the Tasmanians were less smart or skilful than their mainland counterparts. Rather, it was because when they were cut off from the mainland their population size dropped dramatically. Tools such as fishhooks are hard to make, and subject to error. When there are few skilled fishhook-makers, fishhook technology is easily lost and unlikely to be reinvented. In large populations, however, there will be lots of skilled fishhook makers. Even if some forget or fail to pass on their fishhook-making skill, there will be others to carry on the tradition. This is an example of cumulative cultural evolution, where individuals acquire skills and knowledge from others that they could not invent on their own. While Henrich framed his model in the context of prehistoric Tasmania, we can generalise this principle to any case where hard-to-learn traits are dependent on population size.
 
 Henrich (2004) used a simple model to explore this scenario of cultural loss due to small population size. We assume $N$ individuals who each possess a value of a continuously varying, culturally transmitted skill (e.g. fishhook making). This skill is denoted $z_i$ for individual $i$, where $i$ ranges from 1 to $N$. Note that, technically, $N$ is the 'effective' population size. This is the number of individuals who would be able to possess the trait in question. It may be less than the actual ('census') population size if, for example, infants or some other class of individual do not or cannot make fishhooks.
 
-In each new generation, every individual copies the $z$ value of the most highly skilled individual from the previous generation, denoted $z_h$. This is a form of biased transmission or cultural selection, similar to the directly-biased transmission explored in Chapter 3. It is often called success-biased social learning / cultural transmission, because demonstrators are preferentially selected based on their high skill or knowledge.
+In each new generation, every individual copies the $z$ value of the most highly skilled individual from the previous generation, denoted $z_h$. This is a form of biased transmission or cultural selection, similar to the payoff-based indirectly-biased transmission explored in Model 4. Here, demonstrators are preferentially selected based on their superior culturally-transmitted skill or knowledge.
 
-If individuals perfectly copied the highest trait value from the previous generation, then the model would not be very interesting. It would also not be very realistic. Instead, we assume that this success-biased transmission is imperfect. It is imperfect in two ways. First, there is skill loss due to mistakes in the copying process. This always reduces the copier's $z$ value relative to the target $z_h$. Second, there are experiments, guesses and inferences. These sometimes result in worse skill, but sometimes better skill than the target $z_h$.
+If individuals perfectly copied the highest trait value from the previous generation, then the model would not be very interesting. It would also not be very realistic. Instead, we assume that this indirectly biased transmission is imperfect. It is imperfect in two ways. First, there is skill loss due to mistakes in the copying process. This always reduces the copier's $z$ value relative to the target $z_h$. Second, there are experiments, guesses and inferences. These sometimes result in worse skill, but sometimes better skill than the target $z_h$.
 
-To formalise these two kinds of variation, Henrich (2004) assumed that naive learners' skill $z_i$ is drawn from a gumbel distribution. This is similar to Model 6 where we drew copied values from a normal distribution. A gumbel distribution is generated when extreme values are repeatedly picked. This is what we are doing when we pick the highest-skilled demonstrator to learn from in each generation, so it is more appropriate than a normal distribution.
+To formalise these two kinds of variation, Henrich (2004) assumed that naive learners' skill $z_i$ is drawn from a gumbel distribution. This is similar to the blending inheritance of Model 8 where we drew copied values from a normal distribution. A gumbel distribution is generated when extreme values are repeatedly picked. This is what we are doing when we pick the highest-skilled demonstrator to learn from in each generation, so it is more appropriate than a normal distribution.
 
-Unfortunately R does not provide built-in functions to work with gumbel distributions. However, we can write our own, using the formulae for the probability density of the distribution. The following functions, **dgumbel** and **rgumbel**, generate the probability density and random draws for a gumbel distribution. I won't go into details on the formulae, but you can look them up if you want.
+Unfortunately R does not provide built-in functions to work with gumbel distributions. However, we can write our own, using the formula for the probability density of the distribution. The following functions, **dgumbel** and **rgumbel**, generate the probability density and random draws for a gumbel distribution. I won't go into details on the formulae, but you can look them up if you want.
 
 ```{r}
 
@@ -128,17 +128,23 @@ Let's run the demography model with the values of $\alpha$ and $\beta$ used in t
 
 ```{r}
 
-data_model7 <- DemographyModel(N = 100, alpha = 30, beta = 15, t_max = 100)
+data_model9 <- DemographyModel(N = 100, 
+                               alpha = 30, 
+                               beta = 15, 
+                               t_max = 100)
 
 ```
 
 Here we can see that, for these parameter values, there is cultural gain: the mean trait value $\bar z$ increases linearly over time.
 
-Now let's try the smallest population size possible, $N=1$:
+Now let's try the smallest population size possible, $N = 1$:
 
 ```{r}
 
-data_model7 <- DemographyModel(N = 1, alpha = 30, beta = 15, t_max = 100)
+data_model9 <- DemographyModel(N = 1, 
+                               alpha = 30, 
+                               beta = 15, 
+                               t_max = 100)
 
 ```
 
@@ -146,9 +152,9 @@ Now there is cultural loss: the mean trait value $\bar z$ decreases linearly ove
 
 Note that in both of these cases, trait values either increase indefinitely, or decrease indefinitely. Obviously this is unrealistic: at the least, there will be a minimum value ('zero skill') below which skills cannot fall. These upper and lower bounds are outside the scope of this model (although see Mesoudi 2011 for how to implement an upper bound, derived from the increasing costs of acquiring increasingly-complex traits). But the key aim of this model is not to realistically simulate actual cumulative cultural change, it is to identify qualitatively the parameter values - particularly population size - which lead to cultural gains and cultural losses.
 
-Now that we know that there are usually only two outcomes of the model, linear cultural gain and linear cultural loss, we can switch our focus to a different outcome measure, $\Delta \bar z$. This is the change in mean trait value from one generation to the next. Because the change in $\bar z$ is linear, $\Delta \bar z$ should be the same for all generations.
+Now that we know that there are usually only two outcomes of the model, linear cultural gain and linear cultural loss, we can switch our focus to a different outcome measure, $\Delta \bar z$. This is the change in mean trait value from one generation to the next. Because the change in $\bar z$ is linear, $\Delta \bar z$ should be the same on average for all generations.
 
-The following function runs the basic demography model for $t_{max}$ generations across a range of values of $N$, from 1 to $N_{max}$. For each $N$, we record $\Delta \bar z$ in the output dataframe. This will allow us to explore what values of $N$ lead to cultural gain, i.e. $\Delta \bar z > 0$ and what values lead to cultural loss, i.e. $\Delta \bar z < 0$. Note that this function can take a long time to run when $N_{max}$ is large. Consequently, there are a few tweaks to make it run as fast as possible. First, we ditch the dataframes and use simple vectors instead, for both *output* and *agent*. Vectors are faster than dataframes, and the latter are really not necessary with only a single measure and trait respectively. Second, rather than storing each $\Delta \bar z$ for each generation, we keep a running total and divide by $t_{max}$ at the end of the loop. Finally, we remove the plot for now, and instead create plots from the output later on.
+The following function runs the basic demography model for $t_{max}$ generations across a range of values of $N$, from 1 to $N_{max}$. For each $N$, we record $\Delta \bar z$ in the output dataframe. This allows us to explore what values of $N$ lead to cultural gain, i.e. $\Delta \bar z > 0$ and what values lead to cultural loss, i.e. $\Delta \bar z < 0$. Note that this function can take a long time to run when $N_{max}$ is large. Consequently, there are a few tweaks to make it run as fast as possible. First, we ditch the dataframes and use simple vectors instead, for both *output* and *agent*. Vectors are faster than dataframes, and the latter are really not necessary with only a single measure and trait respectively. Second, rather than storing each $\Delta \bar z$ for each generation, we keep a running total and divide by $t_{max}$ at the end of the loop. Finally, we remove the plot for now, and instead create plots from the output later on.
 
 ```{r}
 
@@ -197,7 +203,10 @@ Let's run this for $t_{max} = 50$ and $N_{max} = 5000$, and $\alpha = 7$ and $\b
 
 ```{r}
 
-data_model7_1 <- DemographyModel2(N_max = 5000, alpha = 7, beta = 1, t_max = 100)
+data_model9_1 <- DemographyModel2(N_max = 5000, 
+                                  alpha = 7, 
+                                  beta = 1, 
+                                  t_max = 100)
 
 ```
 
@@ -205,7 +214,7 @@ Now we can plot the results:
 
 ```{r}
 
-plot(1:length(data_model7_1), data_model7_1, 
+plot(1:length(data_model9_1), data_model9_1, 
      type = 'l', 
      ylab = expression("change in "*italic(bar("z"))), 
      xlab = "N")
@@ -220,15 +229,18 @@ We can also run another pair of $\alpha$ and $\beta$ and compare the two lines o
 
 ```{r}
 
-data_model7_2 <- DemographyModel2(N_max = 5000, alpha = 9, beta = 1, t_max = 100)
+data_model9_2 <- DemographyModel2(N_max = 5000, 
+                                  alpha = 9, 
+                                  beta = 1, 
+                                  t_max = 100)
 
-plot(1:length(data_model7_1), data_model7_1, 
+plot(1:length(data_model9_1), data_model9_1, 
      type = 'l', 
      ylab = expression("change in "*italic(bar("z"))), 
      xlab = "N", 
      col = "orange")
 
-lines(data_model7_2, col = "blue")
+lines(data_model9_2, col = "royalblue")
 
 abline(h = 0, lty = 2)
 
@@ -237,21 +249,21 @@ text(1300, 2,
      col = "orange")
 text(3000, -1.7, 
      labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), 
-     col = "blue")
+     col = "royalblue")
 
 ```
 
-Here we have recreated Henrich's (2004) Figure 3, comparing a 'simple' skill and a 'complex' skill. A simple skill is easier to learn than a complex skill, such that it has a smaller $\alpha$ relative to $\beta$ (remember, $\alpha$ is copying error that always reduces skill, while $\beta$ is inferences and guesses that sometimes leads to higher skill). The plot above shows that simpler skills require a smaller population size to be maintained ($\Delta \bar z = 0$) or improve ($\Delta \bar z > 0$) than more complex skills. This reflects the postulated Tasmanian case that we started with: when population sizes dropped when Tasmania became cut off from the mainland, complex skills like fishhooks were lost and never reinvented, while simpler skills remained. In the figure above, this would be like going from $N=5000$ to $N=1000$.
+Here we have recreated Henrich's (2004) Figure 3, comparing a 'simple' skill and a 'complex' skill. A simple skill is easier to learn than a complex skill, such that it has a smaller $\alpha$ relative to $\beta$ (remember, $\alpha$ is copying error that always reduces skill, while $\beta$ is inferences and guesses that sometimes leads to higher skill). The plot above shows that simpler skills require a smaller population size to be maintained ($\Delta \bar z = 0$) or improve ($\Delta \bar z > 0$) than more complex skills. This reflects the postulated Tasmanian case that we started with: when population sizes dropped when Tasmania became cut off from the mainland, complex skills like fishhooks were lost and never reinvented, while simpler skills remained. In the figure above, this would be like going from $N = 5000$ to $N = 1000$.
 
 ***
 
-# Summary of Model 7
+# Summary of Model 9
 
-Cultural evolution occurs within populations of certain sizes and structures, and this population size and structure affects evolutionary dynamics. In previous models we have seen how population size can lead to the accidental loss of traits, which is a basic principle of genetic and cultural drift. Model 7 extended this basic finding to show how population size can determine whether there is cultural gain or cultural loss of a continuous cultural trait such as the skill required to make a hard-to-learn tool. Assuming that copying is imperfect, small populations are less able to maintain and accumulate cultural skill than large populations, even when every learner can identify and is attempting to learn from the highest skilled individual from the previous generation. Fewer learners means less chance that one of those learners will match or exceed that highest skilled individual from the previous generation. This effect of population size interacts with the 'learnability' and 'improvability' of the trait: more easily learned (lower $\alpha$) and more easily improved (higher $\beta$) traits require smaller populations to maintain and improve.
+Cultural evolution occurs within populations of certain sizes and structures, and this population size and structure affects evolutionary dynamics. In previous models we have seen how population size can lead to the accidental loss of traits, which is a basic principle of genetic and cultural drift. Model 9 extended this basic finding to show how population size can determine whether there is cultural gain or cultural loss of a continuous cultural trait such as the skill required to make a hard-to-learn tool. Assuming that copying is imperfect, small populations are less able to maintain and accumulate cultural skill than large populations, even when every learner can identify and is attempting to learn from the highest skilled individual from the previous generation. Fewer learners means less chance that one of those learners will match or exceed that highest skilled individual from the previous generation. This effect of population size interacts with the 'learnability' and 'improvability' of the trait: more easily learned (lower $\alpha$) and more easily improved (higher $\beta$) traits require smaller populations to maintain and improve.
 
 This model by Henrich (2004) has inspired a large body of subsequent models (e.g. Powell, Shennan & Thomas, 2009; Mesoudi 2011) and empirical research (e.g. Derex et al. 2013; Kline & Boyd 2010). These have extended the predictions of the model, and tested those predictions both in the laboratory and in real world datasets (see Derex & Mesoudi 2020). To be sure, population size is not the only determinant of cultural gains and losses. Even Henrich's original model demonstrates this, given that learnability and improvability are also crucial. And more recent work has focused on population structure (e.g. social networks) rather than simply the number of individuals that are present. But there is no doubt that demography cannot be ignored when studying cultural evolution. Simulation models are often useful for studying demography, as complex population structures are difficult to implement in analytical models.
 
-A few new programming techniques were used in Model 7. First, we introduced another continuous distribution, the gumbel distribution. Unlike the normal distribution we used in Model 6, there are no built-in R functions for using the gumbel. We therefore had to write our own, and incorporate the **rgumbel** function into the simulation function. It is common practice to write user-defined functions for small routines and then call them within other functions. Indeed, it is often good practice, especially when the same set of lines of code are repeated in multiple places. Second, we used commands like **expression**, **text** and **arrows** to annotate plots. It is preferable to create plots entirely in R and then export the finished version, rather than export basic plots and annotate them in separate visual editing software or Powerpoint. Creating plots entirely in R is more reproducible because others can re-run your code and re-create your figures exactly. It also avoids loss of image resolution. Finally, we saw a few tricks to speed up code that takes a long time to run. Dataframes can be replaced with one-dimensional vectors when they are made up of just one variable. Means can be calculated by keeping a running total within a loop then dividing by the total number of data points once the loop has finished. Simplifying code as much as possible can often lead to significantly faster simulation runs, although try not to sacrifice code understandability in doing so.
+A few new programming techniques were used in Model 9. First, we introduced another continuous distribution, the gumbel distribution. Unlike the normal distribution used in Model 8, there are no built-in R functions for using the gumbel. We therefore had to write our own, and incorporate the **rgumbel** function into the simulation function. It is common practice to write user-defined functions for small routines and then call them within other functions. Indeed, it is often good practice, especially when the same set of lines of code are repeated in multiple places. Second, we used commands like **expression**, **text** and **arrows** to annotate plots. It is preferable to create plots entirely in R and then export the finished version (see Model 1 for how to do this), rather than export basic plots and annotate them in separate visual editing software or Powerpoint. Creating plots entirely in R is more reproducible because others can re-run your code and re-create your figures exactly. It also avoids loss of image resolution. Finally, we saw a few tricks to speed up code that takes a long time to run. Dataframes can be replaced with one-dimensional vectors when they are made up of just one variable. Means can be calculated by keeping a running total within a loop then dividing by the total number of data points once the loop has finished. Simplifying code as much as possible can often lead to significantly faster simulation runs, although try not to sacrifice code understandability in doing so.
 
 ***
 
@@ -273,19 +285,19 @@ As in the model above, we assume $N$ individuals indexed by $i$, with the $i$th 
 
 The next generation mean trait value, $\bar z'$, is given by:
 
-$$ \bar z' = z_h + \Delta z_h                       \hspace{30 mm}(7.1)$$
+$$ \bar z' = z_h + \Delta z_h                       \hspace{30 mm}(9.1)$$
 
-Equation 7.1 says that the new mean trait value is the highest trait value in the previous generation, $z_h$, plus any change in $z_h$ as a result of imperfect copying. Henrich shows that the former can be approximated by:
+Equation 9.1 says that the new mean trait value is the highest trait value in the previous generation, $z_h$, plus any change in $z_h$ as a result of imperfect copying. Henrich shows that the former can be approximated by:
 
-$$ z_h = a + \beta (\epsilon + \ln(N))                       \hspace{30 mm}(7.2)$$
+$$ z_h = a + \beta (\epsilon + \ln(N))                       \hspace{30 mm}(9.2)$$
 
 where $\epsilon$ is Euler's constant, which is approximately 0.577.
 
 The other term $\Delta z_h$ is given by $z_h' - z_h$. The new maximum value, $z_h'$, is given by the mean of the gumbel distribution, $a + \beta\epsilon$. The old maximum, $z_h$, is given by $a + \alpha$, as per the gumbel distribution figure above. Consequently:
 
-$$ \Delta z_h = a + \beta\epsilon - a - \alpha = -\alpha + \beta\epsilon   \hspace{30 mm}(7.3) $$
+$$ \Delta z_h = a + \beta\epsilon - a - \alpha = -\alpha + \beta\epsilon   \hspace{30 mm}(9.3) $$
 
-Substituting Equation 7.2 and 7.3 into Equation 7.1 gives:
+Substituting Equation 9.2 and 9.3 into Equation 9.1 gives:
 
 $$ \bar z' = a + \beta (\epsilon + \ln(N)) -\alpha + \beta\epsilon $$
 
@@ -295,17 +307,17 @@ $$ \Delta \bar z = \bar z - \beta \epsilon + \beta (\epsilon + \ln(N)) -\alpha +
 
 Simplifying, this gives:
 
-$$ \Delta \bar z = -\alpha + \beta (\epsilon + \ln(N))   \hspace{30 mm}(7.4) $$
+$$ \Delta \bar z = -\alpha + \beta (\epsilon + \ln(N))   \hspace{30 mm}(9.4) $$
 
 which is Henrich's Equation 2. This says that, as we found in the simulation model, whether we see cultural gain or cultural loss depends on $\alpha$, $\beta$ and $N$, but it also provides an exact relation between them.
 
 By setting $\Delta \bar z = 0$ and rearranging, we find that the equilibrium value of $N$ at which there is neither gain nor loss, $N^*$, is:
 
-$$ N^* = e^{(\frac{\alpha}{\beta} - \epsilon)}   \hspace{30 mm}(7.5)$$
+$$ N^* = e^{(\frac{\alpha}{\beta} - \epsilon)}   \hspace{30 mm}(9.5)$$
 
-and this is Henrich's Equation 3. For the values $\alpha = 30$ and $\beta = 15$ used in the simulation model above, equation 7.5 gives $N^* = 4.15$. When $N$ is 4 or less we would expect cultural loss, and when $N$ is 5 or more we would expect cultural gain. Try using the simulation model to confirm this.
+and this is Henrich's Equation 3. For the values $\alpha = 30$ and $\beta = 15$ used in the simulation model above, equation 9.5 gives $N^* = 4.15$. When $N$ is 4 or less we would expect cultural loss, and when $N$ is 5 or more we would expect cultural gain. Try using the simulation model to confirm this.
 
-Finally, we can use Equation 7.4 to recreate the figure above with the 'simpler' and 'complex' skills:
+Finally, we can use Equation 9.4 to recreate the figure above with the 'simpler' and 'complex' skills:
 
 ```{r}
 
@@ -338,14 +350,14 @@ for (N in 1:N_max) {
   
 }
 
-lines(delta_z, col = "blue")
+lines(delta_z, col = "royalblue")
 
 text(1300, 1.7, 
      labels = expression("Simpler skill, "*alpha*"/"*beta*"=7"), 
      col = "orange")
 text(3000, -1.5, 
      labels = expression("Complex skill, "*alpha*"/"*beta*"=9"), 
-     col = "blue")
+     col = "royalblue")
 
 ```
 
