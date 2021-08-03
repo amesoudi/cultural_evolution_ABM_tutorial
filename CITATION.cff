@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this tutorial, please cite it as below."
+authors:
+- family-names: "Mesoudi"
+  given-names: "Alex"
+  orcid: "https://orcid.org/0000-0002-7740-1625"
+title: "Simulation models of cultural evolution in R"
+version: 0.5
+date-released: 2021-08-03
+url: "https://github.com/amesoudi/cultural_evolution_ABM_tutorial"
