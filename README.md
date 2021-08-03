@@ -20,6 +20,8 @@ You can cite the tutorial as:
 
 * Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
 
+or use the **Cite this repository** button on github.
+
 
 A longer and more detailed book-length resource, which builds on some of these models, can be found here:
 
