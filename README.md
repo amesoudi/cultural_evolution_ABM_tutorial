@@ -15,6 +15,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 9: Demography and cultural gain/loss
 * Model 10: Polarization
 * Model 11: Cultural group selection
+* Model 12: Historical dynamics
 
 There are also pdf versions in the *pdfs* folder, which contain the compiled models with outputs.
 
