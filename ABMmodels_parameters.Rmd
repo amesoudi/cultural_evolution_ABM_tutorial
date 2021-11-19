@@ -4,7 +4,7 @@ author: "Alex Mesoudi"
 output: pdf_document
 ---
 
-# Table of parameters
+# Table of parameters for Models 1-10
 
 +------------+-----------------------------------------------------------------------------+------------------------+
 | Parameter  | Definition                                                                  | Model first introduced |

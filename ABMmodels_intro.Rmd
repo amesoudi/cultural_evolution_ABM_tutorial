@@ -19,6 +19,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 9: Demography and cultural gain/loss
 * Model 10: Polarization
 * Model 11: Cultural group selection
+* Model 12: Historical dynamics
 
 I assume you have basic knowledge of R as a programming language, e.g. the use of variables, dataframes, functions, subsetting and loops. If not, *Hands On Programming With R* by Garrett Grolemund is a good introduction.
 
