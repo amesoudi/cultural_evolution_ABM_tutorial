@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/144488138.svg)](https://zenodo.org/badge/latestdoi/144488138)
 
-This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R. It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
+This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R. Currently these are:
 
 * Model 1: Unbiased transmission
 * Model 2: Unbiased and biased mutation
@@ -17,12 +17,12 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 11: Cultural group selection
 * Model 12: Historical dynamics
 
-There are also pdf versions in the *pdfs* folder, which contain the compiled models with outputs.
+Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) download each of these Rmd files from https://github.com/amesoudi/cultural_evolution_ABM_tutorial then open them in RStudio or another IDE, executing the code as you read the text, or (ii) read the online version of the tutorial at https://bookdown.org/amesoudi/ABMtutorial_bookdown/ which contains the compiled models with outputs.
 
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
+* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
 
 or use the **Cite this repository** button on github.
 
