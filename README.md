@@ -22,7 +22,7 @@ There are also pdf versions in the *pdfs* folder, which contain the compiled mod
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R (version 1.0.0)*. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
+* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial
 
 or use the **Cite this repository** button on github.
 
