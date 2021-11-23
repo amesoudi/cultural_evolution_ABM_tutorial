@@ -4,8 +4,9 @@ author: "Alex Mesoudi"
 output: pdf_document
 ---
 
-
 # Model 2: Unbiased and biased mutation
+
+## Introduction
 
 Evolution doesn't work without a source of variation that introduces new variation upon which selection, drift and other processes can act. In genetic evolution, mutation is almost always blind with respect to function. Beneficial genetic mutations are no more likely to arise when they are needed than when they are not needed - in fact most genetic mutations are neutral or detrimental to an organism. Cultural evolution is more interesting, in that novel variation may sometimes be directed to solve specific problems, or systematically biased due to features of our cognition. In the models below we'll simulate both unbiased and biased mutation.
 
@@ -252,7 +253,7 @@ Now trait $A$ reaches fixation around generation $t = 50$. Play around with $N$ 
 
 ***
 
-# Summary of Model 2
+## Summary
 
 With this simple model we can draw the following insights. Unbiased mutation, which resembles genetic mutation in being non-directional, always leads to an equal mix of the two traits. It introduces and maintains cultural variation in the population. It is interesting to compare unbiased mutation to unbiased transmission from Model 1. While unbiased transmission did not change $p$ over time, unbiased mutation always converges on $p^* = 0.5$, irrespective of the starting frequency. (NB $p^* = 0.5$ assuming there are two traits; more generally, $p^* = 1/v$, where $v$ is the number of traits.)
 
@@ -264,7 +265,7 @@ In terms of programming techniques, the major novelty in Model 2 is the use of *
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $p_0$ in **UnbiasedMutation** to confirm that any starting value converges on approximately $p=0.5$.
 
@@ -280,7 +281,7 @@ In terms of programming techniques, the major novelty in Model 2 is the use of *
 
 ***
 
-# Analytical Appendix
+## Analytical Appendix
 
 If $p$ is the frequency of $A$ in one generation, we are interested in calculating $p'$, the frequency of $A$ in the next generation under the assumption of unbiased mutation. The next generation retains the cultural traits of the previous generation, except that $\mu$ of them switch to the other trait. There are therefore two sources of $A$ in the next generation: members of the previous generation who had $A$ and didn't mutate, therefore staying $A$, and members of the previous generation who had $B$ and did mutate, therefore switching to $A$. The frequency of $A$ in the next generation is therefore:
 
@@ -366,7 +367,7 @@ Second, it says that the rate of increase is proportional to $\mu_b$. This expla
 
 ***
 
-# References
+## References
 
 Eerkens, J. W., & Lipo, C. P. (2005). Cultural transmission, copying errors, and the generation of variation in material culture and the archaeological record. Journal of Anthropological Archaeology, 24(4), 316-334.
 

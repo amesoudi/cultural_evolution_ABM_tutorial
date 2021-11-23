@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 6: Vertical and horizontal cultural transmission
 
+## Introduction
+
 One obvious difference between cultural and genetic evolution is in their pathways of transmission. In genetic evolution - in humans at least - we get our genes exclusively from our two biological parents. In cultural evolution, we get cultural traits (ideas, attitudes, skills, languages etc.) from a wide array of sources, not just our biological parents but also other relatives, biologically unrelated teachers and peers, or complete strangers via books or the internet.
 
 All of the models we have made so far assume *oblique cultural transmission*, such that agents learn from one or more members of the previous generation. In Model 6 we will consider *vertical cultural transmission*, in which agents learn from two parents, and *horizontal cultural transmission*, where agents learn from members of the same generation.
@@ -563,7 +565,7 @@ As we might expect, vertical plus horizontal transmission is fastest, with both 
 
 ***
 
-# Summary of Model 6
+## Summary
 
 Our previous models all assumed oblique cultural transmission, where new agents learn from members of the previous generation. Here we modelled vertical cultural transmission, where agents learn from two parents (akin to genetic evolution), and horizontal cultural transmission, where agents learn from members of the same generation.
 
@@ -585,9 +587,9 @@ Note that there is a subtle difference between vertical and horizontal transmiss
 
 In terms of programming techniques, there is not much new here. We have recycled code from several previous models, especially the directly biased transmission from Model 3 and the 'mating table' approach of Model 5. Don't be afraid to re-use code, if it's been tried and tested elsewhere (with appropriate attribution, if it's not your own code). The one minor innovation was wrapping the plotting in a **for** statement and using a parameter *make_plot* to turn the automatic plotting on or off. This is useful if you want to combine plots from multiple runs, as we did in the final graph comparing the different pathways of inheritance.
 
-------------------------------------------------------------------------
+***
 
-# Exercises
+## Exercises
 
 1.  Try different values of $s_v$ in **VerticalTransmission** to confirm that increasing $s_v$ increases the speed with which $A$ goes to fixation, and confirm that these dynamics are identical to how $s$ acts in **BiasedTransmission** from Model 3.
 
@@ -603,9 +605,9 @@ In terms of programming techniques, there is not much new here. We have recycled
 
 7. Rewrite **VerticalHorizontal**, replacing the horizontal cultural transmission rule with conformity, using code from Model 5. Does this change the conclusions regarding the speed of vertical vs horizontal transmission?
 
-------------------------------------------------------------------------
+***
 
-# Analytic Appendix
+## Analytic Appendix
 
 Following Cavalli-Sforza & Feldman (1981, Table 2.2.1), we can write out the full mating table for two parents as follows. For simplicity, we assume that their $b_3 = 1$, $b_0 = 0$, and $b_1 = b_2 = 1/2 + s/2$. In other words, there is no mutation and so two parents with the same trait always give rise to children with that trait, and when parental traits conflict then $s_v$ represents the strength of selection for $A$ under vertical transmission, irrespective of which parent the trait comes from.
 

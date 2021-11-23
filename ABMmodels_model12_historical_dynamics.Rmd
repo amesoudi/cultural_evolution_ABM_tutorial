@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 12: Historical dynamics
 
+## Introduction
+
 As discussed in the context of Model 11 (Cultural Group Selection), cooperation is crucial to the functioning of large human societies. While Model 11 was all about how cooperation emerges within groups, in Model 12 we will zoom out to examine how cooperation, specifically the mechanism of cultural group selection, can determine broader historical dynamics at the level of the group and above.
 
 In particular, we are interested in how large multi-group societies, or *empires*, rise and fall throughout human history. The rise and fall of empires is a standard historical pattern. At any point in history many empires exist. These empires compete with one another, some growing and becoming dominant for a time (think the Roman Empire), and all eventually collapsing (again, like the Roman Empire). Unlike in our previous models, there are no stable equilibria in human history. The 'best' empire or empires (whatever 'best' might mean) do not reach a stable size and stay there. Rather, there are continual oscillations, with new empires constantly emerging and growing, and existing empires constantly declining and disappearing. These dynamics are also often described as *chaotic*, in that it is virtually impossible to predict at any one time point exactly which empires will subsequently grow or collapse. Nevertheless, the overall dynamics of multiple co-existing, competing states going through cycles of emergence, dominance and collapse are worthy of explanation.
@@ -17,6 +19,8 @@ One key element of Turchin's (2003) cultural evolutionary theory of historical d
 A second key element of Turchin's (2003) theory is the importance of frontier regions. These are regions where different empires or groups of different ethnicities meet. Turchin argues that asabiya is highest at these frontiers because of the presence and threat of competing groups. As modern day examples, religious beliefs tend to be stronger in regions like Northern Ireland or the Middle East where different competing religions exist in close proximity, compared to more religiously homogenous regions. 
 
 Turchin's theory works as follows. In frontier regions, small groups high in asabiya engage in frequent intergroup conflict. Eventually one of these groups expands and takes over rival groups, becoming a multi-group empire. As this empire expands, its internal non-frontier region gets larger, causing the empire's overall asabiya to drop. At the frontiers, new groups emerge that are high in asabiya. One of these grows big enough to invade the previous empire, which is weakened by its low asabiya. The new empire thus replaces the old empire. The new empire grows larger, its asabiya drops, and it in turn is invaded by a new empire that has emerged at its frontier. This cycle continues, generating the oscillatory dynamics characteristic of real human history.
+
+## Model 12
 
 Model 12 simulates this process. The agents in Model 12 are groups. Individuals within groups are not explicitly modelled. Each group exists in one fixed position within an $N_{side}$ x $N_{side}$ square grid, like in Model 10 (Polarisation). Groups can either be independent entities existing outside of any empire, or they can belong to an empire. Each empire is denoted by a number, e.g. Empire 1, Empire 2 and so on. We use a matrix called $E$ to store the empire id of each group: 0 indicates no empire, a positive integer indicates an empire. As in Model 10 (Polarisation), the columns and rows of the matrix give the x and y spatial coordinates of the group. For example, `E[3,6]` gives the group in the 3rd row down and 6th column across, while `E[3,7]` gives its neighbour to the east. We start with all non-empire agents, and $N_{side} = 10$:
 
@@ -782,7 +786,7 @@ Without intergroup conflict, Empire 1 stays at size 16 for the entire simulation
 
 ***
 
-# Summary of Model 12
+## Summary
 
 Model 12 simulated the rise and fall of empires throughout human history, recreating an agent-based model presented by Turchin (2003) which tests Turchin's cultural evolutionary theory of historical dynamics. This theory posits that empires emerge in frontier regions where different ethnic groups exist in close proximity. Such frontier regions are high in asabiya, a form of within-group cooperation. Asabiya provides an advantage in intergroup conflict. Empires emerge when frontier groups high in asabiya conquer neighbouring groups. As these multi-group empires grow larger, they gain power from their larger area and expand further. Large size, however, also reduces the empire's asabiya as the internal nonfrontier region grows larger. Large size also introduces distance penalties as frontier regions get more distant from the imperial centre of the empire. This weakens the empire, allowing new frontier groups high in asabiya to invade. These invaders become new empires, which expand, then weaken, and the cycle continues.
 
@@ -800,7 +804,7 @@ In terms of programming techniques, we drew here on the spatially-explicit metho
 
 ***
 
-# Exercises
+## Exercises
 
 1. Extend the number of timesteps to $t_{max} = 10000$, or some other large number. Do the same oscillatory dynamics persist or does the simulation ever reach equilibrium?
 
@@ -814,7 +818,7 @@ In terms of programming techniques, we drew here on the spatially-explicit metho
 
 ***
 
-# References
+## References
 
 Turchin, P. (2003). Historical dynamics. Princeton University Press.
 

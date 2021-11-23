@@ -6,9 +6,13 @@ output: pdf_document
 
 # Model 9: Demography and cultural gain/loss
 
+## Introduction
+
 Demography refers to the study of populations: their size, structure, and movements in and out. We have already examined demography in previous models. This was most explicit in Model 7 where we looked at migration between two separate sub-populations. However, in all of the models so far, we have seen how small populations are more likely to lose traits purely by chance, while large populations have more stable dynamics that more closely match analytical models with infinite population sizes.
 
 Here we will pursue this further by examining an influential model created by Henrich (2004) that links demography - specifically, population size, $N$ - to cultural losses and cultural gains. Henrich (2004) did this in the context of an archaeological example. Around 12,000 years ago, Tasmania became cut off from the mainland of Australia due to rising sea levels. Upon first contact with European explorers, the Aboriginal Tasmanians had strikingly simple technology compared to the Aborigines of the mainland: they lacked bone tools, fishhooks, traps and nets, spearthrowers and boomerangs, all of which were used on the mainland. Henrich argued that this technological loss or stagnation was not because the Tasmanians were less smart or skilful than their mainland counterparts. Rather, it was because when they were cut off from the mainland their population size dropped dramatically. Tools such as fishhooks are hard to make, and subject to error. When there are few skilled fishhook-makers, fishhook technology is easily lost and unlikely to be reinvented. In large populations, however, there will be lots of skilled fishhook makers. Even if some forget or fail to pass on their fishhook-making skill, there will be others to carry on the tradition. This is an example of cumulative cultural evolution, where individuals acquire skills and knowledge from others that they could not invent on their own. While Henrich framed his model in the context of prehistoric Tasmania, we can generalise this principle to any case where hard-to-learn traits are dependent on population size.
+
+## Model 9: Demography
 
 Henrich (2004) used a simple model to explore this scenario of cultural loss due to small population size. We assume $N$ individuals who each possess a value of a continuously varying, culturally transmitted skill (e.g. fishhook making). This skill is denoted $z_i$ for individual $i$, where $i$ ranges from 1 to $N$. Note that, technically, $N$ is the 'effective' population size. This is the number of individuals who would be able to possess the trait in question. It may be less than the actual ('census') population size if, for example, infants or some other class of individual do not or cannot make fishhooks.
 
@@ -257,7 +261,7 @@ Here we have recreated Henrich's (2004) Figure 3, comparing a 'simple' skill and
 
 ***
 
-# Summary of Model 9
+## Summary
 
 Cultural evolution occurs within populations of certain sizes and structures, and this population size and structure affects evolutionary dynamics. In previous models we have seen how population size can lead to the accidental loss of traits, which is a basic principle of genetic and cultural drift. Model 9 extended this basic finding to show how population size can determine whether there is cultural gain or cultural loss of a continuous cultural trait such as the skill required to make a hard-to-learn tool. Assuming that copying is imperfect, small populations are less able to maintain and accumulate cultural skill than large populations, even when every learner can identify and is attempting to learn from the highest skilled individual from the previous generation. Fewer learners means less chance that one of those learners will match or exceed that highest skilled individual from the previous generation. This effect of population size interacts with the 'learnability' and 'improvability' of the trait: more easily learned (lower $\alpha$) and more easily improved (higher $\beta$) traits require smaller populations to maintain and improve.
 
@@ -267,7 +271,7 @@ A few new programming techniques were used in Model 9. First, we introduced anot
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $\alpha$, $\beta$ and $N$ in **DemographyModel** to determine that, for given values of $\alpha$ and $\beta$, there is a threshold value of $N$ above which there is cultural gain, and below which there is cultural loss.
 
@@ -277,7 +281,7 @@ A few new programming techniques were used in Model 9. First, we introduced anot
 
 ***
 
-# Analytic Appendix
+## Analytic Appendix
 
 Henrich's (2004) model was analytical rather than simulation-based. We can use the analytical model to check our simulation results above, as well as additional things like calculate the exact $N$ at which losses switch to gains for a given $\alpha$ and $\beta$.
 
@@ -365,7 +369,7 @@ Note that Euler's constant is provided in R as **-digamma(1)**. Here we have rep
 
 ***
 
-# References
+## References
 
 Derex, M., Beugin, M. P., Godelle, B., & Raymond, M. (2013). Experimental evidence for the influence of group size on cultural complexity. Nature, 503(7476), 389-391.
 

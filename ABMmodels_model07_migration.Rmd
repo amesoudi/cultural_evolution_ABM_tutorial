@@ -6,7 +6,11 @@ output: pdf_document
 
 # Model 7: Migration
 
+## Introduction
+
 Along with selection, mutation and drift, another fundamental driver of genetic evolution is migration. The same is true of cultural evolution. Migration has been a permanent fixture of our species since we first dispersed out of Africa. The movement of people from group to group can shape between-group cultural diversity, and spread beneficial technologies or ideas from group to group. 
+
+## Model 7: Migration
 
 In Model 7 we will examine the effect of migration on between-group diversity. Previous models all featured a single group of agents. Now that we are interested in migration, we need to simulate multiple groups. Let's keep things simple and add one other group, making two in total: group 1 and group 2. As before, each group has $N$ individuals in it.
 
@@ -415,7 +419,7 @@ Here again, conformist transmission - a form of cultural selection - maintains b
 
 ***
 
-# Summary of Model 7
+## Summary
 
 Model 7 looked at how migration across group boundaries can break down between-group cultural variation to create a homogenous, undifferentiated mass culture where every group is culturally identical. While globalisation via the mass media or global markets has perhaps been making real-life human societies more similar to one another in recent years, we can still discern culturally distinct societies across the world, marked by traits such as dress, language, religion, psychological characteristics, cuisine and so on. Prior to the invention of mass transit and mass communication, societies would have been even more distinct. Yet migration has been a constant fixture of our species since we dispersed across the world. How then can we reconcile the extensive between-group cultural variation of our species with this frequent migration?
 
@@ -425,7 +429,7 @@ The major programming innovation in Model 7 was the introduction of two groups o
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $m$, $p_0$ and $q_0$ in the **Migration** function to confirm that migration causes groups to converge on the initial mean frequency of trait $A$ across all groups, i.e. $(p_0+q_0)/2$.
 
@@ -439,7 +443,7 @@ The major programming innovation in Model 7 was the introduction of two groups o
 
 ***
 
-# Analytic Appendix
+## Analytic Appendix
 
 Let's derive the recursions and equilibrium frequency for the basic migration model, to understand analytically why the frequency of $A$ in each group converges on the initial average frequency of $A$ across the two groups.
 
@@ -520,7 +524,7 @@ And as we noted at the beginning, $\bar{x} = (p_0 + q_0) / 2$, i.e. the average 
 
 ***
 
-# References
+## References
 
 Bell, A. V., Richerson, P. J., & McElreath, R. (2009). Culture rather than genes provides greater scope for the evolution of large-scale human prosociality. Proceedings of the National Academy of Sciences, 106(42), 17671-17674.
 

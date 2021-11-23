@@ -6,11 +6,15 @@ output: pdf_document
 
 # Model 1: Unbiased transmission
 
+## Introduction
+
 Here we will simulate perhaps the simplest possible case of cultural evolution. We assume $N$ individuals each of whom possesses one of two cultural traits, denoted $A$ and $B$. Each generation, the $N$ agents are replaced with $N$ new agents. Each new agent picks a member of the previous generation at random and copies their cultural trait. This is known as unbiased oblique cultural transmission: unbiased because traits are copied entirely at random, and oblique because one generation learns from the previous non-overlapping generation (as opposed to horizontal cultural transmission where individuals copy members of the same generation, and vertical cultural transmission where offspring copy their parents - our model is way too simple to have actual parents and offspring though). 
 
 We are interested in tracking the proportion of individuals who possess trait $A$ over successive generations. We will call this proportion $p$. We could also track the proportion who possess trait $B$, but this will always be $1 - p$ given that everyone who does not possess $A$ must possess $B$, so there is really no need. For example, if 70% of the population have trait $A$, then $p = 0.7$. The remaining 30% must have trait $B$, which is a proportion $1 - p = 1 - 0.7 = 0.3$.
 
 The output of the model will be a plot showing $p$ over all generations (or timesteps) up to the last generation. Generations are denoted by $t$, where generation one is $t = 1$, generation two is $t = 2$, up to the last generation $t = t_{max}$. These could correspond to biological generations, but could equally be 'cultural generations' (or learning episodes) within the same fixed population, which would be much shorter.
+
+## Model 1: Unbiased transmission
 
 First we need to specify the fixed parameters of the model. These are $N$ (the number of individuals) and $t_{max}$ (the number of generations). Let's start with $N = 100$ and $t_{max} = 200$.
 
@@ -362,7 +366,7 @@ invisible(dev.off())
 
 ***
 
-# Summary of Model 1
+## Summary
 
 Even this extremely simple model provides some valuable insights. First, unbiased transmission does not in itself change trait frequencies. As long as populations are large, trait frequencies remain the same. 
 
@@ -374,7 +378,7 @@ In Model 1 we have introduced several programming techniques that will be useful
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $p_0$ with large $N$ to confirm that unbiased transmission does not change the frequency of $p$, irrespective of the starting value $p_0$.
 
@@ -384,7 +388,7 @@ In Model 1 we have introduced several programming techniques that will be useful
 
 ***
 
-# Analytical Appendix
+## Analytical Appendix
 
 If $p$ is the frequency of $A$ in one generation, we are interested in calculating $p'$, the frequency of $A$ in the next generation under the assumption of unbiased transmission. Each new individual in the next generation picks a demonstrator at random from amongst the previous generation. The demonstrator will have $A$ with probability $p$. The frequency of $A$ in the next generation, then, is simply the frequency of $A$ in the previous generation:
 
@@ -421,7 +425,7 @@ More generally, creating deterministic recursion-based models can be a good way 
 
 ***
 
-# References
+## References
 
 Bentley, R. A., Hahn, M. W., & Shennan, S. J. (2004). Random drift and culture change. Proceedings of the Royal Society of London B, 271(1547), 1443-1450.
 

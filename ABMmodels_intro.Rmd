@@ -6,7 +6,7 @@ output: pdf_document
 
 # Introduction
 
-This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R (R Core Team 2021). It uses the RStudio notebook or RMarkdown (.Rmd) format, allowing you to execute code as you read the explanatory text. Each model is contained in a separate RMarkdown file which you should open in RStudio. Currently these are:
+This tutorial shows how to create very simple simulation or agent-based models of cultural evolution in R (R Core Team 2021). Currently these are:
 
 * Model 1: Unbiased transmission
 * Model 2: Unbiased and biased mutation
@@ -21,6 +21,10 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 11: Cultural group selection
 * Model 12: Historical dynamics
 
+## How to use this tutorial
+
+Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) download each of these Rmd files from https://github.com/amesoudi/cultural_evolution_ABM_tutorial then open them in RStudio or another IDE, executing the code as you read the explanatory text, or (ii) read the online version of the tutorial at https://bookdown.org/amesoudi/ABMtutorial_bookdown/, copying and pasting the code into RStudio as you go.
+
 I assume you have basic knowledge of R as a programming language, e.g. the use of variables, dataframes, functions, subsetting and loops. If not, *Hands On Programming With R* by Garrett Grolemund is a good introduction.
 
 I'm putting all model parameters in italicised $equation$ text. This allows useful features such as superscripts (e.g. $x^y$) and subscripts (e.g. $x_{t=1}$). Hover the cursor over the equation text to see this in RStudio. All code variables are in regular *italics*, and all commands and functions in **bold**. 
@@ -30,6 +34,17 @@ Use the green triangles above each code chunk to run that piece of code. Be sure
 All the concepts covered here are introduced, discussed and mathematically modelled at an advanced level in Cavalli-Sforza & Feldman (1981) and Boyd & Richerson (1985). I explain them informally in Mesoudi (2011). A recent article (Mesoudi 2017) gives a current overview of cultural evolution research, with references to recent studies. 
 
 Each chapter has some exercises with suggestions for how to fully explore the models and extend the models in interesting ways. Each chapter also has an 'Analytic Appendix', where I show how to derive the same results analytically.
+
+
+## How to cite this tutorial
+
+You can cite the tutorial as:
+
+* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/. 
+
+A longer and more detailed book-length resource, which builds on some of these models, can be found here:
+
+* Alberto Acerbi, Alex Mesoudi, and Marco Smolla (2020) *Individual-based models of cultural evolution. A step-by-step guide using R*. doi:110.31219/osf.io/32v6a. Available at: https://acerbialberto.com/IBM-cultevo/
 
 
 ## What is cultural evolution?

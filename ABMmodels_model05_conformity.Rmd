@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 5: Biased transmission (conformist bias)
 
+## Introduction
+
 Model 3 looked at the case where one cultural trait is intrinsically more likely to be copied than another trait, and in Model 4 the case where one type of demonstrator is more likely to be copied than another. Here we will look at a third kind of biased transmission: conformity (or 'positive frequency dependent bias'). Here, individuals are disproportionately more likely to adopt the most common trait in the population, irrespective of its intrinsic characteristics or who bears it.
 
 For example, imagine trait $A$ has a frequency of 0.7 in the population, with the rest possessing trait $B$. An unbiased learner would adopt trait $A$ with a probability exactly equal to 0.7. This is unbiased transmission, and is what happens in Model 1: by picking a member of the previous generation at random, the probability of adoption in Model 1 is equal to the frequency of that trait amongst the previous generation.
@@ -35,6 +37,8 @@ The first row says that when all demonstrators have trait $A$, then trait $A$ is
 For the three combinations where there are two $A$s and one $B$, the probability of adopting trait $A$ is $2/3$, which it would be under unbiased transmission (because two out of three demonstrators have $A$), plus the conformist adoption boost specified by $D$. $D$ is divided by three so that it varies from 0 to 1. 
 
 Similarly, for the three combinations where there are two $B$s and one $A$, the probability of adopting $A$ is 1/3 minus the conformist adoption penalty specified by $D$.
+
+## Model 5: Conformist bias
 
 Let's implement these assumptions in the kind of agent-based model we've been building so far. As before, assume $N$ agents each of whom possess one of two traits $A$ or $B$. The frequency of $A$ is denoted by $p$. The initial frequency of $A$ in generation $t = 1$ is $p_0$. Rather than going straight to a function, let's go step by step.
 
@@ -251,7 +255,7 @@ When $A$ starts off in a minority ($p_0 = 0.45$), most if not all runs should re
 
 ***
 
-# Summary of Model 5
+## Summary
 
 Model 5 explored conformist biased cultural transmission, or 'conformity' for short. This is where individuals are disproportionately more likely to adopt the most common trait among a set of demonstrators. We can contrast this with the direct or content biased transmission from Model 3, where one trait is intrinsically more likely to be copied. With conformity, the traits have no intrinsic attractiveness and are preferentially copied simply because they are common.
 
@@ -263,7 +267,7 @@ The major programming innovation in Model 5 was the use of an intermediate dataf
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $D$ and $p_0$ to confirm that conformity acts to always favour the majority trait. Also try smaller values of $N$. How does the stochasticity at small values of $N$ affect conformity?
 
@@ -273,7 +277,7 @@ The major programming innovation in Model 5 was the use of an intermediate dataf
 
 ***
 
-# Analytic Appendix
+## Analytic Appendix
 
 An alternative way of doing all the above is with deterministic recursions, as Boyd & Richerson (1985) originally did.
 
@@ -406,7 +410,7 @@ This encapsulates the process of conformity. The dotted line shows unbiased tran
 
 ***
 
-# References
+## References
 
 Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.
 

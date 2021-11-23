@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 8: Blending inheritance
 
+## Introduction
+
 When Darwin wrote *The Origin of Species*, it was typically thought that biological inheritance involved the blending of parental traits. For example, the offspring of a tall and a short individual would have intermediate height, the average (or blend) of its two parents. This presented a problem for Darwin's theory, one which Darwin himself acknowledged. If traits blend together, then they are unlikely to persist for long enough for selection to act on them. All traits will quickly converge on a blended average, destroying the variation that is necessary for evolution. 
 
 This puzzle was resolved when Mendel's famous pea plant experiments were rediscovered around the turn of the 20th century. These showed that genetic inheritance is actually particulate, not blending. This means that inheritance involves the passing of discrete particles of information - what became known as 'genes' - in an all-or-nothing fashion from parent to offspring. Some simple phenotypic traits, like Mendel's pea plant varieties, show this directly. A white plant crossed with a purple plant gives rise to either a white or purple offspring, not a blend. Complex phenotypic traits like human height, which appear to 'blend' in offspring, are actually determined by many discrete genes.
@@ -14,7 +16,7 @@ A common objection to cultural evolution follows similar lines. Cultural traits,
 
 One problem with this objection is that it is not at all clear that cultural inheritance *is* blending. We don't know enough about how brains store and receive information to say with certainty that there is not a discrete, particulate inheritance system underlying what appears to be blending at the 'phenotypic' level, just like biological traits such as height appear to blend but are actually determined by an underlying particulate inheritance system. Another problem is that the objection cannot be true: there is huge cultural variation in the world that patently does exist, and upon which selection can and does act. So even if cultural inheritance is blending, perhaps some other feature of cultural evolution means that blending does not have the problematic consequences described above. Either way, it is worth exploring the case of blending inheritance with formal models to go beyond verbal arguments. Indeed, it was not until the formal population genetic models of R.A. Fisher and others in the early 20th century that Mendelian genetic inheritance and Darwinian evolution were definitively shown to be consistent with one another.
 
-## Model 8a
+## Model 8a: Blending inheritance
 
 In Model 8a we will simulate blending cultural inheritance, inspired by a formal mathematical model presented by Boyd & Richerson (1985). We assume a population of $N$ individuals. Each of these individuals possesses a value of a continuously varying cultural trait. While previous models have assumed discrete traits that can take on one of two forms ($A$ or $B$), in this case we are modelling a trait that can take any value on a continuous scale. Many cultural traits are continuous, from handaxe length to political orientation.
 
@@ -157,7 +159,7 @@ hist(data_model8$final_agent, xlim = c(-3,3), main = "", xlab = "final trait val
 
 ```
 
-## Model 8b
+## Model 8b: Blending inheritance with mutation
 
 All we have done so far is confirm the intuition that blending inheritance destroys variation, just as Darwin's critics originally argued. If we assume that cultural traits in real life blend (which, as noted above, is far from certain), then it is hard to reconcile this conclusion with the observation of extensive cultural variation in real life. 
 
@@ -301,7 +303,7 @@ While the first plot above showed that the initial distribution ranged from arou
 
 ***
 
-# Summary of Model 8
+## Summary
 
 A common objection to cultural evolution is that cultural inheritance blends different traits together, destroying the variation that is necessary for evolution to operate. While the claim that cultural inheritance is blending can be contested, and obviously it is not the case that there is no cultural variation in the real world, we can still use formal models to explore these claims.
 
@@ -311,7 +313,7 @@ There are also a few programming innovations introduced in Model 8. We modelled 
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $N$ and $n$ in **BlendingInheritance** to see how blending inheritance reduces variation to zero whenever $n>1$.
 
@@ -325,7 +327,7 @@ There are also a few programming innovations introduced in Model 8. We modelled 
 
 ***
 
-# Analytic Appendix
+## Analytic Appendix
 
 The simulation model presented above recreates an analytical model presented in Chapter 3 of Boyd & Richerson (1985), and we replicate their conclusions. They also include assortative transmission, which has a similar effect to mutation: if the $n$ demonstrators have similar cultural traits, then blending inheritance is less effective at reducing variation. Box 3.22 in Boyd & Richerson (1985) provides a proof that the mean trait value after blending inheritance, $\bar{X}'$, equals the mean trait value before blending inheritance, $\bar{X}$. Their equation 3.28 does the same for variance under the assumption of transmission error, where variance after blending inheritance, $V'$, is given by:
 
@@ -339,6 +341,6 @@ For the $e = 0.5$ and $n = 5$ simulated above, this gives $\hat{V} = 0.5 / 4 = 0
 
 ***
 
-# References
+## References
 
 Boyd, R., & Richerson, P. J. (1985). Culture and the evolutionary process. University of Chicago Press.

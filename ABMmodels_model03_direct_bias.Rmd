@@ -4,11 +4,15 @@ author: "Alex Mesoudi"
 output: pdf_document
 ---
 
-# Model 3: Biased transmission (direct/content bias)
+# Model 3: Biased transmission (direct / content bias)
+
+## Introduction
 
 So far we have looked at unbiased transmission (Model 1) and unbiased/biased mutation (Model 2). Let's complete the set by looking at biased transmission. This occurs when one trait or one demonstrator is more likely to be copied than another trait or demonstrator. Trait-based copying is often called 'direct' or 'content' bias, while demonstrator-based copying is often called 'indirect' or 'context' bias. Both are sometimes also called 'cultural selection' because one thing (trait or demonstrator) is selected to be copied over another. In Model 3 we'll look at trait-based (direct, content) bias.
 
 (As an aside, there is a confusing array of terminology in the field of cultural evolution, as illustrated by the preceding paragraph. That's why models are so useful. Words and verbal descriptions can be ambiguous. Often the writer doesn't realise that there are hidden assumptions or unrecognised ambiguities in their descriptions. They may not realise that what they mean by 'cultural selection' is entirely different to how someone else uses it. Models are great because they force us to specify exactly what we mean by a particular term or process. I can use the words in the paragraph above to describe biased transmission, but it's only really clear when I model it, making all my assumptions explicit.)
+
+## Model 3: Direct / content bias
 
 As in Models 1 and 2, we assume there are two traits $A$ and $B$. Let's assume that biased transmission favours trait $A$. Perhaps $A$ is a more effective tool, more memorable story, or more easily pronounced word. We're not including any mutation in the model, so we need to include some $A$s at the beginning of the simulation otherwise it would never appear. However, let's make it initially rare. Then we can see how selection favours this initially-rare trait. 
 
@@ -109,7 +113,7 @@ As we might expect, increasing the strength of selection increases the speed wit
 
 ***
 
-# Summary of Model 3
+## Summary
 
 In Model 3 we saw how biased transmission causes a trait favoured by the selection bias to spread and go to fixation in a population, even when it is initially very rare. Biased transmission differs in its dynamics from biased mutation. Its action is proportional to the variation in the population at the time at which it acts. It is strongest when there is lots of variation (in our model, when there are equal numbers of $A$ and $B$ at $p = 0.5$), and weakest when there is little variation (when $p$ is close to 0 or 1). This generates an s-shaped pattern of diffusion over time.
 
@@ -135,7 +139,7 @@ Given that it is unlikely that 37 countries independently invented postage stamp
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $s$ to confirm that larger $s$ increases the speed with which $A$ goes to fixation.
 
@@ -143,7 +147,7 @@ Given that it is unlikely that 37 countries independently invented postage stamp
 
 ***
 
-# Analytical Appendix
+## Analytical Appendix
 
 As before, we have $p$ agents with trait $A$ and $1 - p$ agents with trait $B$. The $p$ agents with trait $A$ keep their $A$s, because $A$ is favoured by biased transmission. The $1 - p$ agents with trait $B$ pick another agent at random. If the random agent has $B$ then nothing happens. However if the random agent has $A$, which they will with probability $p$, then with probability $s$ they switch to that trait $A$. We can therefore write the recursion for $p$ under biased transmission as:
 
@@ -185,7 +189,7 @@ We can also say that $p = 0$ is an unstable equilibrium, meaning that any slight
 
 ***
 
-# References
+## References
 
 Henrich, J. (2001). Cultural transmission and the diffusion of innovations: Adoption dynamics indicate that biased cultural transmission is the predominate force in behavioral change. American Anthropologist, 103(4), 992-1013.
 

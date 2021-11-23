@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 10: Polarization
 
+## Introduction
+
 A central question in cultural evolution research is how cultural diversity is generated and maintained. One counter-intuitive answer to this question was offered by Axelrod (1997) using what has become an influential agent-based model. Axelrod showed that regional differences in cultural traits - or 'polarization' when neighbouring regions are maximally culturally different to one another - can be generated and maintained even though individual agents are trying to become as similar as possible to other agents. In Axelrod's terminology, global cultural divergence at the population level can emerge despite local cultural convergence at the individual level. This conclusion has implications for a variety of social phenomena, from political polarization in social media to racial segregation in cities.
 
 Axelrod demonstrated this using a spatially explicit agent-based model. 'Spatially explicit' means that rather than a homogenous mass of agents existing all with an equal probability of interacting with any other agent, instead each agent exists in a specific location in space, with a set of neighbouring agents with whom they may be more likely to interact than agents further away in space. Agent-based models are particularly suited for this kind of spatially explicit simulation compared to analytical models. Our previous models have already incorporated non-random interaction between agents and minimal population structure, such as the assortative cultural mating of Model 6 (vertical/horizontal transmission) and the movement across groups of Model 7 (migration). In Model 10 we will go further and recreate Axelrod's classic model, learning how to create and analyse spatially explicit agent-based models where each agent inhabits a specific position in a spatial grid.
@@ -25,6 +27,8 @@ In the first timestep each agent's trait values are picked at random. Then in ea
 These rules plausibly assume that agents are more likely to interact with, and be influenced by, other agents to the extent that they are culturally similar, as indexed by the proportion of cultural traits that they share. When two agents are completely dissimilar, then the proportion of shared features will be zero, and no interaction / influence will occur. The more traits they share, the more likely they are to interact and potentially become even more similar.
 
 The outcome that we are interested in is the cultural diversity or homogeneity that emerges after a certain number of timesteps, or iterations of the above three rules. The only cultural change that can occur according to the three rules above is that agents become more similar to one another. There is no mutation, and no rules that make agents more dissimilar. We would expect, therefore, that all agents will gradually become more and more similar, perhaps identical, and eventually every agent will be culturally identical.
+
+## Model 10: Polarisation
 
 Let's build the model step by step before putting it together in a function. First we need to create agents and their traits. Rather than a dataframe, we will use a matrix. A matrix is perfect because it has a fixed number of rows and columns, and these rows and columns will serve as the coordinates for our spatial grid. In our case the matrix will be square, with $N_{side}$ rows and $N_{side}$ columns. Each agent inhabits a fixed position in the matrix. Indexing starts at the top left and has the notation [row,column]. The agent in the top left position is therefore at position [1,1]; its neighbour to the east is in position [1,2]; and its neighbour to the south is at [2,1]. 
 
@@ -778,7 +782,7 @@ The *stable_regions* column in the *g_values* dataframe should show that when th
 
 ***
 
-# Summary of Model 10
+## Summary
 
 The notable feature of Model 10, a replication of Axelrod (1997), is the apparent contradiction between the local interactions of agents and the global dynamics of the model. At the local level, individual agents preferentially interact with neighbours who are more culturally similar to themselves. Their only possible action is to become even more similar by adopting their neighbour's traits with a probability proportional to their similarity. Yet at the global level, we often see the emergence of stark cultural divisions between regional clusters of agents who are maximally different to other clusters. 
 
@@ -794,7 +798,7 @@ One programming innovation of Model 10 was using a matrix to simulate agents wit
 
 ***
 
-# Exercises
+## Exercises
 
 1. Create some code to track the number of unique regions in every timestep, averaged across $r_{max}$ independent runs. Plot this average value over time. Does the number of unique regions decline steadily over time or show a different pattern?
 
@@ -810,7 +814,7 @@ One programming innovation of Model 10 was using a matrix to simulate agents wit
 
 ***
 
-# References
+## References
 
 Axelrod, R. (1997). The dissemination of culture: A model with local convergence and global polarization. Journal of Conflict Resolution, 41(2), 203-226.
 

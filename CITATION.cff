@@ -6,6 +6,6 @@ authors:
   orcid: "https://orcid.org/0000-0002-7740-1625"
 title: "Simulation models of cultural evolution in R"
 version: 1.0.0
-doi: 10.5281/zenodo.5155822
+doi: 10.5281/zenodo.5155821
 date-released: 2021-08-03
 url: "https://github.com/amesoudi/cultural_evolution_ABM_tutorial"

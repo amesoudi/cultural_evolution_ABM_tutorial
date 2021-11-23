@@ -6,6 +6,8 @@ output: pdf_document
 
 # Model 4: Biased transmission (indirect bias)
 
+## Introduction
+
 In Model 3 we examined direct bias, where certain cultural traits are preferentially copied from a randomly chosen demonstrator. Here we will simulate *indirect bias* (Boyd & Richerson 1985). This is another form of biased transmission, or cultural selection, but where certain demonstrators are more likely to be copied than other demonstrators. For this reason, indirect bias is sometimes called 'demonstrator-based' or 'context' bias. 
 
 Indirect bias comes in several forms. Learners might preferentially copy demonstrators who have high success or payoffs (which may or may not derive from their cultural traits), demonstrators who are old (and perhaps have accrued valuable knowledge, or at least good enough to keep them alive to old age), demonstrators who are the same gender as the learner (if cultural traits are gender-specific), or demonstrators who possess high social status or prestige.
@@ -16,7 +18,7 @@ Model 4 presents a simple model of indirect bias, first showing how payoff-based
 
 In Model 4a we will simulate a case where new agents preferentially copy the cultural traits of agents from the previous generation who have higher relative payoffs. This is sometimes called 'payoff' or 'success' bias.
 
-We will start with the skeleton of Model 3. As in Model 3, there are $N$ agents, each of whom possess a single cultural trait, either $A$ or $B$. The frequency of trait $A$ is denoted $p$, and the initial frequency in the first generation is $p_0$. There are $t_max$ timesteps and $r_max$ independent runs.
+We will start with the skeleton of Model 3. As in Model 3, there are $N$ agents, each of whom possess a single cultural trait, either $A$ or $B$. The frequency of trait $A$ is denoted $p$, and the initial frequency in the first generation is $p_0$. There are $t_{max}$ timesteps and $r_{max}$ independent runs.
 
 In Model 3, agents were picked at random from the previous generation, and if that randomly-chosen agent possessed trait $A$ then trait $A$ was copied with probability $s$. For indirect bias, we need to change this. Demonstrator choice is no longer random: demonstrators are chosen non-randomly based on their payoffs. To implement this, we need to specify payoffs for each agent.
 
@@ -346,7 +348,7 @@ data_model4b <- IndirectBias2(N = 10000,
 
 ***
 
-# Summary of Model 4
+## Summary
 
 Indirect bias occurs when individuals preferentially learn from demonstrators who have particular characteristics, such as being wealthy or socially successful (having high 'payoffs' in the language of modelling), being old, having a particular gender, or being prestigious. There is extensive evidence for these indirect transmission biases from the broad social and behavioural sciences (e.g. Rogers 2010; Labov 1972; Bandura, Ross & Ross 1963) and cultural evolution research specifically (e.g. Mesoudi 2011; Henrich & Gil-White 2001; Brand et al. 2020; Wood et al. 2012; McElreath et al. 2008; Henrich & Henrich 2010). Consequently, it is worth modelling indirect bias to understand its dynamics, and how it is similar or different to other forms of biased transmission.
 
@@ -364,7 +366,7 @@ In terms of programming innovations, we saw in Model 4a how to assign payoffs to
 
 ***
 
-# Exercises
+## Exercises
 
 1. Try different values of $s$ in **IndirectBias** to confirm that larger $s$ increases the speed with which $A$ goes to fixation.
 
@@ -374,7 +376,7 @@ In terms of programming innovations, we saw in Model 4a how to assign payoffs to
 
 ***
 
-# Analytical Appendix
+## Analytical Appendix
 
 In Model 4a, the frequency of trait $A$ in the next generation, $p'$, is simply the relative payoff of all agents with trait $A$ in the previous generation. This is given by:
 
@@ -410,7 +412,7 @@ This is identical to Equation 3.2, the equivalent for direct bias. Again, there 
 
 ***
 
-# References
+## References
 
 Bandura, A., Ross, D., & Ross, S. A. (1963). A comparative test of the status envy, social power, and secondary reinforcement theories of identificatory learning. The Journal of Abnormal and Social Psychology, 67(6), 527.
 
