@@ -1,4 +1,4 @@
-# Simulation models of cultural evolution in R (version 1.0.0)
+# Simulation models of cultural evolution in R
 
 [![DOI](https://zenodo.org/badge/144488138.svg)](https://zenodo.org/badge/latestdoi/144488138)
 
