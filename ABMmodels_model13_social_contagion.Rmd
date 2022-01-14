@@ -18,9 +18,9 @@ While this analogy between diseases and ideas has merit, we should be wary of it
 
 Contagion models originating in epidemiology are called 'compartmental' models (Anderson & May 1992). They place individuals in one of a set of compartments. The simplest model compartmentalises individuals as either Susceptible (S) to acquiring a disease (or cultural trait), or already Infected (I) with the disease (or cultural trait). Consequently, these are called SI models.
 
-Model 13a simulates the simplest possible SI model. We assume $N$ agents, each of whom can be $S$usceptible or $I$fected. In each generation from 1 to $t_{max}$, every agent interacts with a single randomly chosen other agent in the population. If that other agent (the 'demonstrator') is $I$nfected, then the focal agent becomes $I$nfected with probability $\beta$. This parameter $\beta$ represents the 'transmissability' of the cultural trait, with direct analogy to the transmissability of a disease. If the focal agent is already $I$nfected, then nothing changes. The population is fixed, i.e. agents do not recover, die or migrate, and unstructured, i.e. any agent can potentially infect any other agent in the population in any timestep.
+Model 13a simulates the simplest possible SI model. We assume $N$ agents, each of whom can be Susceptible or Infected. In each generation from 1 to $t_{max}$, every agent interacts with a single randomly chosen other agent in the population. If that other agent (the 'demonstrator') is Infected, then the focal agent becomes Infected with probability $\beta$. This parameter $\beta$ represents the 'transmissability' of the cultural trait, with direct analogy to the transmissability of a disease. If the focal agent is already Infected, then nothing changes. The population is fixed, i.e. agents do not recover, die or migrate, and unstructured, i.e. any agent can potentially infect any other agent in the population in any timestep.
 
-The function below implements this SI model. We specify an initial frequency of agents who are $I$nfected with the parameter $I_0$, as in the absence of mutation the trait would otherwise never appear. We have $r_{max}$ independent runs, and plot the proportion of $I$nfected agents over time.
+The function below implements this SI model. We specify an initial frequency of agents who are Infected with the parameter $I_0$, as in the absence of mutation the trait would otherwise never appear. We have $r_{max}$ independent runs, and plot the proportion of Infected agents over time.
 
 ```{r}
 
@@ -102,13 +102,13 @@ data_model13a <- SImodel(N = 1000,
 
 ```
 
-The SI process generates an S-shaped curve. Infections start off slowly, then increase rapidly, then level off as the entire population becomes $I$nfected.
+The SI process generates an S-shaped curve. Infections start off slowly, then increase rapidly, then level off as the entire population becomes Infected.
 
 If this function and result looks familiar, it is because it is almost identical to the directly biased cultural transmission implemented in Model 3. Where Model 3 had traits $A$ and $B$, here we have $I$ and $S$. The strength of biased transmission $s$ in Model 3 is equivalent to the transmissability parameter $\beta$ here. It's the same process. This nicely illustrates one useful function of models: without modelling the two processes, we might not have realised that the two fields were talking about the same process, just with different notation and terminology.
 
 ## Model 13b: The SIR model
 
-The most common contagion model in epidemiology is the SIR model, which adds a third compartment of $R$ecovered agents. As before, $S$usceptible agents become $I$nfected with probability $\beta$, but now $I$nfected agents $R$ecover with probability $\gamma$. The latter is an asocial process: unlike infection, recovery does not require contact with any other individual to occur. $R$ecovered individuals cannot become $I$nfected again, assuming to have gained immunity. 
+The most common contagion model in epidemiology is the SIR model, which adds a third compartment of Recovered ($R$) agents. As before, Susceptible agents become Infected with probability $\beta$, but now Infected agents Recover with probability $\gamma$. The latter is an asocial process: unlike infection, recovery does not require contact with any other individual to occur. Recovered individuals cannot become Infected again, assuming to have gained immunity. 
 
 This is where we should be careful with the disease-idea analogy. While most diseases can be recovered from and be developed immunity to, the same cannot be said for most cultural traits. The best analogy might be with strong religious beliefs (and at the extreme, religious cults), which people join, sometimes leave, and never return to.
 
@@ -230,9 +230,9 @@ data_model13b <- SIRmodel(N = 1000,
 
 ```
 
-$S$usceptible agents gradually become $I$nfected, then $I$nfected agents become $R$ecovered. The end state is where every agent is either $S$usceptible or $R$ecovered, with no $I$nfecteds left to infect any remaining $S$usceptibles.
+Susceptible agents gradually become Infected, then Infected agents become Recovered. The end state is where every agent is either Susceptible or Recovered, with no Infecteds left to infect any remaining Susceptibles.
 
-As hinted in the **SIRmodel** comments, the process by which $I$nfected agents become $R$ecovered is identical to biased mutation as seen in Model 2b. Both are individual-level processes occurring independently of other agents. The parameter $\gamma$ in Model 13b is equivalent to $\mu_b$ in Model 2b. To confirm this, we can set $I_0 = 0.99$ and see how $\gamma$ alone changes the frequency of $I$:
+As hinted in the **SIRmodel** comments, the process by which Infected agents become Recovered is identical to biased mutation as seen in Model 2b. Both are individual-level processes occurring independently of other agents. The parameter $\gamma$ in Model 13b is equivalent to $\mu_b$ in Model 2b. To confirm this, we can set $I_0 = 0.99$ and see how $\gamma$ alone changes the frequency of $I$:
 
 ```{r}
 
@@ -249,7 +249,7 @@ Just as in Model 2b, $\gamma$ generates an r-shaped diffusion curve, in contrast
 
 ## Model 13c: The SIS model
 
-The SIS model involves $S$usceptible individuals becoming $I$nfected, as in the SI model, but now $I$nfected individuals can revert to being $S$usceptible again. In a disease context, this captures a virus like the common cold that one can catch repeatedly. In a social context, it captures cultural traits like jogging or vegetarianism that one might adopt then abandon then adopt again several times during one's life.
+The SIS model involves Susceptible individuals becoming Infected, as in the SI model, but now Infected individuals can revert to being Susceptible again. In a disease context, this captures a virus like the common cold that one can catch repeatedly. In a social context, it captures cultural traits like jogging or vegetarianism that one might adopt then abandon then adopt again several times during one's life.
 
 The following function **SISmodel** is a combination of **SImodel** and **SIRmodel**, with biased transmission favouring a switch from $S$ to $I$ according to $\beta$, and biased mutation favouring a switch from $I$ to $S$ according to parameter $\alpha$.
 
@@ -479,7 +479,7 @@ Compared to the SIS model, the SISa model generates a higher equilibrium frequen
 
 ## Summary
 
-Social contagion models apply models of disease contagion from epidemiology to culturally transmitted behavioural traits. Naive individuals lacking the trait are $S$usceptible to becoming $I$nfected with (i.e. socially learning) the trait. Different models provide additional assumptions: SIR models assume individuals can $R$ecover, no longer bearing the trait nor able to learn it again; SIS models assume individuals can revert to being $S$usceptible after $I$nfection and thus subsequently re-acquire the trait; SISa models assume individuals can asocially learn the trait as well as copy it from $I$nfected individuals. Each of these fits a different kind of cultural trait.
+Social contagion models apply models of disease contagion from epidemiology to culturally transmitted behavioural traits. Naive individuals lacking the trait are Susceptible to becoming Infected with (i.e. socially learning) the trait. Different models provide additional assumptions: SIR models assume individuals can Recover, no longer bearing the trait nor able to learn it again; SIS models assume individuals can revert to being Susceptible after Infection and thus subsequently re-acquire the trait; SISa models assume individuals can asocially learn the trait as well as copy it from Infected individuals. Each of these fits a different kind of cultural trait.
 
 A key take-away is that social contagion models are identical in their underlying mechanics to some of the cultural evolution models we have already covered in this series. The 'contagion' component (from $S$ to $I$) is equivalent to directly biased transmission seen in Model 3. The asocial components (from $I$ to $R$ or $S$ in SIR and SIS, and from $S$ to $I$ in SISa) are equivalent to biased mutation seen in Model 2b. The $A$s and $B$s in those models just need to be replaced with $I$s and $S$s. One value of modelling is to reveal these parallels, so that researchers from different fields can identify common ground despite different terminologies, better learn from each others' efforts, and avoid reinventing the wheel.
 
@@ -502,7 +502,7 @@ rowMeans(data_model13d[150,])
 
 This recreates Hill et al.'s (2010) Figure 5A. The actual rate of obesity in the Framingham sample was 14% in the 1970s and 30% in 2000. This model predicts that obesity will eventually reach an equilibrium frequency of 42%. As Hill et al. remark, "While not great, this is a much more optimistic estimate than 100%". They also show that, despite $\beta$ being smaller than $\gamma$ and $a$, changing $\beta$ has a larger effect on decreasing obesity per unit decrease in rate than the other parameters. This suggests that interventions aimed at reducing the social transmission of obesity will be more effective than interventions focused on asocial factors.
 
-Other work has extended contagion models to further suit a cultural, rather than disease, context. Bettencourt et al. (2006) proposed and analysed an SEIZ model, where $S$usceptible individuals become $E$xposed to an idea before eventually either becoming $I$nfected (i.e. adopting it), or rejecting it ($Z$). They showed that this SEIZ model better captures the spread of the use of Feynman diagrams amongst post-war physicists, compared to simpler models lacking either $E$ or $Z$ classes. Walters & Kendal (2013), meanwhile, adapted an SIS model to make the social transmission from $S$ to $I$ conformist (see Model 5) rather than directly biased, with possible applications to the spread of binge drinking.
+Other work has extended contagion models to further suit a cultural, rather than disease, context. Bettencourt et al. (2006) proposed and analysed an SEIZ model, where Susceptible individuals become Exposed ($E$) to an idea before eventually either becoming Infected (i.e. adopting it), or rejecting it ($Z$). They showed that this SEIZ model better captures the spread of the use of Feynman diagrams amongst post-war physicists, compared to simpler models lacking either $E$ or $Z$ classes. Walters & Kendal (2013), meanwhile, adapted an SIS model to make the social transmission from $S$ to $I$ conformist (see Model 5) rather than directly biased, with possible applications to the spread of binge drinking.
 
 ***
 
