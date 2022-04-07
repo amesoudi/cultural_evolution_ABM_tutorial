@@ -827,7 +827,7 @@ IteratedFinalPlot <- function(data_model16, ymax = 0.6) {
 
 ```
 
-Navarro et al. (2018) wanted to simulate a population of agents with priors that favour different values of $k$ and priors that differ in strength. Specifically, where some agents have weak priors for large values of $k$ ($\alpha_1 = 2, \beta_1 = 1$), and some agents have strong priors for small values of $k$ ($\alpha_1 = 1, \beta_1 = 10$). First let's visualise these two sets of priors in homogenous populations, before simulating a heterogenous population. The following code first runs a simulation where all agents have weak priors for large values of $k$, then a simulation where all agents have strong priors for small values of $k$, plotting each side-by-side.
+Navarro et al. (2018) wanted to simulate a population of agents with priors that favour different values of $k$ and priors that differ in strength. Specifically, where some agents have weak priors for large values of $k$ ($\alpha_1 = 2, \beta_1 = 1$), and some agents have strong priors for small values of $k$ ($\alpha_2 = 1, \beta_2 = 10$). First let's visualise these two sets of priors in homogenous populations, before simulating a heterogenous population. The following code first runs a simulation where all agents have weak priors for large values of $k$, then a simulation where all agents have strong priors for small values of $k$, plotting each side-by-side.
 
 ```{r}
 
@@ -926,7 +926,7 @@ For this model I am grateful to Simon Kirby for sharing his Masters course code,
 
 2. Try different values of $\alpha$ in **IteratedLearning** to confirm that $\alpha < 1$ generates regularisation and $\alpha > 1$ generates irregularisation. Also try setting $\beta$ to different values than $\alpha$ to see whether iterated learning chains converge on asymmetrical priors.
 
-3. Simulate a population that is highly polarised in their prior opinions, with 50% possessing $\alpha_1 = 1, \beta_1 = 100$ priors and 50% possessing $\alpha_1 = 100, \beta_1 = 1$ priors. Do the chains reach a consensus or do they remain as polarised as the priors? Does this differ from the patterns observed in Model 10 (Polarisation)? If so, why?
+3. Simulate a population that is highly polarised in their prior opinions, with 50% possessing $\alpha_1 = 1, \beta_1 = 100$ priors and 50% possessing $\alpha_2 = 100, \beta_2 = 1$ priors. Do the chains reach a consensus or do they remain as polarised as the priors? Does this differ from the patterns observed in Model 10 (Polarisation)? If so, why?
 
 4. Rather than $h$ being the probability of a single agent using the first set of priors, make $h$ the probability of an entire chain using the first set of priors. How does this change the cultural dynamics of the iterated learning chains?
 
