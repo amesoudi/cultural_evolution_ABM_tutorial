@@ -385,7 +385,13 @@ ConformityRecursion(D = 0.1, t_max = 150, p_0 = c(0.49,0.5,0.51))
 
 ```
 
-Again, this matches the simulations above where some runs are randomly initially above 0.5 and others below 0.5. 
+Again, this matches the simulations above where some runs are randomly initially above 0.5 and others below 0.5.
+
+This result also matches the equilibria that emerge from Equation 5.1. If we set $p' = p$ we get
+
+$$Dp(1-p)(2p-1) = 0           \hspace{30 mm}(5.2)$$
+
+Assuming $D > 0$, there are three ways in which the left hand side of Equation 5.2 can equal zero: $p = 0$, $1 - p = 0$ or $p = 1$, and $2p - 1 = 0$ or $p = 0.5$. This matches the three equilibria we see in the previous plot; which one we reach depends on starting conditions.
 
 Finally, we can use the recursion equation to generate a plot that has become a signature for conformity in the cultural evolution literature. The following code plots, for all possible values of $p$, the probability of adopting $p$ in the next generation.
 
