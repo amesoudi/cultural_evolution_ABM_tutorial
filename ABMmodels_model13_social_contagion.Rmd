@@ -77,7 +77,7 @@ SImodel <- function(N, beta, I_0, t_max, r_max) {
                     ", I_0 = ", I_0, 
                     sep = ""))
 
-  for (run in 1:r_max) {  
+  for (r in 1:r_max) {  
   
     # add lines for each run, up to r_max
     lines(output[,r], type = 'l')  
@@ -323,7 +323,7 @@ SISmodel <- function(N, beta, alpha, I_0, t_max, r_max) {
                     ", I_0 = ", I_0, 
                     sep = ""))
 
-  for (run in 1:r_max) {  
+  for (r in 1:r_max) {  
   
     # add lines for each run, up to r_max
     lines(output[,r], type = 'l')  
@@ -445,7 +445,7 @@ SISa_model <- function(N, beta, alpha, a, n, I_0, t_max, r_max) {
                     ", I_0 = ", I_0, 
                     sep = ""))
 
-  for (run in 1:r_max) {  
+  for (r in 1:r_max) {  
   
     # add lines for each run, up to r_max
     lines(output[,r], type = 'l')  
