@@ -24,7 +24,7 @@ Bayes' rule says that the posterior probability of hypothesis $h_i$ is equal to 
 
 $$ P(h_{dehydration}|d) = \frac{ 0.9 * 0.4 } { (0.9 * 0.4) + (0.8 * 0.1) + (0.1 * 0.5) } = 0.735 $$
 $$ P(h_{tumour}|d) = \frac{ 0.8 * 0.1 } { (0.9 * 0.4) + (0.8 * 0.1) + (0.1 * 0.5) } = 0.163 $$
-$$ P(h_{indigestion}|d) = \frac{ 0.9 * 0.4 } { (0.9 * 0.4) + (0.8 * 0.1) + (0.1 * 0.5) } = 0.102 $$
+$$ P(h_{indigestion}|d) = \frac{ 0.1 * 0.5 } { (0.9 * 0.4) + (0.8 * 0.1) + (0.1 * 0.5) } = 0.102 $$
 
 Bayesian inference tells us that dehydration is a far more likely cause of our headache than either a brain tumour or indigestion. This is probably the conclusion you reached at the very beginning - obviously dehydration is the most likely explanation! That's good, as it indicates that a Bayesian approach adequately approximates your intuitive judgements. However, intuitions can't be put directly into a model, and Bayesian inference provides one way of quantifying how people balance the likelihood of explanations with their prior beliefs to reach a judgement. It's also useful for modelling more complex cases than our simple example which have more data and a larger hypothesis space, such as learning languages, as we will see later. Finally, unlike other approaches, Bayesian inference is useful because it is probabilistic rather than all-or-nothing. We do not seek to accept or reject hypotheses, rather we seek a probability distribution across all possible hypotheses to estimate our (un)certainty in each one.
 
