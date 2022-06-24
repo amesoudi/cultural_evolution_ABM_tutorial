@@ -688,11 +688,14 @@ data_model12$E
 
 ```
 
-To get a better idea what's happening here, we can write a function to plot empire areas over time, recreating Turchin's (2003) Figure 4.4a. **AreaPlot** below takes the output dataframe from **EmpireDynamics** and, for each empire, plots a line for its area over all generations. We also add numbered labels for each empire at its maximum area using the **text** command. Note also the argument $N_{side} = 21$ which is needed to calculate the proportion of the grid each empire inhabits, and which should be changed if a different $N_{side}$ was used.
+To get a better idea what's happening here, we can write a function to plot empire areas over time, recreating Turchin's (2003) Figure 4.4a. **AreaPlot** below takes the outputted dataframe from **EmpireDynamics** and, for each empire contained in the *output* dataframe, plots a line for its area over all generations. We also add numbered labels for each empire at its maximum area using the **text** command. Note that we also need to know $N_{side}$ to calculate the proportion of the grid each empire inhabits. Because this isn't contained in *output*, we get it from the final generation matrix *E* at the start.
 
 ```{r}
 
-AreaPlot <- function(output, N_side = 21) {
+AreaPlot <- function(data_model12) {
+  
+  output <- data_model12$output
+  N_side <- nrow(data_model12$E)
   
   plot(x = 1:max(output$generation), 
        type = "n", 
@@ -728,7 +731,7 @@ AreaPlot <- function(output, N_side = 21) {
   
 }
 
-AreaPlot(data_model12$output)
+AreaPlot(data_model12)
 
 ```
 
@@ -743,7 +746,7 @@ Here we reduce $h$ from the default of $h = 2$ to $h = 1$:
 ```{r}
 
 data_model12 <- EmpireDynamics(h = 1)
-AreaPlot(data_model12$output)
+AreaPlot(data_model12)
 
 ```
 
@@ -754,7 +757,7 @@ Now we increase $h$ to 3:
 ```{r}
 
 data_model12 <- EmpireDynamics(h = 3)
-AreaPlot(data_model12$output)
+AreaPlot(data_model12)
 
 ```
 
@@ -767,7 +770,7 @@ Next we remove the changes in asabiya due to being a frontier or nonfrontier gro
 ```{r}
 
 data_model12 <- EmpireDynamics(delta = 0, r_0 = 0)
-AreaPlot(data_model12$output)
+AreaPlot(data_model12)
 
 ```
 
@@ -778,7 +781,7 @@ Finally we can remove intergroup conflict by setting $\delta_P$ to a very large 
 ```{r}
 
 data_model12 <- EmpireDynamics(delta_P = 10000)
-AreaPlot(data_model12$output)
+AreaPlot(data_model12)
 
 ```
 
