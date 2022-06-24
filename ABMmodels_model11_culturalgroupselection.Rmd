@@ -266,7 +266,7 @@ agent[mutate < mu & previous_agent == "C"] <-
          sum(mutate < mu & previous_agent == "C"), 
          replace = TRUE)
     
-# mutating D agents
+# mutating P agents
 agent[mutate < mu & previous_agent == "P"] <- 
   sample(c("D","C"), 
          sum(mutate < mu & previous_agent == "P"), 
@@ -455,7 +455,7 @@ Cooperation <- function(N = 128,
              sum(mutate < mu & previous_agent == "C"), 
              replace = TRUE)
     
-    # mutating D agents
+    # mutating P agents
     agent[mutate < mu & previous_agent == "P"] <- 
       sample(c("D","C"), 
              sum(mutate < mu & previous_agent == "P"), 
