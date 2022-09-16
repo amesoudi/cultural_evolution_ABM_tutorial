@@ -24,6 +24,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 14: Social networks
 * Model 15: Opinion formation
 * Model 16: Bayesian iterated learning
+* Model 17: Reinforcement learning
 
 ## How to use this tutorial
 
