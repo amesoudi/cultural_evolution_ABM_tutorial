@@ -20,6 +20,7 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 14: Social networks
 * Model 15: Opinion formation
 * Model 16: Bayesian iterated learning
+* Model 17: Reinforcement learning
 
 Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) download each of these Rmd files from https://github.com/amesoudi/cultural_evolution_ABM_tutorial then open them in RStudio or another IDE, executing the code as you read the text, or (ii) read the online version of the tutorial at https://bookdown.org/amesoudi/ABMtutorial_bookdown/ which contains the compiled models with outputs. There is also a pdf version of the entire book on the github page. For maximum learning (and fun), I recommend (i), where you can execute and play around with the code yourself.
 
