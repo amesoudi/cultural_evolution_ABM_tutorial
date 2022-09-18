@@ -474,7 +474,7 @@ First we can plot $N = 200$ with no agent heterogeneity and the usual values of 
 
 ```{r}
 
-data_model17 <- RL_multiple(N = 200,
+data_model17b <- RL_multiple(N = 200,
                             alpha_mu = 0.7,
                             alpha_sd = 0,
                             beta_mu = 0.3,
