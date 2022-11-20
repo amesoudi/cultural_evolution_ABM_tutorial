@@ -412,7 +412,7 @@ plot(x = p,
 
 ```
 
-As expected, as networks increase in long ties, mean path length gets shorter, from 5.38 at $p = 0$ to arond 2.7 for $p = 0.5$ and above. Note that the biggest drop occurs for small values of $p$. Only a small amount of rewiring ($p = 0.1$) is needed to cause mean path length to reduce considerably. In contrast, increasing $p$ from 0.5 to 1 has little effect. Once there are a few long ties connecting different parts of the ring, further long ties are redundant.
+As expected, as networks increase in long ties, mean path length gets shorter, from 5.38 at $p = 0$ to around 2.7 for $p = 0.5$ and above. Note that the biggest drop occurs for small values of $p$. Only a small amount of rewiring ($p = 0.1$) is needed to cause mean path length to reduce considerably. In contrast, increasing $p$ from 0.5 to 1 has little effect. Once there are a few long ties connecting different parts of the ring, further long ties are redundant.
 
 Clustering refers to the cliqueishness of a particular neighbourhood within the network. The clustering coefficient for node $i$ is defined as, for all neighbours directly connected to node $i$, the proportion of all possible edges linking those neighbours to each other that are actually present. For example, if node $i$ has edges to $k_i = 3$ neighbours, there are a maximum of $k_i(k_i - 1)/2 = 3$ potential edges between those three neighbours (between neighbour A & B, A & C, and B & C). Say only two of these edges are actually present (e.g. between A & B and A & C), then the clustering coefficient is 2/3.
 
