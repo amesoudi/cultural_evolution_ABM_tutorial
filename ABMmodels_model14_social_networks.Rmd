@@ -166,7 +166,7 @@ DrawNetwork(network)
 
 ```
 
-So far so straightforward: each node is connected to its two immediate neighbours. Real social networks, however, have additional connections. Some people might be friends with someone across the other side of the cul-de-sac, and never speak to their physical neighbours. Some scientists might collaborate with other scientists in different countries, or different academic disciplines.
+So far so straightforward: each node is connected to its four immediate neighbours. Real social networks, however, have additional connections. Some people might be friends with someone across the other side of the cul-de-sac, and never speak to their physical neighbours. Some scientists might collaborate with other scientists in different countries, or different academic disciplines.
 
 Therefore with probability $p$ the above *network* is 'rewired'. We cycle through each node from 1 to $N$. For each one, we take the first neighbour to its right, which given that $k >= 2$ it will be connected to with an edge. Then, with probability $p$, we pick a *new_neighbour* randomly from the set of all nodes excluding self and nodes to which connections already exist. The existing edge is removed, and a new edge is drawn to the *new_neighbour*. Remember, this is an undirected network, so every change made from node A to node B needs to be repeated for node B to node A. This keeps the matrix symmetrical. Finally, this whole process is repeated for the next connected neighbour, up to the last, so $k / 2$ times in total.
 
