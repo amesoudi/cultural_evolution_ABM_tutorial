@@ -461,7 +461,7 @@ k_matrix <- k_matrix / r_max
 
 ```
 
-We can now clearly see that the mean *k_vector* across all $r_{max} = 10000$ runs is close to 0.5, as expected for a flat prior and starting $k = 5$:
+We can now clearly see that the mean *k_vector* across all $r_{max} = 10000$ runs is close to 5, as expected for a flat prior and starting $k = 5$:
 
 ```{r}
 
@@ -841,7 +841,7 @@ IteratedFinalPlot(MixedIteratedLearning(alpha1 = 1,
 
 ```
 
-You can see how the left-hand prior distribution favours $k = 10$ and the right-hand prior distribution favours $k = 0$, and that the latter represents much more certainty in $k = 10$ (about $p = 0.5$) than the former has in $k = 0$ (about $p = 0.175$). As before, the final generation distributions almost exactly match the priors.
+You can see how the left-hand prior distribution favours $k = 10$ and the right-hand prior distribution favours $k = 0$, and that the latter represents much more certainty in $k = 0$ (about $p = 0.5$) than the former has in $k = 10$ (about $p = 0.175$). As before, the final generation distributions almost exactly match the priors.
 
 Now we run a mixed population where half ($h = 0.5$, the default) of the agents have weak priors and half have strong priors:
 
