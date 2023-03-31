@@ -22,13 +22,14 @@ This tutorial shows how to create very simple simulation or agent-based models o
 * Model 16: Bayesian iterated learning
 * Model 17: Reinforcement learning
 * Model 18: Evolution of social learning
+* Model 19: Evolution of social learning strategies
 
 Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) download each of these Rmd files from https://github.com/amesoudi/cultural_evolution_ABM_tutorial then open them in RStudio or another IDE, executing the code as you read the text, or (ii) read the online version of the tutorial at https://bookdown.org/amesoudi/ABMtutorial_bookdown/ which contains the compiled models with outputs. There is also a pdf version of the entire book on the github page. For maximum learning (and fun), I recommend (i), where you can execute and play around with the code yourself.
 
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2021) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
+* Mesoudi, Alex (2023) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
 
 or use the **Cite this repository** button on github.
 
