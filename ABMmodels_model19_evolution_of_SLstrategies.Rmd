@@ -582,11 +582,11 @@ Here the advantage of payoff bias becomes apparent. While UB agents peak slightl
 
 This makes sense. Immediately after an environmental change, all critical learners will be incorrect, and therefore fall back on individual learning. Some will discover the new correct behaviour, others won't, as determined by $p_i$. The following generation, critical learners can potentially copy the correct behaviour. PB agents have more chance of copying the correct behaviour amongst their $n$ demonstrators than UB agents who only copy a single demonstrator, assuming $n > 1$. CB agents copy the majority of $n$ demonstrators, but immediately after an environmental change the majority is likely to still be the old, now-incorrect behaviour.
 
-To get an idea of which strategy wins over a range of parameter values and avoid the temptation to cherry-pick particular values, or accidentally miss interesting parts of the parameter space, we can run the simulation over multiple values of two parameters and plot the results in a heat map. The function **SLStemporalheatmap** takes as its first argument a list of 2 parameters and their values, e.g. `list(n = 1:5, v = seq(0.5,1,0.1))`, and runs **SLStemporal** for each parameter value combination. The more values you enter, the higher the resolution of the heatmap (and the longer it takes to run). The winning strategy for each run is the one that exceeds the frequency *cutoff* after *t_max* generations. By default *cutoff* is 0.6. The winning strategy is stored in a matrix called *strategy* which is then used to create a heatmap with cells coloured according to the winning strategy. If no strategy exceeds *cutoff* then the cell is coloured grey. To speed things up when running multiple simulations, we reduce $N$ without much loss of inference.
+To get an idea of which strategy wins over a range of parameter values and avoid the temptation to cherry-pick particular values, or accidentally miss interesting parts of the parameter space, we can run the simulation over multiple values of two parameters and plot the results in a heat map. The function **SLStemporalheatmap** takes as its first argument a list of 2 parameters and their values, e.g. `list(n = 1:5, v = seq(0.5,1,0.1))`, and runs **SLStemporal** for each parameter value combination. The more values you enter, the higher the resolution of the heatmap (and the longer it takes to run). The winning strategy for each run is the one that exceeds the frequency *cutoff* after *t_max* generations. By default *cutoff* is 0.5. The winning strategy is stored in a matrix called *strategy* which is then used to create a heatmap with cells coloured according to the winning strategy. If no strategy exceeds *cutoff* then the cell is coloured grey. To speed things up when running multiple simulations, we reduce $N$ without much loss of inference.
 
 ```{r}
 
-SLStemporalheatmap <- function(parameters, cutoff = 0.6,
+SLStemporalheatmap <- function(parameters, cutoff = 0.5,
                                N = 1000, t_max = 1000, p_i=0.5, b=1, c_i=0.2, mu=0.001, 
                                v=0.9, n=3, f=3, c_c=0.02, c_p=0.02) {
   
@@ -667,7 +667,7 @@ Here we create a heatmap across values of $v$ (rate of environmental change) and
 
 ```{r}
 
-parameters <- list(p_i = seq(0.5,1,0.1), v = seq(0.5,1,0.1))
+parameters <- list(p_i = seq(0.5,1,0.05), v = seq(0.5,1,0.05))
 
 strategy <- SLStemporalheatmap(parameters)
 
@@ -692,7 +692,7 @@ If we set the relative cost of PB to be very high such that PB is effectively re
 
 ```{r}
 
-parameters <- list(n = c(1,3,5,7,9), f = c(1,2,3,5,10))
+parameters <- list(n = c(1,3,5,7,9,11), f = c(1,2,3,5,10,12))
 
 strategy <- SLStemporalheatmap(parameters, c_p = 0.1, c_c = 0.01)
 
@@ -1251,7 +1251,7 @@ As in Model 19a, heatmaps across several parameter values can give a broader und
 
 ```{r}
 
-SLSspatialheatmap <- function(parameters, cutoff = 0.6,
+SLSspatialheatmap <- function(parameters, cutoff = 0.5,
                               N = 500, t_max = 1000, p_i=0.5, b=1, c_i=0.2, mu=0.001, 
                               G=5, n=3, f=3, c_c=0.02, c_p=0.02, m=0.1) {
   
