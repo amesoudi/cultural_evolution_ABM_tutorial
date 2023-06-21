@@ -24,7 +24,7 @@ Here we will recreate an influential agent-based model of cultural group selecti
 
 Let's introduce the model step by step, with code, before putting it all inside a function. There are $N$ groups each containing a fixed number of $n$ individuals. Individuals come in three types, characterised by three different behaviours: cooperators (C), defectors (D) and punishers (P). 
 
-As the model is quite complex, we will use matrices instead of dataframes as they are faster. The code below creates a matrix with $N$ columns, one per group, and $n$ rows, one per agent, to hold the type (C, D or P). As before, we use [row,column] notation to access a specific agent. For example, `agent[3,2]` returns the behaviour of the second agent in the third group. For now we assume $N = 4$ groups with $n = 4$ agents per group. One group has Cs and Ds, one Ps and Ds, one a mix of all three types, and one all Ds.
+As the model is quite complex, we will use matrices instead of dataframes as they are faster. The code below creates a matrix with $N$ columns, one per group, and $n$ rows, one per agent, to hold the type (C, D or P). As before, we use [row,column] notation to access a specific agent. For example, `agent[3,2]` returns the behaviour of the third agent in the second group. For now we assume $N = 4$ groups with $n = 4$ agents per group. One group has Cs and Ds, one Ps and Ds, one a mix of all three types, and one all Ds.
 
 ```{r}
 
@@ -44,7 +44,7 @@ agent
 
 ```
 
-Now we create a payoff matrix. This has the same structure as *agent*. Each position in *payoff* holds the payoff for the individual in the equivalent position in *agent*. For example, `payoff[3,2]` holds the payoff of the second agent in group 3. All individuals start with a baseline payoff of 1, from which various costs are subtracted. (NB While this baseline payoff of 1 is not explicitly specified in Boyd et al. 2003, it is needed to avoid negative payoffs. Negative payoffs would mess up subsequent calculations of relative payoffs.)
+Now we create a payoff matrix. This has the same structure as *agent*. Each position in *payoff* holds the payoff for the individual in the equivalent position in *agent*. For example, `payoff[3,2]` holds the payoff of the third agent in group 2. All individuals start with a baseline payoff of 1, from which various costs are subtracted. (NB While this baseline payoff of 1 is not explicitly specified in Boyd et al. 2003, it is needed to avoid negative payoffs. Negative payoffs would mess up subsequent calculations of relative payoffs.)
 
 ```{r}
 
