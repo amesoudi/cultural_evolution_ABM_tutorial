@@ -192,7 +192,9 @@ $$\frac{1}{2} + \frac{(d_2 - d_1)}{2}$$
 
 where $d_1$ is the proportion of defectors in group 1 of a pair and $d_2$ is the proportion of defectors in group 2 of the pair. When both groups have the same proportion of defectors, then $d_2 - d_1 = 0$ and there is a 50% chance of either group winning. When group 1 has fewer defectors than group 2, then $d_2 - d_1 > 0$ and group 1 has a greater chance (>50%) of winning. When group 2 has fewer defectors than group 1, then $d_2 - d_1 < 0$ and group 1 has a smaller chance (<50%) of winning.
 
-The following code implements this. First we pair up each group at random in a dataframe *contests*, with a proportion $\varepsilon$ kept and the rest discarded. (We use a dataframe here because sometimes we have only one contest left; a single-row matrix becomes a vector, which becomes a problem later on.) After re-calculating *defections* given the new post-social-learning behaviours, we cycle through each contest and calculate the probability $d$ of the first group winning based on the equation above. With this probability, group 1 wins and group 2 takes on group 1's behaviours. Otherwise group 2 wins and group 1 takes on group 2's behaviours.
+Groups that lose a contest are replaced in the next timestep with a replica of the winning group, i.e. one that contains the same set of behaviours as the winning group.
+
+The following code implements this group selection. First we pair up each group at random in a dataframe *contests*, with a proportion $\varepsilon$ kept and the rest discarded. (We use a dataframe here because sometimes we have only one contest left; a single-row matrix becomes a vector, which becomes a problem later on.) After re-calculating *defections* given the new post-social-learning behaviours, we cycle through each contest and calculate the probability $d$ of the first group winning based on the equation above. With this probability, group 1 wins and group 2 takes on group 1's behaviours. Otherwise group 2 wins and group 1 takes on group 2's behaviours.
 
 ```{r}
 
