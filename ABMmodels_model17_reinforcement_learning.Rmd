@@ -514,7 +514,7 @@ plot_correct(data_model17b)
 
 ```
 
-Now the propotion of optimal choices remain at chance. With too much heterogeneity we lose the exploration-exploitation balance that the values $\alpha = 0.7$ and $\beta = 0.3$ give us. Instead, most agents are either too exploitative or too exploratory and fail to learn.
+Now the proportion of optimal choices remain at chance. With too much heterogeneity we lose the exploration-exploitation balance that the values $\alpha = 0.7$ and $\beta = 0.3$ give us. Instead, most agents are either too exploitative or too exploratory and fail to learn.
 
 To illustrate this further, we can remove heterogeneity and increase $\beta_\mu$:
 
@@ -928,11 +928,12 @@ As discussed above, it is useful to be able to recover the model parameters (in 
 
 Here we follow studies such as McElreath et al. (2008), Barrett et al. (2017), Toyokawa et al. (2019) and Deffner et al. (2020) and use multi-level Bayesian statistical models run using the platform Stan (https://mc-stan.org/). McElreath (2020) provides an excellent overview of Bayesian statistics in R and Stan. I won't discuss the statistical methods used here but I recommend working through McElreath's book to understand them fully. 
 
-We will also use McElreath's R package `rethinking` (McElreath 2021) to interface with Stan. Follow the instructions to install `rethinking` at https://github.com/rmcelreath/rethinking. Then load the package:
+We will use the `cmdstanr` package to interface with Stan. Follow the instructions to install `cmdstanr` at https://mc-stan.org/cmdstanr/articles/cmdstanr.html. You will also need to install CmdStan, the command line interface to Stan, and check you have a suitable C++ toolchain (don't worry, you don't need to understand what this is, just follow the instructions via the link). We will also use the `bayesplot` package to generate some plots later. This can be installed via CRAN like most other packages.
 
 ```{r, message=FALSE}
 
-library(rethinking)
+library(cmdstanr)
+library(bayesplot)
 
 ```
 
@@ -1027,15 +1028,19 @@ The first two lines above declare *Q_values* and *probs* as vectors (hence real 
 
 Then like in **RL_single** we set initial *Q_values* to all be zero and start the t-loop. *probs* is calculated as in **RL_single** but using Stan's built-in **softmax** function rather than explicitly writing out the softmax formula. The *choice* for this trial is then modelled using the categorical distribution, and *Q_values* are updated as before using the *reward* for this trial.
 
-Now we have all three blocks of the Stan file we can run the model using the **stan** command. We specify the Stan file location, the data list *dat*, the number of chains and number of iterations. Chains refers to the number of Markov chains, and iterations to the length of those chains (by default the first 50% of iterations are warmup, and last 50% is what is sampled for the posterior). See McElreath (2020) for an explanation of these terms. Essentially though, the more chains and the more iterations, the more robust will be the model estimates. On the other hand, the more chains and iterations, the longer the model will take to run. Good advice is to run several short chains to ensure that the chains converge well and the model is working properly, then one long chain for the final analysis. Here we will run 1 chain with 1000 iterations. Try more chains and iterations to compare.
+Now we have all three blocks of the Stan file we can load the model into R using the **cmdstan_model** command, specifying the Stan file location. At this point, any programming errors or inconsistencies in your Stan file might be flagged. We then sample the model using the **sample** command, specifying the data list *dat*, the number of chains and number of warmup and sampling iterations. Chains refers to the number of Markov chains, and iterations to the length of those chains. Warmup chains are not used to derive estimates of your parameters, which only come from the sampling iterations. See McElreath (2020) for an explanation of these terms. Essentially though, the more chains and the more iterations, the more robust will be the model estimates. On the other hand, the more chains and iterations, the longer the model will take to run. Good advice is to run several short chains to ensure that the chains converge well and the model is working properly, then one long chain for the final analysis. Here we will run 1 chain with 500 warmup and 500 sampling iterations. Try more chains and iterations to compare.
 
 ```{r}
 
+# load stan model from file
+RL_single_stan <- cmdstan_model("model17_stanfiles/model17_single.stan")
+
 # run model
-fit_RL_single <- stan("model17_stanfiles/model17_single.stan",
-                      data = dat,
-                      chains = 1,
-                      iter = 1000)
+fit_RL_single <- RL_single_stan$sample(
+  data = dat,
+  chains = 1,
+  iter_warmup = 500,
+  iter_sampling = 500)
 
 ```
 
@@ -1043,19 +1048,19 @@ You will see a series of progress messages indicating the number of iterations c
 
 ```{r}
 
-print(fit_RL_single, pars = c("alpha", "beta"))
+fit_RL_single$print(variables = c("alpha", "beta"))
 
 ```
 
-The key bits here are the estimated means of $\alpha$ and $\beta$ in the first column of the table. Hopefully our Stan model has estimated our parameters well and they are close to $\alpha = 0.7$ and $\beta = 0.3$. Given that there is only one agent and a relatively small number of timesteps, they are unlikely to be super accurate, and the confidence intervals are probably quite wide. 
+The key bits here are the estimated means of $\alpha$ and $\beta$ in the first column of the table. Hopefully our Stan model has estimated our parameters well and they are close to $\alpha = 0.7$ and $\beta = 0.3$. Given that there is only one agent and a relatively small number of timesteps, they are unlikely to be super accurate, and the 95% confidence intervals (q5 and q95) are probably quite wide. 
 
-The final two columns of the table give the effective number of independent samples *n_eff* and a convergence diagnostic *Rhat* ($\hat{R}$), both indicators of how well the chains converged and how reliable the estimates are. See McElreath (2020) for discussion of these measures. In general, n_eff should not be too low relative to the number of non-warmup iterations, and Rhat should be 1 and definitely no greater than 1.05. Very low n_eff and Rhat larger than 1 indicate poorly converged chains and probably a misspecified model.
+The final columns of the table give a convergence diagnostic *Rhat* ($\hat{R}$) and two measures of the effective number of independent samples, *ess_bulk* and *ess_tail*. These are all indicators of how well the chains converged and how reliable the estimates are. See McElreath (2020) for discussion of these measures. In general, Rhat should be 1 and definitely no greater than 1.05, and ess_bulk and ess_tail should not be too low relative to the number of non-warmup iterations, which here was 500. An Rhat larger than 1 and very low ess indicate poorly converged chains and probably a misspecified model.
 
-We can show the shape of the posterior distribution of each parameter like so:
+We can show the shape of the posterior distribution of each parameter using the *mcmc_dens* command from the `bayesplot` package:
 
 ```{r}
 
-plot(fit_RL_single, plotfun = "dens", alpha = 0.3, fill = "royalblue")
+mcmc_dens(fit_RL_single$draws(variables = c("alpha","beta")))
 
 ```
 
@@ -1131,11 +1136,15 @@ Now we run our new model:
 
 ```{r}
 
+# load stan model from file
+RL_single_log_stan <- cmdstan_model("model17_stanfiles/model17_single_log.stan")
+
 # run model
-fit_RL_single_log <- stan("model17_stanfiles/model17_single_log.stan",
-                          data = dat,
-                          chains = 1,
-                          iter = 1000)
+fit_RL_single_log <- RL_single_log_stan$sample(
+  data = dat,
+  chains = 1,
+  iter_warmup = 500,
+  iter_sampling = 500)
 
 ```
 
@@ -1143,7 +1152,7 @@ Again we use **print** to get the parameter estimates, specifying only $\alpha$ 
 
 ```{r}
 
-print(fit_RL_single_log, pars = c("alpha", "beta"))
+fit_RL_single_log$print(variables = c("alpha", "beta"))
 
 ```
 
@@ -1276,11 +1285,15 @@ Now we run the model:
 
 ```{r}
 
+# load stan model from file
+fit_RL_multiple_stan <- cmdstan_model("model17_stanfiles/model17_multiple.stan")
+
 # run model
-fit_RL_multiple <- stan("model17_stanfiles/model17_multiple.stan",
-                        data = dat,
-                        chains = 1,
-                        iter = 1000)
+fit_RL_multiple <- fit_RL_multiple_stan$sample(
+  data = dat,
+  chains = 1,
+  iter_warmup = 500,
+  iter_sampling = 500)
 
 ```
 
@@ -1288,7 +1301,7 @@ Here are the results:
 
 ```{r}
 
-print(fit_RL_multiple, pars = c("alpha", "beta"))
+fit_RL_multiple$print(variables = c("alpha", "beta"))
 
 ```
 
@@ -1296,11 +1309,7 @@ Hopefully the model accurately estimated the original parameter values of 0.7 an
 
 ```{r}
 
-plot(fit_RL_multiple, 
-     pars = c("alpha", "beta"), 
-     plotfun = "dens", 
-     alpha = 0.3, 
-     fill = "royalblue")
+mcmc_dens(fit_RL_multiple$draws(variables = c("alpha","beta")))
 
 ```
 
@@ -1479,11 +1488,15 @@ Let's run the model.
 
 ```{r}
 
+# load stan model from file
+fit_RL_social_stan <- cmdstan_model("model17_stanfiles/model17_social.stan")
+
 # run model
-fit_RL_social <- stan("model17_stanfiles/model17_social.stan",
-                       data = dat,
-                       chains = 1,
-                       iter = 1000)
+fit_RL_social <- fit_RL_social_stan$sample(
+  data = dat,
+  chains = 1,
+  iter_warmup = 500,
+  iter_sampling = 500)
 
 ```
 
@@ -1493,18 +1506,15 @@ Here is the model output, checking that the n_eff are not too low and Rhat is 1:
 
 ```{r}
 
-print(fit_RL_social, pars = c("alpha", "beta", "s", "f"))
+fit_RL_social$print(variables = c("alpha", "beta", "s", "f"))
 
 ```
+
 And the posterior distributions:
 
 ```{r}
 
-plot(fit_RL_social, 
-     pars = c("alpha", "beta", "s", "f"), 
-     plotfun = "dens", 
-     alpha = 0.3, 
-     fill = "royalblue")
+mcmc_dens(fit_RL_social$draws(variables = c("alpha", "beta", "s", "f")))
 
 ```
 
