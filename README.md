@@ -29,7 +29,7 @@ Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) d
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2025) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
+* Mesoudi, Alex (2025) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/. Version 1.3.0.
 
 or use the **Cite this repository** button on github.
 
