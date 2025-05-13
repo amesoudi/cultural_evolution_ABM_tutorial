@@ -1,4 +1,4 @@
-# Simulation models of cultural evolution in R
+# Simulation models of cultural evolution in R (2025-05-13, version 1.3.0)
 
 [![DOI](https://zenodo.org/badge/144488138.svg)](https://zenodo.org/badge/latestdoi/144488138)
 
@@ -29,7 +29,7 @@ Each model is contained in a separate RMarkdown (Rmd) file. You can either (i) d
 
 You can cite the tutorial as:
 
-* Mesoudi, Alex (2023) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
+* Mesoudi, Alex (2025) *Simulation models of cultural evolution in R*. doi:10.5281/zenodo.5155821. Available at https://github.com/amesoudi/cultural_evolution_ABM_tutorial and https://bookdown.org/amesoudi/ABMtutorial_bookdown/.
 
 or use the **Cite this repository** button on github.
 
